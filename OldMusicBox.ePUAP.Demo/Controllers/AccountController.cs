@@ -59,7 +59,7 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
 
                 authnRequestFactory.X509Configuration = x509Configuration;
 
-                authnRequestFactory.RequestBinding = requestBinding;
+                authnRequestFactory.RequestBinding  = requestBinding;
                 authnRequestFactory.ResponseBinding = responseBinding;
 
                 return Content(authnRequestFactory.CreatePostBindingContent());
