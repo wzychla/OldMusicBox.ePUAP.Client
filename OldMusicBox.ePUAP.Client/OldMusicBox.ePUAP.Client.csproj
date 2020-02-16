@@ -30,8 +30,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="OldMusicBOx.Saml2, Version=0.66.0.26423, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OldMusicBox.Saml2.0.66.0.26423\lib\net462\OldMusicBOx.Saml2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,11 +45,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\SecurityTokenReference.cs" />
+    <Compile Include="Code\SignedXmlWithId.cs" />
+    <Compile Include="Code\StringWriter8.cs" />
     <Compile Include="Constants\Namespaces.cs" />
+    <Compile Include="Constants\SoapActions.cs" />
+    <Compile Include="Model\Fault\Fault.cs" />
     <Compile Include="Model\GetTpUserInfo\GetTpUserInfoRequest.cs" />
     <Compile Include="Model\GetTpUserInfo\GetTpUserInfoResponse.cs" />
+    <Compile Include="Model\IServiceRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Request\Envelope.cs" />
+    <Compile Include="Request\RequestFactory.cs" />
     <Compile Include="ServiceClient.cs" />
+    <Compile Include="ServiceClientException.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

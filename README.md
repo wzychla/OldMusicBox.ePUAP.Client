@@ -3,7 +3,7 @@
 The goal of this project is to provide an independent .NET [ePUAP](https://epuap.gov.pl/wps/portal/english) Client. The implementation follows the 
 [official specification](https://epuap.gov.pl/wps/portal/strefa-urzednika/pomoc_urzednik/) (*Dla integratorów* section).
 
-## Current Version: 0.4
+## Current Version: 0.45
 
 Please refer to the change list and the road map below.
 
@@ -56,6 +56,11 @@ Your application has to be configured - if you follow the demo provided in this 
 
 ## Version History:
 
+* 0.45
+	- most of `getTpUserInfo` code is there, however the server
+    still returns 500 with an error message. Will correct this in the
+    next commit.
+
 * 0.4
     - reading the artifact
 
@@ -63,11 +68,9 @@ Your application has to be configured - if you follow the demo provided in this 
     - making the request to the Artifact endpoint
 
 * 0.2
-
     - SAML2 `AuthnRequest` so that the ePUAP login endpoint picks the request and shows the login page
 
 * 0.11
-
     - infrastructure elements added
 
 * 0.1

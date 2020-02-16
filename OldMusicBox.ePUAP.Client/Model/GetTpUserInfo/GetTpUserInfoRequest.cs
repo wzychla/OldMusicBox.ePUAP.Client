@@ -12,7 +12,7 @@ namespace OldMusicBox.ePUAP.Client.Model.GetTpUserInfo
     /// GetTpUserInfo Request
     /// </summary>
     [XmlRoot("getTpUserInfo", Namespace = Namespaces.USERINFO)]
-    public class GetTpUserInfoRequest
+    public class GetTpUserInfoRequest : IServiceRequest
     {
         public const string SOAPACTION = "getTpUserInfo";
 

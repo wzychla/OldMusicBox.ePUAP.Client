@@ -31,5 +31,22 @@ namespace OldMusicBox.ePUAP.Client.Constants
         /// Userinfo namespace
         /// </summary>
         public const string USERINFO     = "http://userinfo.zp.epuap.gov.pl";
+
+        /// <summary>
+        /// WS-Security utility
+        /// </summary>
+        public const string WS_SEC_UTILITY = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd";
+
+        /// <summary>
+        /// WS-Security extensions
+        /// </summary>
+        public const string WS_SEC_EXT     = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd";
+
+        /// <summary>
+        /// WS-Security token profile
+        /// </summary>
+        public const string WS_SEC_TOKENPROFILE = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3";
+
+
     }
 }

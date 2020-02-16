@@ -1,7 +1,9 @@
-﻿using OldMusicBox.Saml2;
+﻿using OldMusicBox.ePUAP.Client;
+using OldMusicBox.Saml2;
 using OldMusicBox.Saml2.Constants;
 using OldMusicBox.Saml2.Model;
 using OldMusicBox.Saml2.Model.Artifact;
+using OldMusicBox.ePUAP.Client.Model.Fault;
 using OldMusicBox.Saml2.Model.Request;
 using System;
 using System.Collections.Generic;
@@ -35,6 +37,8 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
             var assertionIssuer             = ConfigurationManager.AppSettings["issuerName"];
             var identityProvider            = ConfigurationManager.AppSettings["ePUAPSSO"];
             var artifactResolve             = ConfigurationManager.AppSettings["ePUAPArtifact"];
+
+            var getTpUserInfoUri            = ConfigurationManager.AppSettings["tpUserInfo"];
 
             var requestBinding =  Binding.POST;
             var responseBinding = Binding.ARTIFACT;
@@ -102,12 +106,20 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
                 */
 
                 // this is the SessionIndex, store it if necessary
-                string sessionIndex = securityToken.Assertion.ID;
+                var sessionIndex = securityToken.Assertion.ID;
+                var client       = new ServiceClient(x509Configuration.SignatureCertificate);
+                FaultModel fault;
+                var tpUserInfo   = client.GetTpUserInfo(getTpUserInfoUri, sessionIndex, out fault);
 
-#warning getTpUserInfo call missing here!
+                if ( tpUserInfo == null )
+                {
+                    throw new NullReferenceException(string.Format("GetTpUserInfo returned nothing. Error message is: {0}", fault != null ? fault.FaultString : "."));
+                }
 
                 // create the identity
                 var identity = new ClaimsIdentity("ePUAP");
+
+                #warning Parse the response to get claim values!
 
                 // the token is validated succesfully
                 var principal = new ClaimsPrincipal(identity);
