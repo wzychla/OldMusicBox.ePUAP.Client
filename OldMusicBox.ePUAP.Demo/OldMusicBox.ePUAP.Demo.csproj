@@ -48,8 +48,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="OldMusicBox.Saml2, Version=0.65.7345.41088, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\OldMusicBox.Saml2.0.65.7345.41088\lib\net462\OldMusicBox.Saml2.dll</HintPath>
+    <Reference Include="OldMusicBOx.Saml2, Version=0.66.0.26423, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OldMusicBox.Saml2.0.66.0.26423\lib\net462\OldMusicBOx.Saml2.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.IdentityModel" />
@@ -118,6 +118,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Signed.cshtml" />
+    <None Include="Properties\PublishProfiles\file.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

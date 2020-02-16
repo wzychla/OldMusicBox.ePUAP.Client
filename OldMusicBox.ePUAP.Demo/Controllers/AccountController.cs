@@ -77,12 +77,16 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
                 var securityToken = saml2.GetArtifactSecurityToken(this.Request, artifactConfig);
 
                 // fail if there is no token
-                if (securityToken == null)
+                if (securityToken == null ||
+                    securityToken.Assertion == null ||
+                    string.IsNullOrEmpty( securityToken.Assertion.ID )
+                   )
                 {
-                    throw new ArgumentNullException("No security token found in the response accoding to the Response Binding configuration");
+                    throw new ArgumentNullException("No valid security token found in the response accoding to the ARTIFACT Response Binding");
                 }
 
                 // the token will be validated
+                /*
                 var configuration = new SecurityTokenHandlerConfiguration
                 {
                     CertificateValidator = X509CertificateValidator.None,
@@ -90,17 +94,20 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
                     DetectReplayedTokens = false
                 };
                 configuration.AudienceRestriction.AudienceMode = AudienceUriMode.Never;
-
                 var tokenHandler = new Saml2.Saml2SecurityTokenHandler()
                 {
                     Configuration = configuration
                 };
                 var identity = tokenHandler.ValidateToken(securityToken);
+                */
 
                 // this is the SessionIndex, store it if necessary
                 string sessionIndex = securityToken.Assertion.ID;
 
-                #warning getTpUserInfo call missing here!
+#warning getTpUserInfo call missing here!
+
+                // create the identity
+                var identity = new ClaimsIdentity("ePUAP");
 
                 // the token is validated succesfully
                 var principal = new ClaimsPrincipal(identity);
