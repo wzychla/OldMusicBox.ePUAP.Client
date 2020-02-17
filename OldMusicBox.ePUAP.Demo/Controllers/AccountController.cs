@@ -110,7 +110,6 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
                 var client       = new ServiceClient(x509Configuration.SignatureCertificate);
                 FaultModel fault;
                 var tpUserInfo   = client.GetTpUserInfo(getTpUserInfoUri, sessionIndex, out fault);
-
                 if ( tpUserInfo == null )
                 {
                     throw new NullReferenceException(string.Format("GetTpUserInfo returned nothing. Error message is: {0}", fault != null ? fault.FaultString : "."));

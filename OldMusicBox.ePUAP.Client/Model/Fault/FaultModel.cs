@@ -22,7 +22,7 @@ namespace OldMusicBox.ePUAP.Client.Model.Fault
         /// <summary>
         /// Convert raw response to model instance
         /// </summary>
-        public static FaultModel FromString(string soapEnvelope)
+        public static FaultModel FromSOAP(string soapEnvelope)
         {
             if (string.IsNullOrEmpty(soapEnvelope))
             {

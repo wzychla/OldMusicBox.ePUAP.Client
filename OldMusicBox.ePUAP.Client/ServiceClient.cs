@@ -1,4 +1,5 @@
 ﻿using OldMusicBox.ePUAP.Client.Constants;
+using OldMusicBox.ePUAP.Client.Model;
 using OldMusicBox.ePUAP.Client.Model.Fault;
 using OldMusicBox.ePUAP.Client.Model.GetTpUserInfo;
 using OldMusicBox.ePUAP.Client.Request;
@@ -64,31 +65,31 @@ namespace OldMusicBox.ePUAP.Client
             var requestFactory = new RequestFactory(this.SigningCertificate);
             var requestString  = requestFactory.CreateRequest(request);
 
-            // call ePUAP service
-            var response = WSSecurityRequest(serviceUrl, SoapActions.GETTPUSERINFO, requestString, out fault);
+            // call ePUAP service and parse the response
+            var response = WSSecurityRequest(serviceUrl, SoapActions.GETTPUSERINFO, requestString, GetTpUserInfoResponse.FromSOAP, out fault);
 
             // parse response
-            if ( response == null ) return null;
-
-            #warning TODO!
-            return null;
+            return response;
         }
 
         #endregion
 
         #region Generic call 
 
-        public string WSSecurityRequest( 
+        public TResult WSSecurityRequest<TResult>( 
             string serviceUrl, 
             string soapAction,
             string request,
+            Func<string, TResult> converter,
             out FaultModel fault)
+            where TResult : class, IServiceResponse
         {
             fault = null;
 
             if ( string.IsNullOrEmpty( serviceUrl ) ||
                  string.IsNullOrEmpty( soapAction ) ||
-                 string.IsNullOrEmpty( request ) 
+                 string.IsNullOrEmpty( request ) ||
+                 converter == null
                 )
             {
                 throw new ArgumentNullException("Can't call a service with incomplete parameters");
@@ -119,7 +120,11 @@ namespace OldMusicBox.ePUAP.Client
                             using (var reader = new StreamReader(responseStream))
                             {
                                 var responseFault = reader.ReadToEnd();
-                                fault = FaultModel.FromString(responseFault);
+
+                                // log
+                                new LoggerFactory().For(this).Debug(Event.SignedMessage, responseFault);
+
+                                fault = FaultModel.FromSOAP(responseFault);
 
                                 return null;
                             }
@@ -135,7 +140,7 @@ namespace OldMusicBox.ePUAP.Client
                     // log
                     new LoggerFactory().For(this).Debug(Event.SignedMessage, response);
 
-                    return response;
+                    return converter(response);
                 }
                 else
                 {

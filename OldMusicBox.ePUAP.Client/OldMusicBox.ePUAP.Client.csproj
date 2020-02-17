@@ -50,10 +50,11 @@
     <Compile Include="Code\StringWriter8.cs" />
     <Compile Include="Constants\Namespaces.cs" />
     <Compile Include="Constants\SoapActions.cs" />
-    <Compile Include="Model\Fault\Fault.cs" />
+    <Compile Include="Model\Fault\FaultModel.cs" />
     <Compile Include="Model\GetTpUserInfo\GetTpUserInfoRequest.cs" />
     <Compile Include="Model\GetTpUserInfo\GetTpUserInfoResponse.cs" />
     <Compile Include="Model\IServiceRequest.cs" />
+    <Compile Include="Model\IServiceResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request\Envelope.cs" />
     <Compile Include="Request\RequestFactory.cs" />
