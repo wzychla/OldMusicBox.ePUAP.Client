@@ -16,6 +16,7 @@ using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using OldMusicBox.ePUAP.Client.Constants;
 
 namespace OldMusicBox.ePUAP.Demo.Controllers
 {
@@ -90,27 +91,14 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
                 }
 
                 // the token will be validated
-                /*
-                var configuration = new SecurityTokenHandlerConfiguration
-                {
-                    CertificateValidator = X509CertificateValidator.None,
-                    IssuerNameRegistry   = new ePUAPClientIssuerNameRegistry(),
-                    DetectReplayedTokens = false
-                };
-                configuration.AudienceRestriction.AudienceMode = AudienceUriMode.Never;
-                var tokenHandler = new Saml2.Saml2SecurityTokenHandler()
-                {
-                    Configuration = configuration
-                };
-                var identity = tokenHandler.ValidateToken(securityToken);
-                */
+                #warning Implement token validation
 
                 // this is the SessionIndex, store it if necessary
                 var sessionIndex = securityToken.Assertion.ID;
                 var client       = new ServiceClient(x509Configuration.SignatureCertificate);
                 FaultModel fault;
                 var tpUserInfo   = client.GetTpUserInfo(getTpUserInfoUri, sessionIndex, out fault);
-                if ( tpUserInfo == null )
+                if ( tpUserInfo == null || tpUserInfo.Podpis == null )
                 {
                     throw new NullReferenceException(string.Format("GetTpUserInfo returned nothing. Error message is: {0}", fault != null ? fault.FaultString : "."));
                 }
@@ -118,7 +106,16 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
                 // create the identity
                 var identity = new ClaimsIdentity("ePUAP");
 
-                #warning Parse the response to get claim values!
+                identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, tpUserInfo.Podpis.Dane.DaneOsobyFizycznej.IdKontaUzytkownikaEpuap));
+                identity.AddClaim(new Claim(ClaimTypes.GivenName, tpUserInfo.Podpis.Dane.DaneOsobyFizycznej.Imie));
+                identity.AddClaim(new Claim(ClaimTypes.Surname, tpUserInfo.Podpis.Dane.DaneOsobyFizycznej.Nazwisko.Value));
+                identity.AddClaim(new Claim(OMBClaimTypes.PESEL, tpUserInfo.Podpis.Dane.DaneOsobyFizycznej.PESEL));
+                identity.AddClaim(new Claim(OMBClaimTypes.SessionIndex, sessionIndex));
+
+                if ( !string.IsNullOrEmpty( tpUserInfo.Return.AccountEmailAddress ) )
+                {
+                    identity.AddClaim(new Claim(ClaimTypes.Email, tpUserInfo.Return.AccountEmailAddress));
+                }
 
                 // the token is validated succesfully
                 var principal = new ClaimsPrincipal(identity);
@@ -131,8 +128,8 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
                             DateTime.Now.ToUniversalTime(), DateTime.Now.AddMinutes(20).ToUniversalTime(), false);
                     sam.WriteSessionTokenToCookie(token);
 
-                    var redirectUrl = FormsAuthentication.GetRedirectUrl(principal.Identity.Name, false);
-                    return Redirect(redirectUrl);
+                    // fixed return url because the provider redirects here without the query string
+                    return Redirect("/Home/Signed");
                 }
                 else
                 {

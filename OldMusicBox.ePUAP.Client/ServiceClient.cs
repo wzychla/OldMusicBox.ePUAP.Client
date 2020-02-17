@@ -66,7 +66,11 @@ namespace OldMusicBox.ePUAP.Client
             var requestString  = requestFactory.CreateRequest(request);
 
             // call ePUAP service and parse the response
-            var response = WSSecurityRequest(serviceUrl, SoapActions.GETTPUSERINFO, requestString, GetTpUserInfoResponse.FromSOAP, out fault);
+            var response = WSSecurityRequest<GetTpUserInfoResponse, GetTpUserInfoResponseHandler>(
+                serviceUrl, 
+                SoapActions.GETTPUSERINFO, 
+                requestString, 
+                out fault);
 
             // parse response
             return response;
@@ -76,20 +80,20 @@ namespace OldMusicBox.ePUAP.Client
 
         #region Generic call 
 
-        public TResult WSSecurityRequest<TResult>( 
+        public TResult WSSecurityRequest<TResult, TResultResponseHandler>( 
             string serviceUrl, 
             string soapAction,
             string request,
-            Func<string, TResult> converter,
-            out FaultModel fault)
+            out FaultModel fault
+            )
             where TResult : class, IServiceResponse
+            where TResultResponseHandler: class, IServiceResponseHandler<TResult>, new()
         {
             fault = null;
 
             if ( string.IsNullOrEmpty( serviceUrl ) ||
                  string.IsNullOrEmpty( soapAction ) ||
-                 string.IsNullOrEmpty( request ) ||
-                 converter == null
+                 string.IsNullOrEmpty( request ) 
                 )
             {
                 throw new ArgumentNullException("Can't call a service with incomplete parameters");
@@ -124,7 +128,7 @@ namespace OldMusicBox.ePUAP.Client
                                 // log
                                 new LoggerFactory().For(this).Debug(Event.SignedMessage, responseFault);
 
-                                fault = FaultModel.FromSOAP(responseFault);
+                                fault = new FaultModelHandler().FromSOAP(responseFault);
 
                                 return null;
                             }
@@ -140,7 +144,8 @@ namespace OldMusicBox.ePUAP.Client
                     // log
                     new LoggerFactory().For(this).Debug(Event.SignedMessage, response);
 
-                    return converter(response);
+                    var responseHandler = new TResultResponseHandler();
+                    return responseHandler.FromSOAP(response);
                 }
                 else
                 {

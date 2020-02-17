@@ -1,10 +1,5 @@
 ﻿using OldMusicBox.ePUAP.Client.Constants;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -23,38 +18,21 @@ namespace OldMusicBox.ePUAP.Client.Model.GetTpUserInfo
         }
 
         /// <summary>
-        /// Convert raw response to model instance
+        /// LoD wrapper over the inner information
         /// </summary>
-        public static GetTpUserInfoResponse FromSOAP(string soapEnvelope)
+        [XmlIgnore]
+        public PodpisZP Podpis
         {
-            if (string.IsNullOrEmpty(soapEnvelope))
+            get
             {
-                throw new ArgumentNullException();
-            }
-
-            try
-            {
-                var xml = new XmlDocument();
-                xml.LoadXml(soapEnvelope);
-
-                var serializer = new XmlSerializer(typeof(GetTpUserInfoResponse));
-                var nsManager  = new XmlNamespaceManager(xml.NameTable);
-                nsManager.AddNamespace("ns2", Namespaces.USERINFO);
-
-                var response = xml.SelectSingleNode("//ns2:getTpUserInfoResponse", nsManager) as XmlElement;
-                if (response != null)
+                if ( this.Return != null && this.Return.IsValid )
                 {
-                    using (var reader = new StringReader(response.OuterXml))
-                    {
-                        return serializer.Deserialize(reader) as GetTpUserInfoResponse;
-                    }
+                    return this.Return.PodpisZP;
                 }
-
-                return null;
-            }
-            catch ( Exception ex )
-            {
-                throw new ServiceClientException("Cannot deserialize GetTpUserInfoResponse", ex);
+                else
+                {
+                    return null;
+                }
             }
         }
     }
@@ -66,6 +44,43 @@ namespace OldMusicBox.ePUAP.Client.Model.GetTpUserInfo
 
         [XmlElement("claimedRole")]
         public string ClaimedRole { get; set; }
+
+        [XmlIgnore]
+        public PodpisZP PodpisZP
+        {
+            get
+            {
+                if ( string.IsNullOrEmpty( ClaimedRole ) )
+                {
+                    return null;
+                }
+
+                var serializer = new XmlSerializer(typeof(PodpisZP));
+                using (var reader = new StringReader(this.ClaimedRole))
+                {
+                    return serializer.Deserialize(reader) as PodpisZP;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Checks if the three: given name, surname and PESEL are there
+        /// </summary>
+        [XmlIgnore]
+        public bool IsValid
+        {
+            get
+            {
+                return
+                    this.PodpisZP != null &&
+                    this.PodpisZP.Dane != null &&
+                    this.PodpisZP.Dane.DaneOsobyFizycznej != null &&
+                    this.PodpisZP.Dane.DaneOsobyFizycznej.Nazwisko != null &&
+                    !string.IsNullOrEmpty(this.PodpisZP.Dane.DaneOsobyFizycznej.Imie) &&
+                    !string.IsNullOrEmpty(this.PodpisZP.Dane.DaneOsobyFizycznej.Nazwisko.Value) &&
+                    !string.IsNullOrEmpty(this.PodpisZP.Dane.DaneOsobyFizycznej.PESEL);
+            }
+        }
     }
 
     [XmlRoot("PodpisZP", Namespace = Namespaces.PPZP)]

@@ -3,7 +3,7 @@
 The goal of this project is to provide an independent .NET [ePUAP](https://epuap.gov.pl/wps/portal/english) Client. The implementation follows the 
 [official specification](https://epuap.gov.pl/wps/portal/strefa-urzednika/pomoc_urzednik/) (*Dla integratorów* section).
 
-## Current Version: 0.47
+## Current Version: 0.50
 
 Please refer to the change list and the road map below.
 
@@ -11,9 +11,10 @@ Please refer to the change list and the road map below.
 
 |  Feature  | Status |
 |----|:---:|
-|Single Sign On|not yet|
-|getTpUserInfo|not yet|
+|Single Sign On|**yes**|
+|getTpUserInfo|**yes**|
 |tpSigning|not yet|
+|Single Log Out|not yet|
 |other services|not yet|
 |.NET Framework|4.6.2+|
 |.NET Core|not yet|
@@ -56,6 +57,13 @@ Your application has to be configured - if you follow the demo provided in this 
 
 ## Version History:
 
+* 0.50
+    - important milestone. Single Sign On already works.
+    - exchaning the SAML2 token's session index for user info by calling the `getTpUserInfo`
+
+* 0.47
+    - the response parses correctly. It's just the inner XML left to parse.
+
 * 0.46
     - corrected. I get correct response. Just to add the deserialization
     and the SSO is there.
@@ -82,9 +90,6 @@ Your application has to be configured - if you follow the demo provided in this 
     - initial commit 
 
 ## Roadmap
-
-* 0.5
-    - exchaning the SAML2 token's session index for user info by calling the `getTpUserInfo`
 
 * 0.6
     - issuing `LogoutReuqest` for federated logoff

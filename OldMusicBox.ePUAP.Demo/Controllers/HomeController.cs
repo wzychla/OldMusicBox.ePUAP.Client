@@ -25,9 +25,9 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
         public ActionResult Signed()
         {
             var model    = new SignedModel();
-            model.Claims = (this.User as ClaimsIdentity).Claims;
+            model.Claims = (this.User as ClaimsPrincipal).Claims;
 
-            return View();
+            return View(model);
         }
 
         [AllowAnonymous]
