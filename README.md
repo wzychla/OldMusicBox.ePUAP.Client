@@ -3,7 +3,7 @@
 The goal of this project is to provide an independent .NET [ePUAP](https://epuap.gov.pl/wps/portal/english) Client. The implementation follows the 
 [official specification](https://epuap.gov.pl/wps/portal/strefa-urzednika/pomoc_urzednik/) (*Dla integratorów* section).
 
-## Current Version: 0.45
+## Current Version: 0.46
 
 Please refer to the change list and the road map below.
 
@@ -55,6 +55,10 @@ Your application has to be configured - if you follow the demo provided in this 
 * ePUAP `tpSigning` endpoint (not required for SSO)
 
 ## Version History:
+
+* 0.46
+    - corrected. I get correct response. Just to add the deserialization
+    and the SSO is there.
 
 * 0.45
 	- most of `getTpUserInfo` code is there, however the server

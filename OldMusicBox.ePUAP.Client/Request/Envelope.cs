@@ -176,6 +176,10 @@ namespace OldMusicBox.ePUAP.Client.Request
             {
                 return "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3";
             }
+            set
+            {
+                // an empty setter is required for the serializer
+            }
         }
 
         /// <summary>
