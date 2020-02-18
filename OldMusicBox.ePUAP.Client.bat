@@ -1,0 +1,1 @@
+start powershell -ExecutionPolicy RemoteSigned ./OldMusicBox.ePUAP.Client.ps1 
