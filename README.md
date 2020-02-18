@@ -34,9 +34,11 @@ ePUAP goes a step further. Instead of returning the SAML token from the artifact
 
 ![ePUAP SSO on sequence diagram](ePUAP_SSO.png)
 
-Based on my understanding of how SAML2 works, this extra step is reduntant and should not be required. The artifact call, signed by the client app and issued from the server, is enough to make sure a legit client is behind the handshake. 
+Based on my understanding of how SAML2 works, this extra step is reduntant and should not be required. The artifact call, signed by the client app and issued from the server, should be enough to make sure a legit client is behind the handshake. If someone's concern was the security of the data - the ARTIFACT binding makes sure the user data never pass through
+the browser but rather are requested by the application server. I don't know then what's this extra step is for, it complicates the flow without any obvious advantage.
 
 The docs are available at ePUAP website: *Strefa urzędnika / Pomoc / Dla integratorów / Specyfikacja WSDL / Instrukcja dla integratora PZ* and *Instrukcja dla integratora DT*.
+The docs are not that easy to follow, especially the WS-Security part was a trial and error loop for a couple of days.
 
 ### ePUAP in .NET
 
