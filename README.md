@@ -21,6 +21,33 @@ Please refer to the change list and the road map below.
 
 ## Documentation
 
+### ePUAP SSO
+
+ePUAP SSO is based on SAML2 ARTIFACT binding, however it involves one extra step that complicates the implementation. 
+
+Typical SAML2 providers rely on REDIRECT/POST binding. Both consist in the client passing the authentication request (`AuthnRequest`) to the server and server returning back the SAML2 token that contains claims (e.g. username).
+
+The ARTIFACT binding is more complicated. Instead of just getting claims, the client gets the **artifact** (think of it as a unique, one-time token) that has to be exchanged for the token in the extra call from the client to the server (`ArtifactResolve`).
+
+ePUAP goes a step further. Instead of returning the SAML token from the artifact call, it returns an atrofic token that contains just a single claim - the session id. The client app can't do much with this information so that it has to call yet another extra service that is beyond SAML2 scope. This service is called `getTpUserInfo` and is implemented as a WS-Security service. This service, when called acording to the spec, returns the information about the user of the current session.
+
+![ePUAP SSO on sequence diagram](ePUAP_SSO.png)
+
+Based on my understanding of how SAML2 works, this extra step is reduntant and should not be required. The artifact call, signed by the client app and issued from the server, is enough to make sure a legit client is behind the handshake. 
+
+The docs are available at ePUAP website: *Strefa urzędnika / Pomoc / Dla integratorów / Specyfikacja WSDL / Instrukcja dla integratora PZ* and *Instrukcja dla integratora DT*.
+
+### ePUAP in .NET
+
+ePUAP in .NET is difficult because
+
+* the base class library doesn't contain the SAML2 client
+* the base class library doesn't support the WS-Security format ePUAP expects from the client (in theory - it should be possible with a WCF client that uses a custom binding; in practice - I was not able to find any combination of a custom binding parameters that would match the format ePUAP expects)
+
+Any ePUAP client needs both then to succesfully implement SSO (and other services).
+
+The [OldMusicBox.ePUAP.Client](https://github.com/wzychla/OldMusicBox.ePUAP.Client) implements the WS-Security part. SAML2 is implemented in [OldMusicBox.SAML2](https://github.com/wzychla/OldMusicBox.Saml2).
+
 ### Obtaining the certificate
 
 You need the certificate that would be used to sign all requests that your app sends to ePUAP. The certificate can be obtained:
