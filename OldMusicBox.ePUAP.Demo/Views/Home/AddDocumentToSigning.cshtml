@@ -1,0 +1,19 @@
+﻿@model OldMusicBox.ePUAP.Demo.Models.Home.AddDocumentToSigningModel
+@{
+    ViewBag.Title = "AddDocumentToSigning";
+}
+
+<h2>AddDocumentToSigning</h2>
+
+@using (var form = Html.BeginForm())
+{
+    <div>
+        @Html.TextAreaFor(m => m.Document, new { rows = 25, cols = 40 })
+    </div>
+    <div>
+        <button>Sign the document</button>
+    </div>
+}
+
+
+

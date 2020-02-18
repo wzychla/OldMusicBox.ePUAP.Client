@@ -1,6 +1,8 @@
 ﻿using OldMusicBox.ePUAP.Client.Constants;
 using OldMusicBox.ePUAP.Client.Model;
+using OldMusicBox.ePUAP.Client.Model.AddDocumentToSigning;
 using OldMusicBox.ePUAP.Client.Model.Fault;
+using OldMusicBox.ePUAP.Client.Model.GetSignedDocument;
 using OldMusicBox.ePUAP.Client.Model.GetTpUserInfo;
 using OldMusicBox.ePUAP.Client.Request;
 using OldMusicBox.Saml2.Logging;
@@ -35,6 +37,52 @@ namespace OldMusicBox.ePUAP.Client
 
         public X509Certificate2 SigningCertificate { get; set; }
 
+        #region AddDocumentToSigning
+
+        /// <summary>
+        /// AddDocumentToSigning call
+        /// </summary>
+        public virtual AddDocumentToSigningResponse AddDocumentToSigning(
+            string serviceUrl,
+            string base64Document, 
+            string urlSuccess, 
+            string urlFailed, 
+            string additionalInfo, 
+            out FaultModel fault)
+        {
+            if (string.IsNullOrEmpty(base64Document))
+                throw new ArgumentNullException("base64Document");
+            if (string.IsNullOrEmpty(urlSuccess))
+                throw new ArgumentNullException("urlSuccess");
+            if (string.IsNullOrEmpty(urlFailed))
+                throw new ArgumentNullException("urlFailed");
+            if (string.IsNullOrEmpty(additionalInfo))
+                throw new ArgumentNullException("additionalInfo");
+
+            fault = null;
+
+            // request
+            var request =
+                new AddDocumentToSigningRequest()
+                {
+                    Doc = base64Document,
+                    SuccessUrl = urlSuccess,
+                    FailureUrl = urlFailed,
+                    AdditionalInfo = additionalInfo
+                };
+
+            // call ePUAP service and parse the response
+            var response = WSSecurityRequest<AddDocumentToSigningRequest, AddDocumentToSigningResponse, AddDocumentToSigningResponseHandler>(
+                serviceUrl,
+                request,
+                out fault);
+
+            // parse response
+            return response;
+        }
+
+        #endregion
+
         #region GetTpUserInfo
 
         /// <summary>
@@ -62,14 +110,44 @@ namespace OldMusicBox.ePUAP.Client
                     SystemOrganisationId = "0"
                 };
 
-            var requestFactory = new RequestFactory(this.SigningCertificate);
-            var requestString  = requestFactory.CreateRequest(request);
+            // call ePUAP service and parse the response
+            var response = WSSecurityRequest<GetTpUserInfoRequest, GetTpUserInfoResponse, GetTpUserInfoResponseHandler>(
+                serviceUrl, 
+                request,
+                out fault);
+
+            // parse response
+            return response;
+        }
+
+        #endregion
+
+        #region GetSignedDocument
+
+        /// <summary>
+        /// GetSignedDocument call
+        /// </summary>
+        public virtual GetSignedDocumentResponse GetSignedDocument(
+            string serviceUrl,
+            string id,
+            out FaultModel fault)
+        {
+            if (string.IsNullOrEmpty(id))
+                throw new ArgumentNullException("id");
+
+            fault = null;
+
+            // request
+            var request =
+                new GetSignedDocumentRequest()
+                {
+                    Id = id
+                };
 
             // call ePUAP service and parse the response
-            var response = WSSecurityRequest<GetTpUserInfoResponse, GetTpUserInfoResponseHandler>(
-                serviceUrl, 
-                SoapActions.GETTPUSERINFO, 
-                requestString, 
+            var response = WSSecurityRequest<GetSignedDocumentRequest, GetSignedDocumentResponse, GetSignedDocumentResponseHandler>(
+                serviceUrl,
+                request,
                 out fault);
 
             // parse response
@@ -80,39 +158,41 @@ namespace OldMusicBox.ePUAP.Client
 
         #region Generic call 
 
-        public TResult WSSecurityRequest<TResult, TResultResponseHandler>( 
+        protected virtual TResult WSSecurityRequest<TRequest, TResult, TResultResponseHandler>( 
             string serviceUrl, 
-            string soapAction,
-            string request,
+            TRequest request,
             out FaultModel fault
             )
+            where TRequest : class, IServiceRequest
             where TResult : class, IServiceResponse
             where TResultResponseHandler: class, IServiceResponseHandler<TResult>, new()
         {
             fault = null;
 
             if ( string.IsNullOrEmpty( serviceUrl ) ||
-                 string.IsNullOrEmpty( soapAction ) ||
-                 string.IsNullOrEmpty( request ) 
+                 request == null
                 )
             {
                 throw new ArgumentNullException("Can't call a service with incomplete parameters");
             }
 
+            var requestFactory = new RequestFactory(this.SigningCertificate);
+            var requestString  = requestFactory.CreateRequest(request);
+
             // log
-            new LoggerFactory().For(this).Debug(Event.SignedMessage, request);
+            new LoggerFactory().For(this).Debug(Event.SignedMessage, requestString);
 
             // sending WS-Security request
             using (var webClient = new WebClient())
             {
-                webClient.Headers.Add("SOAPAction", soapAction);
+                webClient.Headers.Add("SOAPAction", request.SOAPAction);
                 webClient.Headers[HttpRequestHeader.ContentType] = "text/xml";
 
                 string response = null;
                 try
                 {
                     // POST it
-                    response = webClient.UploadString(serviceUrl, request );
+                    response = webClient.UploadString(serviceUrl, requestString );
                 }
                 catch (WebException ex)
                 {
@@ -136,7 +216,7 @@ namespace OldMusicBox.ePUAP.Client
                     }
 
                     // fallback
-                    throw new ServiceClientException(string.Format("Client call failed for {0} at {1}", soapAction, serviceUrl ), ex);
+                    throw new ServiceClientException(string.Format("Client call failed for {0} at {1}", request.SOAPAction, serviceUrl ), ex);
                 }
 
                 if (!string.IsNullOrEmpty(response))
@@ -149,7 +229,7 @@ namespace OldMusicBox.ePUAP.Client
                 }
                 else
                 {
-                    throw new ServiceClientException(string.Format( "Got en empty response from {0} at {1}", soapAction, serviceUrl));
+                    throw new ServiceClientException(string.Format( "Got en empty response from {0} at {1}", request.SOAPAction, serviceUrl));
                 }
             }
         }

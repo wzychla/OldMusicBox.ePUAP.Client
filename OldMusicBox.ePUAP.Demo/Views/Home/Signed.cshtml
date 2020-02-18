@@ -29,3 +29,10 @@
     }
 
 </table>
+
+@if ( this.TempData.ContainsKey("Message"))
+{
+    <div>
+        @this.TempData["Message"];
+    </div>
+}

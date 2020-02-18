@@ -11,5 +11,6 @@ namespace OldMusicBox.ePUAP.Client.Model
     /// </summary>
     public interface IServiceRequest
     {
+        string SOAPAction { get; }
     }
 }

@@ -50,9 +50,14 @@
     <Compile Include="Code\StringWriter8.cs" />
     <Compile Include="Constants\Namespaces.cs" />
     <Compile Include="Constants\OMBClaimTypes.cs" />
-    <Compile Include="Constants\SoapActions.cs" />
+    <Compile Include="Model\AddDocumentToSigning\AddDocumentToSigningRequest.cs" />
+    <Compile Include="Model\AddDocumentToSigning\AddDocumentToSigningResponse.cs" />
+    <Compile Include="Model\AddDocumentToSigning\AddDocumentToSigningResponseHandler.cs" />
     <Compile Include="Model\Fault\FaultModel.cs" />
     <Compile Include="Model\Fault\FaultModelHandler.cs" />
+    <Compile Include="Model\GetSignedDocument\GetSignedDocumentRequest.cs" />
+    <Compile Include="Model\GetSignedDocument\GetSignedDocumentResponse.cs" />
+    <Compile Include="Model\GetSignedDocument\GetSignedDocumentResponseHandler.cs" />
     <Compile Include="Model\GetTpUserInfo\GetTpUserInfoRequest.cs" />
     <Compile Include="Model\GetTpUserInfo\GetTpUserInfoResponse.cs" />
     <Compile Include="Model\GetTpUserInfo\GetTpUserInfoResponseHandler.cs" />
@@ -67,6 +72,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\VerifySignedDocument\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

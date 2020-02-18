@@ -12,6 +12,11 @@ namespace OldMusicBox.ePUAP.Client.Constants
     public class Namespaces
     {
         /// <summary>
+        /// Comarch signing
+        /// </summary>
+        public const string COMARCH_SIGN = "http://signing.ws.comarch.gov";
+
+        /// <summary>
         /// Ppzp namespace
         /// </summary>
         public const string PPZP = "http://crd.gov.pl/xml/schematy/ppzp/";

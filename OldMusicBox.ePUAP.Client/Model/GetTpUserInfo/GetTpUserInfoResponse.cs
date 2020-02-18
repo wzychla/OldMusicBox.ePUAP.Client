@@ -88,6 +88,16 @@ namespace OldMusicBox.ePUAP.Client.Model.GetTpUserInfo
     {
         [XmlElement("DaneZP", Namespace = Namespaces.PPZP)]
         public DaneZP Dane { get; set; }
+
+        public override string ToString()
+        {
+            var serializer = new XmlSerializer(typeof(PodpisZP));
+            using (var writer = new StringWriter())
+            {
+                serializer.Serialize(writer, this);
+                return writer.ToString();
+            }
+        }
     }
 
     [XmlRoot("DaneZP", Namespace = Namespaces.PPZP)]

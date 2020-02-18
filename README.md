@@ -3,7 +3,7 @@
 The goal of this project is to provide an independent .NET [ePUAP](https://epuap.gov.pl/wps/portal/english) Client. The implementation follows the 
 [official specification](https://epuap.gov.pl/wps/portal/strefa-urzednika/pomoc_urzednik/) (*Dla integratorów* section).
 
-## Current Version: 0.50
+## Current Version: 0.55
 
 Please refer to the change list and the road map below.
 
@@ -13,7 +13,7 @@ Please refer to the change list and the road map below.
 |----|:---:|
 |Single Sign On|**yes**|
 |getTpUserInfo|**yes**|
-|tpSigning|not yet|
+|tpSigning|**yes**|
 |Single Log Out|not yet|
 |other services|not yet|
 |.NET Framework|4.6.2+|
@@ -84,6 +84,9 @@ Your application has to be configured - if you follow the demo provided in this 
 
 ## Version History:
 
+* 0.55
+    * tpSigning - signing/verification 
+
 * 0.50
     - important milestone. Single Sign On already works.
     - exchaning the SAML2 token's session index for user info by calling the `getTpUserInfo`
@@ -120,9 +123,6 @@ Your application has to be configured - if you follow the demo provided in this 
 
 * 0.6
     - issuing `LogoutReuqest` for federated logoff
-
-* 1.0 
-    * tpSigning - signing/verification 
 
 * later on
 

@@ -14,13 +14,19 @@ namespace OldMusicBox.ePUAP.Client.Model.GetTpUserInfo
     [XmlRoot("getTpUserInfo", Namespace = Namespaces.USERINFO)]
     public class GetTpUserInfoRequest : IServiceRequest
     {
-        public const string SOAPACTION = "getTpUserInfo";
-
         public GetTpUserInfoRequest()
         {
             this.SystemOrganisationId = "0";
         }
 
+        [XmlIgnore]
+        public string SOAPAction
+        {
+            get
+            {
+                return "getTpUserInfo";
+            }
+        }
 
         [XmlElement(ElementName = "tgsid", Namespace = "")]
         public string TgSid { get; set; }
