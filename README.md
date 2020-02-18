@@ -11,6 +11,7 @@ Please refer to the change list and the road map below.
 
 |  Feature  | Status |
 |----|:---:|
+|NuGet|**yes**|
 |Single Sign On|**yes**|
 |getTpUserInfo|**yes**|
 |tpSigning|**yes**|
