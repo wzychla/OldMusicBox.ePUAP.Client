@@ -22,6 +22,7 @@ $contents = @"
     <authors>wzychla</authors>
 	<dependencies>
 		<group targetFramework="net462">
+			<dependency id="OldMusicBox.Saml2" version="0.66.0.26423" />
 		</group>
 	</dependencies>
     <projectUrl>https://github.com/wzychla/OldMusicBox.ePUAP.Client</projectUrl>

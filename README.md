@@ -22,6 +22,14 @@ Please refer to the change list and the road map below.
 
 ## Documentation
 
+### Installation
+
+The package is [available at NuGet](https://www.nuget.org/packages/OldMusicBox.ePUAP.Client). Install with the Package-Manager
+
+```
+Install-Package OldMusicBox.ePUAP.Client 
+```
+
 ### ePUAP SSO
 
 ePUAP SSO is based on SAML2 ARTIFACT binding, however it involves one extra step that complicates the implementation. 
