@@ -259,6 +259,8 @@ namespace OldMusicBox.ePUAP.Client.Request
 
         [XmlElement("Security", Namespace = Namespaces.WS_SEC_EXT)]
         public Security Security { get; set; }
+
+        public HeaderAttribute[] Attributes { get; set; }
     }
 
     public class Security
@@ -272,4 +274,11 @@ namespace OldMusicBox.ePUAP.Client.Request
         public BinarySecurityToken BinarySecurityToken { get; set; }
     }
 
+    /// <summary>
+    /// Base class for additional header attribute classes
+    /// </summary>
+    public abstract class HeaderAttribute
+    {
+
+    }
 }

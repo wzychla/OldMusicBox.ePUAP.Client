@@ -3,7 +3,7 @@
 The goal of this project is to provide an independent .NET [ePUAP](https://epuap.gov.pl/wps/portal/english) Client. The implementation follows the 
 [official specification](https://epuap.gov.pl/wps/portal/strefa-urzednika/pomoc_urzednik/) (*Dla integratorów* section).
 
-## Current Version: 0.55
+## Current Version: 0.56
 
 Please refer to the change list and the road map below.
 
@@ -16,7 +16,8 @@ Please refer to the change list and the road map below.
 |getTpUserInfo|**yes**|
 |tpSigning|**yes**|
 |Single Log Out|not yet|
-|other services|not yet|
+|WS-Skrytka|not yet|
+|WS-pull|not yet|
 |.NET Framework|4.6.2+|
 |.NET Core|not yet|
 
@@ -38,12 +39,12 @@ Typical SAML2 providers rely on REDIRECT/POST binding. Both consist in the clien
 
 The ARTIFACT binding is more complicated. Instead of just getting claims, the client gets the **artifact** (think of it as a unique, one-time token) that has to be exchanged for the token in the extra call from the client to the server (`ArtifactResolve`).
 
-ePUAP goes a step further. Instead of returning the SAML token from the artifact call, it returns an atrofic token that contains just a single claim - the session id. The client app can't do much with this information so that it has to call yet another extra service that is beyond SAML2 scope. This service is called `getTpUserInfo` and is implemented as a WS-Security service. This service, when called acording to the spec, returns the information about the user of the current session.
+ePUAP goes a step further. Instead of returning the SAML token from the artifact call, it returns an atrofic token that contains just a single claim - the session id. The client app can't do much with this information so that it has to call yet another extra service that is beyond SAML2 scope. This service is called `getTpUserInfo` and is implemented as a WS-Security service. This service returns the information about the user of the current session.
 
 ![ePUAP SSO on sequence diagram](ePUAP_SSO.png)
 
 Based on my understanding of how SAML2 works, this extra step is reduntant and should not be required. The artifact call, signed by the client app and issued from the server, should be enough to make sure a legit client is behind the handshake. If someone's concern was the security of the data - the ARTIFACT binding makes sure the user data never pass through
-the browser but rather are requested by the application server. I don't know then what's this extra step is for, it complicates the flow without any obvious advantage.
+the browser but rather are requested by the application server. I don't know then what's this extra step is for, it complicates the flow without any obvious advantages.
 
 The docs are available at ePUAP website: *Strefa urzędnika / Pomoc / Dla integratorów / Specyfikacja WSDL / Instrukcja dla integratora PZ* and *Instrukcja dla integratora DT*.
 The docs are not that easy to follow, especially the WS-Security part was a trial and error loop for a couple of days.
@@ -95,6 +96,9 @@ Your application has to be configured - if you follow the demo provided in this 
 
 ## Version History:
 
+* 0.56
+    * started working on `WS-Skrytka` and `WS-pull`
+
 * 0.55
     * tpSigning - signing/verification 
 
@@ -133,6 +137,7 @@ Your application has to be configured - if you follow the demo provided in this 
 ## Roadmap
 
 * 0.6
+
     - issuing `LogoutReuqest` for federated logoff
 
 * later on

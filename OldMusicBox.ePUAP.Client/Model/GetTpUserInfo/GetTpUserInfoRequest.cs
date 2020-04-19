@@ -1,4 +1,5 @@
 ﻿using OldMusicBox.ePUAP.Client.Constants;
+using OldMusicBox.ePUAP.Client.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,5 +34,13 @@ namespace OldMusicBox.ePUAP.Client.Model.GetTpUserInfo
 
         [XmlElement(ElementName = "systemOrganisationId", Namespace = "")]
         public string SystemOrganisationId { get; set; }
+
+        public HeaderAttribute[] HeaderAttributes
+        {
+            get
+            {
+                return null;
+            }
+        }
     }
 }

@@ -38,8 +38,9 @@ namespace OldMusicBox.ePUAP.Client.Request
             }
 
             // create the SOAP envelope and internal IDs
-            var envelope              = new Envelope();
-            envelope.Body.Contents    = request;
+            var envelope               = new Envelope();
+            envelope.Body.Contents     = request;
+            envelope.Header.Attributes = request.HeaderAttributes;
 
             return envelope.GetSignedXML(this.SigningCertificate);
         }

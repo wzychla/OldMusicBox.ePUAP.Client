@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OldMusicBox.ePUAP.Client.Request;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,7 @@ namespace OldMusicBox.ePUAP.Client.Model
     public interface IServiceRequest
     {
         string SOAPAction { get; }
+
+        HeaderAttribute[] HeaderAttributes { get; }
     }
 }

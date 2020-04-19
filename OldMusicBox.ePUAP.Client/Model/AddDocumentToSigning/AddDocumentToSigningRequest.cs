@@ -1,4 +1,5 @@
 ﻿using OldMusicBox.ePUAP.Client.Constants;
+using OldMusicBox.ePUAP.Client.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,5 +35,13 @@ namespace OldMusicBox.ePUAP.Client.Model.AddDocumentToSigning
 
         [XmlElement(ElementName = "additionalInfo", Namespace = "")]
         public string AdditionalInfo { get; set; }
+
+        public HeaderAttribute[] HeaderAttributes
+        {
+            get
+            {
+                return null;
+            }
+        }
     }
 }

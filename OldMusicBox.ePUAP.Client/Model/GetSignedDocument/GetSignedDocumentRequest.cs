@@ -1,4 +1,5 @@
 ﻿using OldMusicBox.ePUAP.Client.Constants;
+using OldMusicBox.ePUAP.Client.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,5 +25,13 @@ namespace OldMusicBox.ePUAP.Client.Model.GetSignedDocument
 
         [XmlElement("id", Namespace = "")]
         public string Id { get; set; }
+
+        public HeaderAttribute[] HeaderAttributes
+        {
+            get
+            {
+                return null;
+            }
+        }
     }
 }
