@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OldMusicBox.ePUAP.Client", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OldMusicBox.ePUAP.Demo", "OldMusicBox.ePUAP.Demo\OldMusicBox.ePUAP.Demo.csproj", "{84AFB56B-5642-42DD-9C13-B230B5773490}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OldMusicBox.ePUAP.Tests", "OldMusicBox.ePUAP.Tests\OldMusicBox.ePUAP.Tests.csproj", "{57763B2F-5146-4D0F-B20E-608DE09C4AEF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{84AFB56B-5642-42DD-9C13-B230B5773490}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84AFB56B-5642-42DD-9C13-B230B5773490}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84AFB56B-5642-42DD-9C13-B230B5773490}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57763B2F-5146-4D0F-B20E-608DE09C4AEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57763B2F-5146-4D0F-B20E-608DE09C4AEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57763B2F-5146-4D0F-B20E-608DE09C4AEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57763B2F-5146-4D0F-B20E-608DE09C4AEF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
