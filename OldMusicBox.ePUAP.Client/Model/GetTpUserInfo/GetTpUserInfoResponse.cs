@@ -35,7 +35,20 @@ namespace OldMusicBox.ePUAP.Client.Model.GetTpUserInfo
                 }
             }
         }
+
+        [XmlIgnore]
+        public bool IsValid
+        {
+            get
+            {
+                return
+                    this.Podpis != null &&
+                    this.Podpis.IsValid;
+            }
+        }
     }
+
+    #region Nested models
 
     public class GetTpUserInfoReturn
     {
@@ -44,6 +57,9 @@ namespace OldMusicBox.ePUAP.Client.Model.GetTpUserInfo
 
         [XmlElement("claimedRole")]
         public string ClaimedRole { get; set; }
+
+        [XmlIgnore]
+        private PodpisZP _podpisZP;
 
         [XmlIgnore]
         public PodpisZP PodpisZP
@@ -55,11 +71,16 @@ namespace OldMusicBox.ePUAP.Client.Model.GetTpUserInfo
                     return null;
                 }
 
-                var serializer = new XmlSerializer(typeof(PodpisZP));
-                using (var reader = new StringReader(this.ClaimedRole))
+                if (_podpisZP == null)
                 {
-                    return serializer.Deserialize(reader) as PodpisZP;
+                    var serializer = new XmlSerializer(typeof(PodpisZP));
+                    using (var reader = new StringReader(this.ClaimedRole))
+                    {
+                        _podpisZP = serializer.Deserialize(reader) as PodpisZP;
+                    }
                 }
+
+                return _podpisZP;
             }
         }
 
@@ -73,12 +94,7 @@ namespace OldMusicBox.ePUAP.Client.Model.GetTpUserInfo
             {
                 return
                     this.PodpisZP != null &&
-                    this.PodpisZP.Dane != null &&
-                    this.PodpisZP.Dane.DaneOsobyFizycznej != null &&
-                    this.PodpisZP.Dane.DaneOsobyFizycznej.Nazwisko != null &&
-                    !string.IsNullOrEmpty(this.PodpisZP.Dane.DaneOsobyFizycznej.Imie) &&
-                    !string.IsNullOrEmpty(this.PodpisZP.Dane.DaneOsobyFizycznej.Nazwisko.Value) &&
-                    !string.IsNullOrEmpty(this.PodpisZP.Dane.DaneOsobyFizycznej.PESEL);
+                    this.PodpisZP.IsValid;
             }
         }
     }
@@ -96,6 +112,21 @@ namespace OldMusicBox.ePUAP.Client.Model.GetTpUserInfo
             {
                 serializer.Serialize(writer, this);
                 return writer.ToString();
+            }
+        }
+
+        [XmlIgnore]
+        public bool IsValid
+        {
+            get
+            {
+                return 
+                    this.Dane != null &&
+                    this.Dane.DaneOsobyFizycznej != null &&
+                    this.Dane.DaneOsobyFizycznej.Nazwisko != null &&
+                    !string.IsNullOrEmpty(this.Dane.DaneOsobyFizycznej.Imie) &&
+                    !string.IsNullOrEmpty(this.Dane.DaneOsobyFizycznej.Nazwisko.Value) &&
+                    !string.IsNullOrEmpty(this.Dane.DaneOsobyFizycznej.PESEL);
             }
         }
     }
@@ -130,4 +161,6 @@ namespace OldMusicBox.ePUAP.Client.Model.GetTpUserInfo
         [XmlText()]
         public string Value { get; set; }
     }
+
+    #endregion
 }

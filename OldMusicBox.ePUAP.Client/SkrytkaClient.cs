@@ -15,7 +15,7 @@ namespace OldMusicBox.ePUAP.Client
     /// </remarks>
     public class SkrytkaClient : BaseClient
     {
-        public SkrytkaClient(X509Certificate2 signingCertificate) : base(signingCertificate)
+        public SkrytkaClient(string serviceUri, X509Certificate2 signingCertificate) : base(serviceUri, signingCertificate)
         {
 
         }

@@ -3,7 +3,7 @@
 The goal of this project is to provide an independent .NET [ePUAP](https://epuap.gov.pl/wps/portal/english) Client. The implementation follows the 
 [official specification](https://epuap.gov.pl/wps/portal/strefa-urzednika/pomoc_urzednik/) (*Dla integratorów* section).
 
-## Current Version: 0.56
+## Current Version: 0.57
 
 Please refer to the change list and the road map below.
 
@@ -95,6 +95,10 @@ Your application has to be configured - if you follow the demo provided in this 
 * ePUAP `tpSigning` endpoint (not required for SSO)
 
 ## Version History:
+
+* 0.57
+    * `verifySignedDocument`
+    * refactored services so that the service Uri is now a constructor parameter
 
 * 0.56
     * started working on `WS-Skrytka` and `WS-pull`

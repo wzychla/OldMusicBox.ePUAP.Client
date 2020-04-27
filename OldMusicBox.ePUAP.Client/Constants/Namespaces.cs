@@ -57,6 +57,11 @@ namespace OldMusicBox.ePUAP.Client.Constants
         /// </summary>
         public const string WS_SEC_TOKENPROFILE = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3";
 
+        /// <summary>
+        /// XAdES
+        /// </summary>
+        public const string XADES = "http://uri.etsi.org/01903/v1.3.2#";
+
 
     }
 }

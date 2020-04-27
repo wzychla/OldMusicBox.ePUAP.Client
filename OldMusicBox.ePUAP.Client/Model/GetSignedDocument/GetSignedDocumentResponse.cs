@@ -37,6 +37,18 @@ namespace OldMusicBox.ePUAP.Client.Model.GetSignedDocument
                 }
             }
         }
+
+        [XmlIgnore]
+        public bool IsValid
+        {
+            get
+            {
+                return
+                    this.Podpis != null &&
+                    this.Podpis.IsValid;
+            }
+        }
+
     }
 
     public class GetSignedDocumentReturn

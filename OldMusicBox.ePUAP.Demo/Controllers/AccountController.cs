@@ -95,10 +95,10 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
 
                 // this is the SessionIndex, store it if necessary
                 var sessionIndex = securityToken.Assertion.ID;
-                var client       = new ServiceClient(x509Configuration.SignatureCertificate);
+                var client       = new ServiceClient(getTpUserInfoUri, x509Configuration.SignatureCertificate);
                 FaultModel fault;
-                var tpUserInfo   = client.GetTpUserInfo(getTpUserInfoUri, sessionIndex, out fault);
-                if ( tpUserInfo == null || tpUserInfo.Podpis == null )
+                var tpUserInfo   = client.GetTpUserInfo(sessionIndex, out fault);
+                if ( tpUserInfo == null || !tpUserInfo.IsValid )
                 {
                     throw new NullReferenceException(string.Format("GetTpUserInfo returned nothing. Error message is: {0}", fault != null ? fault.FaultString : "."));
                 }

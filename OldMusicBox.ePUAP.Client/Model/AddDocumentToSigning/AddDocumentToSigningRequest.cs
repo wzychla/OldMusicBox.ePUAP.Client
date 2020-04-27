@@ -25,7 +25,7 @@ namespace OldMusicBox.ePUAP.Client.Model.AddDocumentToSigning
         }
 
         [XmlElement(ElementName = "doc", Namespace = "")]
-        public string Doc { get; set; }
+        public byte[] Doc { get; set; }
 
         [XmlElement(ElementName = "successURL", Namespace = "")]
         public string SuccessUrl { get; set; }

@@ -18,7 +18,7 @@ namespace OldMusicBox.ePUAP.Client
     /// </summary>
     public abstract class BaseClient
     {
-        public BaseClient(X509Certificate2 signingCertificate)
+        public BaseClient(string serviceUri, X509Certificate2 signingCertificate)
         {
             if (signingCertificate == null ||
                 signingCertificate.PrivateKey == null
@@ -27,8 +27,16 @@ namespace OldMusicBox.ePUAP.Client
                 throw new ArgumentNullException("signingCertificate");
             }
 
+            if ( string.IsNullOrEmpty( serviceUri ) )
+            {
+                throw new ArgumentNullException("serviceUri");
+            }
+
             this.SigningCertificate = signingCertificate;
+            this.ServiceUri         = serviceUri;
         }
+
+        public string ServiceUri { get; set; }
 
         public X509Certificate2 SigningCertificate { get; set; }
 

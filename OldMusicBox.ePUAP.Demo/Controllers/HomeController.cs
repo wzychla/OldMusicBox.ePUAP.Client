@@ -4,6 +4,7 @@ using OldMusicBox.ePUAP.Demo.Models.Home;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -56,7 +57,7 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
 @"<?xml version=""1.0"" encoding=""utf-8""?>
 <Example>
   <Content>
-    This is example document. You can sign any XML you want with ePUAP.
+    This is example document. You can sign any XML you want with ePUAP. Local letters: żółć
   </Content>
 </Example>";
             return View(model);
@@ -69,10 +70,10 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
         {
             if (this.ModelState.IsValid)
             {
-                var tpSigning   = ConfigurationManager.AppSettings["tpSigning"];
-                var certificate = new ClientCertificateProvider().GetClientCertificate();
+                var tpSigningUri = ConfigurationManager.AppSettings["tpSigning"];
+                var certificate  = new ClientCertificateProvider().GetClientCertificate();
 
-                var base64Document = Convert.ToBase64String(Encoding.UTF8.GetBytes(model.Document));
+                var document = Encoding.UTF8.GetBytes(model.Document);
                 var urlSuccess =
                     Url.Action("AddDocumentToSigningSuccess", "Home",
                         routeValues: null,
@@ -86,9 +87,9 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
 
                 // call ePUAP and get their redirect uri
                 // they redirect back to one of your uris
-                var client = new ServiceClient(certificate);
+                var client = new TpSigningClient(tpSigningUri, certificate);
                 FaultModel fault;
-                var response = client.AddDocumentToSigning(tpSigning, base64Document, urlSuccess, urlFailed, additionalInfo, out fault);
+                var response = client.AddDocumentToSigning(document, urlSuccess, urlFailed, additionalInfo, out fault);
 
                 if ( response != null && 
                      response.Return != null && 
@@ -119,11 +120,14 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
             return View(model);
         }
 
+        const string SESSIONDOCUMENT = "session_document";
+
         /// <summary>
         /// ePUAP redirects here when the document is signed correctly.
         /// This is where the GetSignedDocument has to be called
         /// </summary>
         [AllowAnonymous]
+        [HttpGet]
         public ActionResult AddDocumentToSigningSuccess()
         {
             string message = string.Empty;
@@ -131,18 +135,17 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
             var url = this.Session["url"] as string;
             if ( !string.IsNullOrEmpty(url))
             {
-                var tpSigning   = ConfigurationManager.AppSettings["tpSigning"];
-                var certificate = new ClientCertificateProvider().GetClientCertificate();
+                var tpSigningUri = ConfigurationManager.AppSettings["tpSigning"];
+                var certificate  = new ClientCertificateProvider().GetClientCertificate();
 
                 // call ePUAP and get their redirect uri
                 // they redirect back to one of your uris
-                var client = new ServiceClient(certificate);
+                var client = new TpSigningClient(tpSigningUri, certificate);
                 FaultModel fault;
-                var response = client.GetSignedDocument(tpSigning, url, out fault);
+                var response = client.GetSignedDocument(url, out fault);
 
                 if (response != null &&
-                    response.Return != null &&
-                    response.Return.IsValid
+                    response.IsValid
                     )
                 {
                     var model = new AddDocumentToSigningSuccessModel();
@@ -151,6 +154,9 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
                     model.Document = Encoding.UTF8.GetString(Convert.FromBase64String(response.Return.Content));
                     // it contains the full user information
                     model.Podpis   = response.Podpis;
+
+                    // add to session
+                    this.Session.Add(SESSIONDOCUMENT, Convert.FromBase64String(response.Return.Content));
 
                     return View(model);
                 }
@@ -176,6 +182,26 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
         }
 
         /// <summary>
+        /// Let the user download the document they have succesfully signed
+        /// </summary>
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult AddDocumentToSigningSuccess(FormCollection form)
+        {
+            if ( this.Session[SESSIONDOCUMENT] != null )
+            {
+                byte[] document = this.Session[SESSIONDOCUMENT] as byte[];
+
+                return File(document, "text/xml", "signedDocument" );
+            }
+            else
+            {
+                return new EmptyResult();
+            }
+        }
+
+
+        /// <summary>
         /// ePUAP redirects here when user cancels signing
         /// </summary>
         [AllowAnonymous] 
@@ -184,6 +210,64 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
             this.TempData.Add("Message", "ePUAP document signing cancelled by the user");
             return Redirect("/Home/Index");
         }
+
+        #endregion
+
+        #region Verify signed document
+
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult VerifySignedDocument()
+        {
+            VerifySignedDocumentModel model = new VerifySignedDocumentModel();
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult VerifySignedDocument(VerifySignedDocumentModel model)
+        {
+            if ( model.Document == null )
+            {
+                this.ViewBag.Message = "Należy wskazać niepusty dokument do walidacji";
+            }
+            else
+            {
+                try
+                {
+                    var tpSigningUri = ConfigurationManager.AppSettings["tpSigning"];
+                    var certificate  = new ClientCertificateProvider().GetClientCertificate();
+
+                    var client = new TpSigningClient(tpSigningUri, certificate);
+
+                    byte[] documentData = null;
+                    using (var binaryReader = new BinaryReader(model.Document.InputStream))
+                    {
+                        documentData = binaryReader.ReadBytes(Request.Files[0].ContentLength);
+                    }
+
+                    FaultModel fault;
+                    var result = client.VerifySignedDocument(documentData, out fault);
+
+                    if (fault != null)
+                    {
+                        this.ViewBag.Message = fault.FaultString;
+                    }
+                    else
+                    {
+                        model.Podpis         = result.Podpis;
+                        this.ViewBag.Message = result.Return.Content;
+                    }
+                }
+                catch ( Exception ex )
+                {
+                    this.ViewBag.Message = ex.Message;
+                }
+            }
+
+            return View(model);
+        }
+
 
         #endregion
     }

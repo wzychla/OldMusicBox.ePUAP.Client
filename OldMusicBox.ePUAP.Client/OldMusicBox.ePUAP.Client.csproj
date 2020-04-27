@@ -65,6 +65,9 @@
     <Compile Include="Base\IServiceRequest.cs" />
     <Compile Include="Base\IServiceResponse.cs" />
     <Compile Include="Base\IServiceResponseHandler.cs" />
+    <Compile Include="Model\VerifySignedDocument\VerifySignedDocumentRequest.cs" />
+    <Compile Include="Model\VerifySignedDocument\VerifySignedDocumentResponse.cs" />
+    <Compile Include="Model\VerifySignedDocument\VerifySignedDocumentResponseHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request\Envelope.cs" />
     <Compile Include="Request\RequestFactory.cs" />
@@ -75,13 +78,12 @@
     <Compile Include="Skrytka\HeaderAttributes.cs" />
     <Compile Include="Skrytka\NadajResponse.cs" />
     <Compile Include="Skrytka\NadajResponseHandler.cs" />
+    <Compile Include="TpSigningClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\VerifySignedDocument\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
