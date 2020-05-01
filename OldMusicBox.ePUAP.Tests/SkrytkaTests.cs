@@ -16,8 +16,11 @@ namespace OldMusicBox.ePUAP.Tests
         public void NadajRequest_Valid()
         {
             // arrange
+            var czyProbne       = false;
             var adresSkrytki    = "/foo/default";
             var adresOdpowiedzi = "/bar/default";
+            var podmiotNadawcy  = "test";
+
             var document        = new NadajRequest.DocumentType
             {
                 NazwaPliku = "plik.txt",
@@ -27,8 +30,10 @@ namespace OldMusicBox.ePUAP.Tests
 
             NadajRequest request = new NadajRequest()
             {
+                CzyProbne       = czyProbne,
                 AdresOdpowiedzi = adresOdpowiedzi,
                 AdresSkrytki    = adresSkrytki,
+                PodmiotNadawcy  = podmiotNadawcy,
                 Document        = document
             };
 

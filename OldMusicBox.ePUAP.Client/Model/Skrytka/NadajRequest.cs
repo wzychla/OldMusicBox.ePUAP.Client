@@ -26,9 +26,16 @@ namespace OldMusicBox.ePUAP.Client.Skrytka
         }
 
         [XmlIgnore]
+        public byte[] DaneDodatkowe { get; set; }
+        [XmlIgnore]
+        public bool CzyProbne { get; set; }
+
+        [XmlIgnore]
         public string AdresOdpowiedzi { get; set; }
         [XmlIgnore]
         public string AdresSkrytki { get; set; }
+        [XmlIgnore]
+        public string PodmiotNadawcy { get; set; }
 
         [XmlIgnore]
         public DocumentType Document { get; set; }
@@ -78,8 +85,11 @@ namespace OldMusicBox.ePUAP.Client.Skrytka
             {
                 return new HeaderAttribute[]
                 {
+                    new DaneDodatkoweHeaderAttribute(this.DaneDodatkowe),
+                    new CzyProbneHeaderAttribute(this.CzyProbne),
                     new AdresOdpowiedziHeaderAttribute(this.AdresOdpowiedzi),
-                    new AdresSkrytkiHeaderAttribute(this.AdresSkrytki)
+                    new AdresSkrytkiHeaderAttribute(this.AdresSkrytki),
+                    new IdentyfikatorPodmiotuHeaderAttribute(this.PodmiotNadawcy)
                 };
             }
         }

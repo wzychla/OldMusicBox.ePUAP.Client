@@ -261,8 +261,11 @@ namespace OldMusicBox.ePUAP.Client.Request
         [XmlElement("Security", Namespace = Namespaces.WS_SEC_EXT)]
         public Security Security { get; set; }
 
-        [XmlElement("AdresSkrytki", typeof( AdresSkrytkiHeaderAttribute ), Namespace = Namespaces.OBI)]
-        [XmlElement("AdresOdpowiedzi", typeof(AdresOdpowiedziHeaderAttribute), Namespace = Namespaces.OBI)]
+        [XmlElement("DaneDodatkowe",         typeof(DaneDodatkoweHeaderAttribute),         Namespace = Namespaces.OBI)]
+        [XmlElement("CzyProbne",             typeof(CzyProbneHeaderAttribute),             Namespace = Namespaces.OBI)]
+        [XmlElement("AdresSkrytki",          typeof( AdresSkrytkiHeaderAttribute ),        Namespace = Namespaces.OBI)]
+        [XmlElement("AdresOdpowiedzi",       typeof(AdresOdpowiedziHeaderAttribute),       Namespace = Namespaces.OBI)]
+        [XmlElement("IdentyfikatorPodmiotu", typeof(IdentyfikatorPodmiotuHeaderAttribute), Namespace = Namespaces.OBI)]
         public HeaderAttribute[] Attributes { get; set; }
 
         private XmlSerializerNamespaces _xmlns;

@@ -51,8 +51,11 @@ namespace OldMusicBox.ePUAP.Client
 
             var request = new NadajRequest()
             {
+                DaneDodatkowe   = daneDodatkowe,
+                CzyProbne       = czyProbne,
                 AdresOdpowiedzi = adresOdpowiedzi,
                 AdresSkrytki    = adresSkrytki,
+                PodmiotNadawcy  = identyfikatorPodmiotu,
                 Document        = dokument
             };
 
