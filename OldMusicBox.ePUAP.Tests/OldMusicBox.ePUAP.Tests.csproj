@@ -56,6 +56,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestFactoryTests.cs" />
     <Compile Include="ServiceClientTests.cs" />
+    <Compile Include="SkrytkaTests.cs" />
     <Compile Include="TestCertProvider.cs" />
   </ItemGroup>
   <ItemGroup>

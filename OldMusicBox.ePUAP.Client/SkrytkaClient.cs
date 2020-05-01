@@ -29,7 +29,7 @@ namespace OldMusicBox.ePUAP.Client
             string adresOdpowiedzi, 
             bool   czyProbne, 
             byte[] daneDodatkowe, 
-            Dokument dokument,
+            NadajRequest.DocumentType dokument,
             out FaultModel fault
             )
         {
@@ -49,10 +49,17 @@ namespace OldMusicBox.ePUAP.Client
             if (dokument.Zawartosc == null)
                 throw new ArgumentException("Dokument");
 
+            var request = new NadajRequest()
+            {
+                AdresOdpowiedzi = adresOdpowiedzi,
+                AdresSkrytki    = adresSkrytki,
+                Document        = dokument
+            };
+
             // call ePUAP service and parse the response
-            var response = WSSecurityRequest<Dokument, NadajResponse, NadajResponseHandler>(
+            var response = WSSecurityRequest<NadajRequest, NadajResponse, NadajResponseHandler>(
                 serviceUrl,
-                dokument,
+                request,
                 out fault);
 
             // parsed response

@@ -74,16 +74,18 @@
     <Compile Include="ServiceClient.cs" />
     <Compile Include="ServiceClientException.cs" />
     <Compile Include="SkrytkaClient.cs" />
-    <Compile Include="Skrytka\Dokument.cs" />
-    <Compile Include="Skrytka\HeaderAttributes.cs" />
-    <Compile Include="Skrytka\NadajResponse.cs" />
-    <Compile Include="Skrytka\NadajResponseHandler.cs" />
+    <Compile Include="Model\Skrytka\NadajRequest.cs" />
+    <Compile Include="Model\Skrytka\HeaderAttributes.cs" />
+    <Compile Include="Model\Skrytka\NadajResponse.cs" />
+    <Compile Include="Model\Skrytka\NadajResponseHandler.cs" />
     <Compile Include="TpSigningClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Model\Pull\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

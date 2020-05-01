@@ -1,5 +1,6 @@
 ﻿using OldMusicBox.ePUAP.Client.Constants;
 using OldMusicBox.ePUAP.Client.Model;
+using OldMusicBox.ePUAP.Client.Skrytka;
 using OldMusicBox.Saml2;
 using System;
 using System.Collections.Generic;
@@ -260,7 +261,31 @@ namespace OldMusicBox.ePUAP.Client.Request
         [XmlElement("Security", Namespace = Namespaces.WS_SEC_EXT)]
         public Security Security { get; set; }
 
+        [XmlElement("AdresSkrytki", typeof( AdresSkrytkiHeaderAttribute ), Namespace = Namespaces.OBI)]
+        [XmlElement("AdresOdpowiedzi", typeof(AdresOdpowiedziHeaderAttribute), Namespace = Namespaces.OBI)]
         public HeaderAttribute[] Attributes { get; set; }
+
+        private XmlSerializerNamespaces _xmlns;
+
+        [XmlNamespaceDeclarations]
+        public XmlSerializerNamespaces Xmlns
+        {
+            get
+            {
+                if (_xmlns == null)
+                {
+                    _xmlns = new XmlSerializerNamespaces();
+                    _xmlns.Add("obi", Namespaces.OBI);
+                }
+                return _xmlns;
+            }
+
+            set
+            {
+                _xmlns = value;
+            }
+        }
+
     }
 
     public class Security
@@ -277,6 +302,7 @@ namespace OldMusicBox.ePUAP.Client.Request
     /// <summary>
     /// Base class for additional header attribute classes
     /// </summary>
+    [XmlRoot(Namespace = "")]
     public abstract class HeaderAttribute
     {
 
