@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OldMusicBox.ePUAP.Client.Request;
-using OldMusicBox.ePUAP.Client.Skrytka;
+using OldMusicBox.ePUAP.Client.Model.Skrytka;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace OldMusicBox.ePUAP.Tests
 {
+    /// <summary>
+    /// WS-Skrytka tests
+    /// </summary>
     [TestClass]
     public class SkrytkaTests
     {
@@ -28,7 +31,7 @@ namespace OldMusicBox.ePUAP.Tests
                 Zawartosc  = Encoding.UTF8.GetBytes("abc")
             };
 
-            NadajRequest request = new NadajRequest()
+            var request = new NadajRequest()
             {
                 CzyProbne       = czyProbne,
                 AdresOdpowiedzi = adresOdpowiedzi,

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace OldMusicBox.ePUAP.Client.Skrytka
+namespace OldMusicBox.ePUAP.Client.Model.Skrytka
 {
     public class DaneDodatkoweHeaderAttribute : HeaderAttribute
     {

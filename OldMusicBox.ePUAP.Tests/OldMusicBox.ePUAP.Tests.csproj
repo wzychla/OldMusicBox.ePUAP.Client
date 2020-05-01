@@ -54,6 +54,7 @@
     <Compile Include="EnvelopeTests.cs" />
     <Compile Include="Model\ExampleRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PullTests.cs" />
     <Compile Include="RequestFactoryTests.cs" />
     <Compile Include="ServiceClientTests.cs" />
     <Compile Include="SkrytkaTests.cs" />

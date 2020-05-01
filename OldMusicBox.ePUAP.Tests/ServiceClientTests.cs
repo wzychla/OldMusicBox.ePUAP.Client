@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace OldMusicBox.ePUAP.Tests
 {
+    /// <summary>
+    /// Basic service client tests
+    /// </summary>
     [TestClass]
     public class ServiceClientTests
     {

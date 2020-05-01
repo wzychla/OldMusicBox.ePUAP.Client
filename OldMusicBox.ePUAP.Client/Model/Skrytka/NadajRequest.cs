@@ -3,7 +3,7 @@ using OldMusicBox.ePUAP.Client.Model;
 using OldMusicBox.ePUAP.Client.Request;
 using System.Xml.Serialization;
 
-namespace OldMusicBox.ePUAP.Client.Skrytka
+namespace OldMusicBox.ePUAP.Client.Model.Skrytka
 {
     [XmlRoot("Dokument", Namespace = Namespaces.OBI)]
     public class NadajRequest : IServiceRequest

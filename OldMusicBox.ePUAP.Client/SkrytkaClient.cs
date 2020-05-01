@@ -1,5 +1,5 @@
 ﻿using OldMusicBox.ePUAP.Client.Model.Fault;
-using OldMusicBox.ePUAP.Client.Skrytka;
+using OldMusicBox.ePUAP.Client.Model.Skrytka;
 using System;
 using System.Security.Cryptography.X509Certificates;
 
@@ -23,7 +23,6 @@ namespace OldMusicBox.ePUAP.Client
         #region Nadaj
 
         public virtual NadajResponse Nadaj(
-            string serviceUrl,
             string identyfikatorPodmiotu, 
             string adresSkrytki, 
             string adresOdpowiedzi, 
@@ -35,19 +34,19 @@ namespace OldMusicBox.ePUAP.Client
         {
             // validation
             if (string.IsNullOrEmpty(identyfikatorPodmiotu))
-                throw new ArgumentNullException("IdentyfikatorPodmiotu");
+                throw new ArgumentNullException("identyfikatorPodmiotu");
             if ( string.IsNullOrEmpty(adresSkrytki))
-                throw new ArgumentNullException("AdresSkrytki");
+                throw new ArgumentNullException("adresSkrytki");
             if (string.IsNullOrEmpty(adresOdpowiedzi))
-                throw new ArgumentNullException("AdresOdpowiedzi");
+                throw new ArgumentNullException("adresOdpowiedzi");
             if (dokument == null )
-                throw new ArgumentNullException("Dokument");
+                throw new ArgumentException("dokument");
             if (string.IsNullOrEmpty(dokument.NazwaPliku))
-                throw new ArgumentException("Dokument");
+                throw new ArgumentException("dokument");
             if (string.IsNullOrEmpty(dokument.TypPliku))
-                throw new ArgumentException("Dokument");
+                throw new ArgumentException("dokument");
             if (dokument.Zawartosc == null)
-                throw new ArgumentException("Dokument");
+                throw new ArgumentException("dokument");
 
             var request = new NadajRequest()
             {
@@ -61,7 +60,7 @@ namespace OldMusicBox.ePUAP.Client
 
             // call ePUAP service and parse the response
             var response = WSSecurityRequest<NadajRequest, NadajResponse, NadajResponseHandler>(
-                serviceUrl,
+                this.ServiceUri,
                 request,
                 out fault);
 

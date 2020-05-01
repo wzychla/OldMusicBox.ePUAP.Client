@@ -65,10 +65,14 @@
     <Compile Include="Base\IServiceRequest.cs" />
     <Compile Include="Base\IServiceResponse.cs" />
     <Compile Include="Base\IServiceResponseHandler.cs" />
+    <Compile Include="Model\Pull\OczekujaceDokumentyRequest.cs" />
+    <Compile Include="Model\Pull\OczekujaceDokumentyResponse.cs" />
+    <Compile Include="Model\Pull\OczekujaceDokumentyResponseHandler.cs" />
     <Compile Include="Model\VerifySignedDocument\VerifySignedDocumentRequest.cs" />
     <Compile Include="Model\VerifySignedDocument\VerifySignedDocumentResponse.cs" />
     <Compile Include="Model\VerifySignedDocument\VerifySignedDocumentResponseHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PullClient.cs" />
     <Compile Include="Request\Envelope.cs" />
     <Compile Include="Request\RequestFactory.cs" />
     <Compile Include="ServiceClient.cs" />
@@ -83,9 +87,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\Pull\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

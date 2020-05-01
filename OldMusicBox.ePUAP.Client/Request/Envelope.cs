@@ -1,6 +1,6 @@
 ﻿using OldMusicBox.ePUAP.Client.Constants;
 using OldMusicBox.ePUAP.Client.Model;
-using OldMusicBox.ePUAP.Client.Skrytka;
+using OldMusicBox.ePUAP.Client.Model.Skrytka;
 using OldMusicBox.Saml2;
 using System;
 using System.Collections.Generic;
