@@ -1,4 +1,4 @@
-﻿using OldMusicBox.ePUAP.Client.Model.Fault;
+﻿using OldMusicBox.ePUAP.Client.Model.Common;
 using OldMusicBox.ePUAP.Client.Model.Pull;
 using System;
 using System.Collections.Generic;

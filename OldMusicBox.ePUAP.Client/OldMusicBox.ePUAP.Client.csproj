@@ -54,8 +54,10 @@
     <Compile Include="Model\AddDocumentToSigning\AddDocumentToSigningRequest.cs" />
     <Compile Include="Model\AddDocumentToSigning\AddDocumentToSigningResponse.cs" />
     <Compile Include="Model\AddDocumentToSigning\AddDocumentToSigningResponseHandler.cs" />
-    <Compile Include="Model\Fault\FaultModel.cs" />
-    <Compile Include="Model\Fault\FaultModelHandler.cs" />
+    <Compile Include="Model\Common\FaultModel.cs" />
+    <Compile Include="Model\Common\FaultModelHandler.cs" />
+    <Compile Include="Model\Common\BaseServiceResponseHandler.cs" />
+    <Compile Include="Model\Common\StatusModel.cs" />
     <Compile Include="Model\GetSignedDocument\GetSignedDocumentRequest.cs" />
     <Compile Include="Model\GetSignedDocument\GetSignedDocumentResponse.cs" />
     <Compile Include="Model\GetSignedDocument\GetSignedDocumentResponseHandler.cs" />

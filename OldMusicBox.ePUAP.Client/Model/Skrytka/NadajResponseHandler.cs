@@ -1,4 +1,5 @@
 ﻿using OldMusicBox.ePUAP.Client.Model;
+using OldMusicBox.ePUAP.Client.Model.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace OldMusicBox.ePUAP.Client.Model.Skrytka
     public class NadajResponseHandler
         : IServiceResponseHandler<NadajResponse>
     {
-        public NadajResponse FromSOAP(string soapResponse)
+        public NadajResponse FromSOAP(string soapResponse, out FaultModel fault)
         {
             throw new NotImplementedException();
         }

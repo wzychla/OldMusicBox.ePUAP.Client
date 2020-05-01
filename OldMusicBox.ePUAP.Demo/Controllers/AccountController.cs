@@ -3,7 +3,7 @@ using OldMusicBox.Saml2;
 using OldMusicBox.Saml2.Constants;
 using OldMusicBox.Saml2.Model;
 using OldMusicBox.Saml2.Model.Artifact;
-using OldMusicBox.ePUAP.Client.Model.Fault;
+using OldMusicBox.ePUAP.Client.Model.Common;
 using OldMusicBox.Saml2.Model.Request;
 using System;
 using System.Collections.Generic;

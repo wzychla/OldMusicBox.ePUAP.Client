@@ -20,7 +20,8 @@ namespace OldMusicBox.ePUAP.Client.Model.Pull
         {
             get
             {
-                return "http://ws.epuap.gov.pl/pull/oczekujaceDokumenty";
+                //return "http://ws.epuap.gov.pl/pull/oczekujaceDokumenty";
+                return string.Empty;
             }
         }
 

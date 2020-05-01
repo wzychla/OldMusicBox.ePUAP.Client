@@ -1,4 +1,4 @@
-﻿using OldMusicBox.ePUAP.Client.Model.Fault;
+﻿using OldMusicBox.ePUAP.Client.Model.Common;
 using OldMusicBox.ePUAP.Client.Model.Skrytka;
 using System;
 using System.Security.Cryptography.X509Certificates;

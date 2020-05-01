@@ -21,7 +21,8 @@ namespace OldMusicBox.ePUAP.Client.Model.Skrytka
         {
             get
             {
-                return "http://ws.epuap.gov.pl/skrytka/nadaj";
+                //return "http://ws.epuap.gov.pl/skrytka/nadaj";
+                return string.Empty;
             }
         }
 

@@ -8,13 +8,12 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace OldMusicBox.ePUAP.Client.Model.Fault
+namespace OldMusicBox.ePUAP.Client.Model.Common
 {
     /// <summary>
     /// Fault model handler
     /// </summary>
     public class FaultModelHandler
-        : IServiceResponseHandler<FaultModel>
     {
         public FaultModel FromSOAP(string soapEnvelope)
         {

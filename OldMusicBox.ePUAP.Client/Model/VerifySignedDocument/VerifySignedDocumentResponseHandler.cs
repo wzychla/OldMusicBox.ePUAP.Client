@@ -1,4 +1,5 @@
 ﻿using OldMusicBox.ePUAP.Client.Constants;
+using OldMusicBox.ePUAP.Client.Model.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,8 +17,10 @@ namespace OldMusicBox.ePUAP.Client.Model.VerifySignedDocument
     public class VerifySignedDocumentResponseHandler
          : IServiceResponseHandler<VerifySignedDocumentResponse>
     {
-        public VerifySignedDocumentResponse FromSOAP(string soapResponse)
+        public VerifySignedDocumentResponse FromSOAP(string soapResponse, out FaultModel fault)
         {
+            fault = null;
+
             if (string.IsNullOrEmpty(soapResponse))
             {
                 throw new ArgumentNullException();

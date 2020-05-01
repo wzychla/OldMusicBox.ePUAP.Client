@@ -1,5 +1,5 @@
 ﻿using OldMusicBox.ePUAP.Client.Model;
-using OldMusicBox.ePUAP.Client.Model.Fault;
+using OldMusicBox.ePUAP.Client.Model.Common;
 using OldMusicBox.ePUAP.Client.Request;
 using OldMusicBox.Saml2.Logging;
 using System;
@@ -67,7 +67,12 @@ namespace OldMusicBox.ePUAP.Client
             // sending WS-Security request
             using (var webClient = new WebClient())
             {
-                webClient.Headers.Add("SOAPAction", request.SOAPAction);
+                //webClient.Proxy = new System.Net.WebProxy("http://localhost:8888");
+                webClient.Encoding = Encoding.UTF8;
+                if (!string.IsNullOrEmpty(request.SOAPAction))
+                {
+                    webClient.Headers.Add("SOAPAction", request.SOAPAction);
+                }
                 webClient.Headers[HttpRequestHeader.ContentType] = "text/xml";
 
                 string response = null;
@@ -107,7 +112,7 @@ namespace OldMusicBox.ePUAP.Client
                     new LoggerFactory().For(this).Debug(Event.SignedMessage, response);
 
                     var responseHandler = new TResultResponseHandler();
-                    return responseHandler.FromSOAP(response);
+                    return responseHandler.FromSOAP(response, out fault);
                 }
                 else
                 {

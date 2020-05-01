@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OldMusicBox.ePUAP.Client.Model.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,6 @@ namespace OldMusicBox.ePUAP.Client.Model
     public interface IServiceResponseHandler<TResult>
         where TResult : class, IServiceResponse
     {
-        TResult FromSOAP(string soapResponse);
+        TResult FromSOAP(string soapResponse, out FaultModel fault);
     }
 }

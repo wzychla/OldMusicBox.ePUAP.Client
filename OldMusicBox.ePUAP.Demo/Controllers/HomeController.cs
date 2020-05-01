@@ -1,5 +1,5 @@
 ﻿using OldMusicBox.ePUAP.Client;
-using OldMusicBox.ePUAP.Client.Model.Fault;
+using OldMusicBox.ePUAP.Client.Model.Common;
 using OldMusicBox.ePUAP.Demo.Models.Home;
 using System;
 using System.Collections.Generic;
@@ -268,6 +268,22 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
             return View(model);
         }
 
+
+        #endregion
+
+        #region Other services
+
+        public ActionResult Other()
+        {
+            var uri         = "https://int.epuap.gov.pl/pk_external_ws/services/pull";
+            var certificate = new ClientCertificateProvider().GetClientCertificate();
+            var client      = new PullClient(uri, certificate);
+
+            FaultModel fault;
+            var response = client.OczekujaceDokumenty("vulcandpo", "domyslna", "/vulcandpo/domyslna", out fault);
+
+            return Redirect("/Home/Index");
+        }
 
         #endregion
     }
