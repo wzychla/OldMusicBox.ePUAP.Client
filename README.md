@@ -3,7 +3,7 @@
 The goal of this project is to provide an independent .NET [ePUAP](https://epuap.gov.pl/wps/portal/english) Client. The implementation follows the 
 [official specification](https://epuap.gov.pl/wps/portal/strefa-urzednika/pomoc_urzednik/) (*Dla integratorów* section).
 
-## Current Version: 0.57
+## Current Version: 0.58
 
 Please refer to the change list and the road map below.
 
@@ -15,9 +15,9 @@ Please refer to the change list and the road map below.
 |Single Sign On|**yes**|
 |getTpUserInfo|**yes**|
 |tpSigning|**yes**|
-|Single Log Out|not yet|
+|WS-pull|**partial**|
 |WS-Skrytka|not yet|
-|WS-pull|not yet|
+|Single Log Out|not yet|
 |.NET Framework|4.6.2+|
 |.NET Core|not yet|
 
@@ -95,6 +95,10 @@ Your application has to be configured - if you follow the demo provided in this 
 * ePUAP `tpSigning` endpoint (not required for SSO)
 
 ## Version History:
+
+* 0.58 (2020-05-02)
+    * partial support for WS-Pull and another important milestone reached. The very first succesfull response from one of ESP 
+    (*Elektroniczna Skrzynka Podawcza*) services (the `oczekujaceDokumenty`). Expect more working services shortly.
 
 * 0.57
     * `verifySignedDocument`

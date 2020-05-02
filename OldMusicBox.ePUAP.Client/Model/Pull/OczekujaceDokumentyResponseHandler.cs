@@ -38,9 +38,10 @@ namespace OldMusicBox.ePUAP.Client.Model.Pull
                 // response?
                 var serializer = new XmlSerializer(typeof(OczekujaceDokumentyResponse));
                 var nsManager  = new XmlNamespaceManager(xml.NameTable);
+                nsManager.AddNamespace("soapenv", Namespaces.SOAPENVELOPE);
                 nsManager.AddNamespace("p140", Namespaces.OBI);
 
-                var response = xml.SelectSingleNode("//ns2:OdpowiedzPullResponse", nsManager) as XmlElement;
+                var response = xml.SelectSingleNode("//soapenv:Envelope/soapenv:Body/p140:OdpowiedzPullOczekujace", nsManager) as XmlElement;
                 if (response != null)
                 {
                     using (var reader = new StringReader(response.OuterXml))

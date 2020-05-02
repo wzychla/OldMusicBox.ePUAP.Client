@@ -280,7 +280,7 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
             var client      = new PullClient(uri, certificate);
 
             FaultModel fault;
-            var response = client.OczekujaceDokumenty("vulcandpo", "domyslna", "/vulcandpo/domyslna", out fault);
+            var response = client.OczekujaceDokumenty("vulcandpo", "testowa", "/vulcandpo/testowa", out fault);
 
             return Redirect("/Home/Index");
         }
