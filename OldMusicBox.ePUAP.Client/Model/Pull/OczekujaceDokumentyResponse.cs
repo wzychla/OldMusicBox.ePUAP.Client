@@ -9,6 +9,9 @@ using System.Xml.Serialization;
 
 namespace OldMusicBox.ePUAP.Client.Model.Pull
 {
+    /// <summary>
+    /// OczekujaceDokumenty response
+    /// </summary>
     [XmlRoot("OdpowiedzPullOczekujace", Namespace = Namespaces.OBI)]
     public class OczekujaceDokumentyResponse : IServiceResponse
     {

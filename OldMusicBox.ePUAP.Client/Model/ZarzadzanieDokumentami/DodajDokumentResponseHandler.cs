@@ -1,24 +1,20 @@
 ﻿using OldMusicBox.ePUAP.Client.Constants;
 using OldMusicBox.ePUAP.Client.Model.Common;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace OldMusicBox.ePUAP.Client.Model.Pull
+namespace OldMusicBox.ePUAP.Client.Model.ZarzadzanieDokumentami
 {
     /// <summary>
-    /// OczekujaceDokumenty response handler
+    /// DodajDokument response handler
     /// </summary>
-    public class OczekujaceDokumentyResponseHandler : 
+    public class DodajDokumentResponseHandler :
         BaseServiceResponseHandler,
-        IServiceResponseHandler<OczekujaceDokumentyResponse>
+        IServiceResponseHandler<DodajDokumentResponse>
     {
-        public OczekujaceDokumentyResponse FromSOAP(string soapResponse, out FaultModel fault)
+        public DodajDokumentResponse FromSOAP(string soapResponse, out FaultModel fault)
         {
             fault = null;
 
@@ -33,23 +29,23 @@ namespace OldMusicBox.ePUAP.Client.Model.Pull
                 xml.LoadXml(soapResponse);
 
                 // fault?
-                if ( this.TryDeserializeFaultModel( soapResponse, out fault ) )
+                if (this.TryDeserializeFaultModel(soapResponse, out fault))
                 {
                     return null;
                 }
 
                 // response?
-                var serializer = new XmlSerializer(typeof(OczekujaceDokumentyResponse));
+                var serializer = new XmlSerializer(typeof(DodajDokumentResponse));
                 var nsManager  = new XmlNamespaceManager(xml.NameTable);
                 nsManager.AddNamespace("soapenv", Namespaces.SOAPENVELOPE);
-                nsManager.AddNamespace("p140", Namespaces.OBI);
+                nsManager.AddNamespace("p521", Namespaces.ZARZADZANIEDOKUMENTAMI);
 
-                var response = xml.SelectSingleNode("//soapenv:Envelope/soapenv:Body/p140:OdpowiedzPullOczekujace", nsManager) as XmlElement;
+                var response = xml.SelectSingleNode("//soapenv:Envelope/soapenv:Body/p521:dodajDokumentResponse", nsManager) as XmlElement;
                 if (response != null)
                 {
                     using (var reader = new StringReader(response.OuterXml))
                     {
-                        return serializer.Deserialize(reader) as OczekujaceDokumentyResponse;
+                        return serializer.Deserialize(reader) as DodajDokumentResponse;
                     }
                 }
 
@@ -57,7 +53,7 @@ namespace OldMusicBox.ePUAP.Client.Model.Pull
             }
             catch (Exception ex)
             {
-                throw new ServiceClientException("Cannot deserialize OczekujaceDokumentyResponse", ex);
+                throw new ServiceClientException("Cannot deserialize dodajDokumentResponse", ex);
             }
         }
     }

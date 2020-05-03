@@ -5,6 +5,9 @@ using OldMusicBox.ePUAP.Client.Constants;
 
 namespace OldMusicBox.ePUAP.Client.Model.Pull
 {
+    /// <summary>
+    /// OczekujaceDokumenty request
+    /// </summary>
     [XmlRoot("ZapytaniePullOczekujace", Namespace = Namespaces.OBI)]
     public class OczekujaceDokumentyRequest : IServiceRequest
     {
@@ -20,8 +23,7 @@ namespace OldMusicBox.ePUAP.Client.Model.Pull
         {
             get
             {
-                //return "http://ws.epuap.gov.pl/pull/oczekujaceDokumenty";
-                return string.Empty;
+                return null;
             }
         }
 

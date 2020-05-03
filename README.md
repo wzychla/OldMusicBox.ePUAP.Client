@@ -1,9 +1,16 @@
 # OldMusicBox.ePUAP.Client
 
-The goal of this project is to provide an independent .NET [ePUAP](https://epuap.gov.pl/wps/portal/english) Client. The implementation follows the 
+The goal of this project is to provide an independent .NET [ePUAP](https://epuap.gov.pl/wps/portal/english) Client. 
+
+The client will support:
+* services used by the Profil Zaufany SSO flow
+* services used by the Profil Zaufany document digital signing 
+* services used to communicate with Digital Exchanges (**Elektroniczna Skrzynka Podawcza**)
+
+The implementation follows the 
 [official specification](https://epuap.gov.pl/wps/portal/strefa-urzednika/pomoc_urzednik/) (*Dla integratorów* section).
 
-## Current Version: 0.58
+## Current Version: 0.59
 
 Please refer to the change list and the road map below.
 
@@ -13,10 +20,10 @@ Please refer to the change list and the road map below.
 |----|:---:|
 |NuGet|**yes**|
 |Single Sign On|**yes**|
-|getTpUserInfo|**yes**|
-|tpSigning|**yes**|
-|WS-pull|**partial**|
+|Document Signing|**yes**|
 |WS-Skrytka|not yet|
+|WS-pull|**partial**|
+|WS-ZarzadzanieDokumentami|**partial**|
 |Single Log Out|not yet|
 |.NET Framework|4.6.2+|
 |.NET Core|not yet|
@@ -94,20 +101,35 @@ Your application has to be configured - if you follow the demo provided in this 
 * ePUAP `getTpUserInfo` endpoint
 * ePUAP `tpSigning` endpoint (not required for SSO)
 
+### Registering your certificate for the ESP (Elektroniczna Skrzynka Podawcza)
+
+ePUAP Services documented in the **ePUAP Dokumentacja usług** 
+(found in **Strefa urzędnika / Pomoc / Dla integratorów / Specyfikacja WSDL**), namely the **Elektroniczna Skrzynka Podawcza**, are also WS-* services and a client app is supposed to sign requests with its certificate.
+
+The certificate used here has to be uploaded by the Public authority administrator.
+
+To do this, log into ePUAP using the Public authority profile, click your username, select **Administrowanie / Zarządzanie kontem / Systemy** and here create a new system together with its certificate (the public key in the PEM format).
+
 ## Version History:
+
+* 0.59 (2020-05-03)
+    * partial support for WS-ZarzadzanieDokumentami. In particular,
+    the `WS-ZarzadzanieDokumentami::dodajDokument` works correctly
+    * added const values of production and integration service uris,
+    these can be used as service constructor parameters
 
 * 0.58 (2020-05-02)
     * partial support for WS-Pull and another important milestone reached. The very first succesfull response from one of ESP 
-    (*Elektroniczna Skrzynka Podawcza*) services (the `oczekujaceDokumenty`). Expect more working services shortly.
+    (*Elektroniczna Skrzynka Podawcza*) services (the `WS-Pull::oczekujaceDokumenty`). Expect more working services shortly.
 
-* 0.57
+* 0.57 (2020-04-27)
     * `verifySignedDocument`
     * refactored services so that the service Uri is now a constructor parameter
 
-* 0.56
+* 0.56 (2020-04-19)
     * started working on `WS-Skrytka` and `WS-pull`
 
-* 0.55
+* 0.55 (2020-02-18)
     * tpSigning - signing/verification 
 
 * 0.50
@@ -144,10 +166,11 @@ Your application has to be configured - if you follow the demo provided in this 
 
 ## Roadmap
 
-* 0.6
+* before 1.0
+
+    * other *Elektroniczna Skrzynka Podawcza* services
+
+* 1.0
 
     - issuing `LogoutReuqest` for federated logoff
 
-* later on
-
-    * other services

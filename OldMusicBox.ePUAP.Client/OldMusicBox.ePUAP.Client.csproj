@@ -73,6 +73,9 @@
     <Compile Include="Model\VerifySignedDocument\VerifySignedDocumentRequest.cs" />
     <Compile Include="Model\VerifySignedDocument\VerifySignedDocumentResponse.cs" />
     <Compile Include="Model\VerifySignedDocument\VerifySignedDocumentResponseHandler.cs" />
+    <Compile Include="Model\ZarzadzanieDokumentami\DodajDokumentRequest.cs" />
+    <Compile Include="Model\ZarzadzanieDokumentami\DodajDokumentResponse.cs" />
+    <Compile Include="Model\ZarzadzanieDokumentami\DodajDokumentResponseHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PullClient.cs" />
     <Compile Include="Request\Envelope.cs" />
@@ -85,6 +88,7 @@
     <Compile Include="Model\Skrytka\NadajResponse.cs" />
     <Compile Include="Model\Skrytka\NadajResponseHandler.cs" />
     <Compile Include="TpSigningClient.cs" />
+    <Compile Include="ZarzadzanieDokumentamiClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

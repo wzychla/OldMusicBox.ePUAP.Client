@@ -7,6 +7,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -15,6 +16,14 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
 {
     public class HomeController : Controller
     {
+        const string ExampleDocument =
+@"<?xml version=""1.0"" encoding=""utf-8""?>
+<Example>
+  <Content>
+    This is example document. You can sign any XML you want with ePUAP. Local letters: żółć
+  </Content>
+</Example>";
+
         #region Anonymous welcome page
 
         [AllowAnonymous]
@@ -52,14 +61,9 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
         [HttpGet]
         public ActionResult AddDocumentToSigning()
         {
-            var model = new AddDocumentToSigningModel();
-            model.Document =
-@"<?xml version=""1.0"" encoding=""utf-8""?>
-<Example>
-  <Content>
-    This is example document. You can sign any XML you want with ePUAP. Local letters: żółć
-  </Content>
-</Example>";
+            var model      = new AddDocumentToSigningModel();
+            model.Document = ExampleDocument;
+
             return View(model);
         }
 
@@ -275,14 +279,66 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
 
         public ActionResult Other()
         {
-            var uri         = "https://int.epuap.gov.pl/pk_external_ws/services/pull";
             var certificate = new ClientCertificateProvider().GetClientCertificate();
-            var client      = new PullClient(uri, certificate);
 
-            FaultModel fault;
-            var response = client.OczekujaceDokumenty("vulcandpo", "testowa", "/vulcandpo/testowa", out fault);
+            //WSPull_OczekujaceDokumenty_Demo(certificate);
+            //WSZarzadzanieDokumentami_DodajDokument_Demo(certificate);
 
             return Redirect("/Home/Index");
+        }
+
+        /// <summary>
+        /// Demo pokazuje jak sprawdzić liczbę dokumentów oczekujących w skrytce właściciela certyfikatu
+        /// </summary>
+        private void WSPull_OczekujaceDokumenty_Demo(X509Certificate2 certificate)
+        {
+            FaultModel fault;
+
+            var client = new PullClient(PullClient.INTEGRATION_URI, certificate);
+            var response = client.OczekujaceDokumenty("vulcandpo", "testowa", "/vulcandpo/testowa", out fault);
+        }
+
+        /// <summary>
+        /// Demo pokazuje jak umieścić dokument we wskazanej skrzynce właściciela certyfikatu
+        /// 
+        /// Jako Folder należy podać
+        /// * RECEIVED - dokument trafia do foldera Odebrane
+        /// * SENT     - dokument trafia do foldera Wysłane
+        /// * [puste]  - dokument trafia do foldera Robocze
+        /// </summary>
+        /// <param name="certificate"></param>
+        private void WSZarzadzanieDokumentami_DodajDokument_Demo(X509Certificate2 certificate)
+        {
+            FaultModel fault;
+
+            var client   = new ZarzadzanieDokumentamiClient(ZarzadzanieDokumentamiClient.INTEGRATION_URI, certificate);
+            var response = client.DodajDokument(
+                new Client.Model.ZarzadzanieDokumentami.Sklad()
+                {
+                    Nazwa   = "testowa",
+                    Podmiot = "vulcandpo"
+                },
+                new Client.Model.ZarzadzanieDokumentami.Dokument()
+                {
+                    SzczegolyDokumentu = new Client.Model.ZarzadzanieDokumentami.SzczegolyDokumentu()
+                    {
+                        Nazwa = "dokument123.xml",
+                        Adresat = new Client.Model.ZarzadzanieDokumentami.NadawcaOdbiorca()
+                        {
+                            Nazwa = "vulcandpo",
+                            Adres = "/vulcandpo/testowa"
+                        },
+                        Nadawca = new Client.Model.ZarzadzanieDokumentami.NadawcaOdbiorca()
+                        {
+                            Nazwa = "vulcandpo",
+                            Adres = "/vulcandpo/domyslna"
+                        },
+                        Folder = "RECEIVED"
+                    },
+                    Tresc = Encoding.UTF8.GetBytes(ExampleDocument)
+                },
+                out fault
+                );
         }
 
         #endregion

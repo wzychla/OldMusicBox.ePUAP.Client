@@ -11,6 +11,8 @@ namespace OldMusicBox.ePUAP.Client
 {
     /// <summary>
     /// WS-Pull client
+    /// 
+    /// Służy do pobierania dokumentów z kolejki skrytki z ustawionym trybem PULL. 
     /// </summary>
     /// <remarks>
     /// Production uri:  https://ws.epuap.gov.pl/pk_external_ws/services/pull
@@ -19,13 +21,22 @@ namespace OldMusicBox.ePUAP.Client
     /// </remarks>
     public class PullClient : BaseClient
     {
+        public const string INTEGRATION_URI = "https://int.epuap.gov.pl/pk_external_ws/services/pull";
+        public const string PRODUCTION_URI  = "https://ws.epuap.gov.pl/pk_external_ws/services/pull";
+
         public PullClient(string serviceUri, X509Certificate2 signingCertificate) : base(serviceUri, signingCertificate)
         {
 
         }
 
-        #region Oczekujące dokumentu
+        #region Oczekujące dokumenty
 
+        /// <summary>
+        /// Interfejs służy do uzyskania informacji o liczbie dokumentów oczekujących na pobranie dla wskazanego podmiotu i adresu skrytki. 
+        /// </summary>
+        /// <param name="podmiot">Identyfikator podmiotu</param>
+        /// <param name="nazwaSkrytki">Nazwa sprawdzanej skrytki</param>
+        /// <param name="adresSkrytki">Adres sprawdzanej skrytki</param>
         public virtual OczekujaceDokumentyResponse OczekujaceDokumenty(
             string podmiot,
             string nazwaSkrytki,
