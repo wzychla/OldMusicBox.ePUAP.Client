@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OldMusicBox.ePUAP.Client.Request;
+﻿using OldMusicBox.ePUAP.Client.Request;
+using OldMusicBox.ePUAP.Client.Constants;
+using System;
+using System.Xml.Serialization;
 
 namespace OldMusicBox.ePUAP.Client.Model.Pull
 {
     /// <summary>
     /// PotwierdzOdebranie request
     /// </summary>
+    [XmlRoot("ZapytaniePullPotwierdz", Namespace = Namespaces.OBI)]
     public class PotwierdzOdebranieRequest : IServiceRequest
     {
         public HeaderAttribute[] HeaderAttributes
         {
             get
             {
-                throw new NotImplementedException();
+                return null;
             }
         }
 
@@ -24,8 +23,20 @@ namespace OldMusicBox.ePUAP.Client.Model.Pull
         {
             get
             {
-                throw new NotImplementedException();
+                return null;
             }
         }
+
+        [XmlElement("podmiot", Namespace = "")]
+        public string Podmiot { get; set; }
+
+        [XmlElement("nazwaSkrytki", Namespace = "")]
+        public string NazwaSkrytki { get; set; }
+
+        [XmlElement("adresSkrytki", Namespace = "")]
+        public string AdresSkrytki { get; set; }
+
+        [XmlElement("skrot", Namespace = "")]
+        public byte[] Skrot { get; set; }
     }
 }

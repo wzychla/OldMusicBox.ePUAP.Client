@@ -115,6 +115,49 @@ namespace OldMusicBox.ePUAP.Client
 
         #region Potwierdź odebranie
 
+        /// <summary>
+        /// Interfejs służy do potwierdzania prawidłowego odbioru dokumentu przez system zewnętrzny oraz usuwania dokumentu z kolejki oczekujących na pobranie.
+        /// </summary>
+        /// <param name="podmiot">Identyfikator podmiotu</param>
+        /// <param name="nazwaSkrytki">Nazwa sprawdzanej skrytki</param>
+        /// <param name="adresSkrytki">Adres sprawdzanej skrytki</param>
+        /// <param name="skrot">Obliczony skrot SHA-1 odebranego dokumentu</param>
+        public virtual PotwierdzOdebranieResponse PotwierdzOdebranie(
+            string podmiot,
+            string nazwaSkrytki,
+            string adresSkrytki,
+            byte[] skrot,
+            out FaultModel fault
+            )
+        {
+            // validation
+            if (string.IsNullOrEmpty(podmiot))
+                throw new ArgumentNullException("podmiot");
+            if (string.IsNullOrEmpty(nazwaSkrytki))
+                throw new ArgumentNullException("nazwaSkrytki");
+            if (string.IsNullOrEmpty(adresSkrytki))
+                throw new ArgumentNullException("adresSkrytki");
+            if (skrot == null)
+                throw new ArgumentNullException("skrot");
+
+            var request = new PotwierdzOdebranieRequest()
+            {
+                Podmiot      = podmiot,
+                NazwaSkrytki = nazwaSkrytki,
+                AdresSkrytki = adresSkrytki,
+                Skrot        = skrot
+            };
+
+            // call ePUAP service and parse the response
+            var response = WSSecurityRequest<PotwierdzOdebranieRequest, PotwierdzOdebranieResponse, PotwierdzOdebranieResponseHandler>(
+                this.ServiceUri,
+                request,
+                out fault);
+
+            // parsed response
+            return response;
+        }
+
         #endregion
     }
 }

@@ -1,30 +1,31 @@
-﻿using OldMusicBox.ePUAP.Client.Model.Common;
+﻿using OldMusicBox.ePUAP.Client.Constants;
+using OldMusicBox.ePUAP.Client.Model.Common;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace OldMusicBox.ePUAP.Client.Model.Pull
 {
+    /// <summary>
+    /// Potwierdz odebranie response handler
+    /// </summary>
     public class PotwierdzOdebranieResponseHandler :
         BaseServiceResponseHandler,
         IServiceResponseHandler<PotwierdzOdebranieResponse>
     {
         public PotwierdzOdebranieResponse FromSOAP(string soapResponse, out FaultModel fault)
         {
-            throw new NotImplementedException();
+            return this.FromSOAP_Template<PotwierdzOdebranieResponse>(soapResponse, out fault);
         }
 
         protected override void AddManagerNamespaces(XmlNamespaceManager manager)
         {
-            throw new NotImplementedException();
+            manager.AddNamespace("soapenv", Namespaces.SOAPENVELOPE);
+            manager.AddNamespace("p140", Namespaces.OBI);
         }
 
         protected override string GetResponseXPath()
         {
-            throw new NotImplementedException();
+            return "//soapenv:Envelope/soapenv:Body/p140:OdpowiedzPullPotwierdz";
         }
     }
 }

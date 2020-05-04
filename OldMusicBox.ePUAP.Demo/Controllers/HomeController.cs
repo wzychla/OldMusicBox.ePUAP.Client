@@ -7,6 +7,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Web;
@@ -342,6 +343,18 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
                 if (fault != null)
                 {
                     throw new ApplicationException("Consult fault object for more details");
+                }
+
+                if (pobierzNastepny.Dokument != null &&
+                    pobierzNastepny.Dokument.Zawartosc != null
+                    )
+                {
+                    using (var sha1 = new SHA1CryptoServiceProvider())
+                    {
+                        var _skrot = sha1.ComputeHash(pobierzNastepny.Dokument.Zawartosc);
+
+                        var potwierdzOdebranie = client.PotwierdzOdebranie(_podmiot, _nazwaSkrytki, _adresSkrytki, _skrot, out fault);
+                    }
                 }
             }
         }
