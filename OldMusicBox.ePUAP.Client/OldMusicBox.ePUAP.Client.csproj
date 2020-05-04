@@ -70,6 +70,12 @@
     <Compile Include="Model\Pull\OczekujaceDokumentyRequest.cs" />
     <Compile Include="Model\Pull\OczekujaceDokumentyResponse.cs" />
     <Compile Include="Model\Pull\OczekujaceDokumentyResponseHandler.cs" />
+    <Compile Include="Model\Pull\PobierzNastepnyRequest.cs" />
+    <Compile Include="Model\Pull\PobierzNastepnyResponse.cs" />
+    <Compile Include="Model\Pull\PobierzNastepnyResponseHandler.cs" />
+    <Compile Include="Model\Pull\PotwierdzOdebranieRequest.cs" />
+    <Compile Include="Model\Pull\PotwierdzOdebranieResponse.cs" />
+    <Compile Include="Model\Pull\PotwierdzOdebranieResponseHandler.cs" />
     <Compile Include="Model\VerifySignedDocument\VerifySignedDocumentRequest.cs" />
     <Compile Include="Model\VerifySignedDocument\VerifySignedDocumentResponse.cs" />
     <Compile Include="Model\VerifySignedDocument\VerifySignedDocumentResponseHandler.cs" />

@@ -281,21 +281,69 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
         {
             var certificate = new ClientCertificateProvider().GetClientCertificate();
 
-            //WSPull_OczekujaceDokumenty_Demo(certificate);
+            //WSSkrytka_Demo(certificate);
+            WSPull_Demo(certificate);
+
             //WSZarzadzanieDokumentami_DodajDokument_Demo(certificate);
 
             return Redirect("/Home/Index");
         }
 
         /// <summary>
-        /// Demo pokazuje jak sprawdzić liczbę dokumentów oczekujących w skrytce właściciela certyfikatu
+        /// Nadanie dokumentu do zewnętrznej skrytki ze wskazaniem własnej skrytki jako skrytki odpowiedzi
         /// </summary>
-        private void WSPull_OczekujaceDokumenty_Demo(X509Certificate2 certificate)
+        private void WSSkrytka_Demo(X509Certificate2 certificate)
+        {
+            FaultModel fault;
+
+            var _podmiot         = "vulcandpo";
+            var _adresSkrytki    = "/vulcandpo/testowa";
+            var _adresOdpowiedzi = "/vulcandpo/domyslna";
+
+            var client = new SkrytkaClient(SkrytkaClient.INTEGRATION_URI, certificate);
+            var response = client.Nadaj(
+                _podmiot,
+                _adresSkrytki,
+                _adresOdpowiedzi,                
+                false,
+                null,
+                new Client.Model.Skrytka.NadajRequest.DocumentType()
+                {
+                    NazwaPliku = "testowy.xml",
+                    TypPliku   = "text/xml",
+                    Zawartosc  = Encoding.UTF8.GetBytes(ExampleDocument)
+                },
+                out fault);
+        }
+
+        /// <summary>
+        /// Sprawdzenie liczby oczekujacych dokumentów a następnie odebranie dokumentów
+        /// </summary>
+        private void WSPull_Demo(X509Certificate2 certificate)
         {
             FaultModel fault;
 
             var client = new PullClient(PullClient.INTEGRATION_URI, certificate);
-            var response = client.OczekujaceDokumenty("vulcandpo", "testowa", "/vulcandpo/testowa", out fault);
+
+            var _podmiot      = "vulcandpo";
+            var _nazwaSkrytki = "testowa";
+            var _adresSkrytki = "/vulcandpo/testowa";
+
+            var oczekujaceDokumenty = client.OczekujaceDokumenty(_podmiot, _nazwaSkrytki, _adresSkrytki, out fault);
+            if ( fault != null )
+            {
+                throw new ApplicationException("Consult fault object for more details");
+            }
+
+            if ( oczekujaceDokumenty.Oczekujace > 0 )
+            {
+                // repeat this in a loop
+                var pobierzNastepny = client.PobierzNastepny(_podmiot, _nazwaSkrytki, _adresSkrytki, out fault);
+                if (fault != null)
+                {
+                    throw new ApplicationException("Consult fault object for more details");
+                }
+            }
         }
 
         /// <summary>

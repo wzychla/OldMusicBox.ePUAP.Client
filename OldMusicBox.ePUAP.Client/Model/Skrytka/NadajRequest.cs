@@ -16,7 +16,6 @@ namespace OldMusicBox.ePUAP.Client.Model.Skrytka
         }
 
 
-
         public string SOAPAction
         {
             get

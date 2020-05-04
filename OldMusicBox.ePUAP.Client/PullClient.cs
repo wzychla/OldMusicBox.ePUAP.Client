@@ -70,5 +70,51 @@ namespace OldMusicBox.ePUAP.Client
         }
 
         #endregion
+
+        #region Pobierz następny
+
+        /// <summary>
+        /// Interfejs służy do pobierania kolejnego dokumentu oczekującego w kolejce do pobrania w trybie PULL z wskazanego podmiotu i adresu skrytki.
+        /// </summary>
+        /// <param name="podmiot">Identyfikator podmiotu</param>
+        /// <param name="nazwaSkrytki">Nazwa sprawdzanej skrytki</param>
+        /// <param name="adresSkrytki">Adres sprawdzanej skrytki</param>
+        public virtual PobierzNastepnyResponse PobierzNastepny(
+            string podmiot,
+            string nazwaSkrytki,
+            string adresSkrytki,
+            out FaultModel fault
+            )
+        {
+            // validation
+            if (string.IsNullOrEmpty(podmiot))
+                throw new ArgumentNullException("podmiot");
+            if (string.IsNullOrEmpty(nazwaSkrytki))
+                throw new ArgumentNullException("nazwaSkrytki");
+            if (string.IsNullOrEmpty(adresSkrytki))
+                throw new ArgumentNullException("adresSkrytki");
+
+            var request = new PobierzNastepnyRequest()
+            {
+                Podmiot      = podmiot,
+                NazwaSkrytki = nazwaSkrytki,
+                AdresSkrytki = adresSkrytki
+            };
+
+            // call ePUAP service and parse the response
+            var response = WSSecurityRequest<PobierzNastepnyRequest, PobierzNastepnyResponse, PobierzNastepnyResponseHandler>(
+                this.ServiceUri,
+                request,
+                out fault);
+
+            // parsed response
+            return response;
+        }
+
+        #endregion
+
+        #region Potwierdź odebranie
+
+        #endregion
     }
 }
