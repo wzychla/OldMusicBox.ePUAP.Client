@@ -8,14 +8,6 @@ namespace OldMusicBox.ePUAP.Client.Model.Skrytka
     [XmlRoot("Dokument", Namespace = Namespaces.OBI)]
     public class NadajRequest : IServiceRequest
     {
-        public class DocumentType
-        {
-            public string NazwaPliku { get; set; }
-            public string TypPliku { get; set; }
-            public byte[] Zawartosc { get; set; }
-        }
-
-
         public string SOAPAction
         {
             get
@@ -92,5 +84,17 @@ namespace OldMusicBox.ePUAP.Client.Model.Skrytka
                 };
             }
         }
+    }
+
+    public class DocumentType
+    {
+        [XmlElement("nazwaPliku", Namespace = "")]
+        public string NazwaPliku { get; set; }
+
+        [XmlElement("typPliku", Namespace = "")]
+        public string TypPliku { get; set; }
+
+        [XmlElement("zawartosc", Namespace = "")]
+        public byte[] Zawartosc { get; set; }
     }
 }

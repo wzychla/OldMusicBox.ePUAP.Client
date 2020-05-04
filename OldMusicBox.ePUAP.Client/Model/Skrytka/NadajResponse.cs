@@ -17,5 +17,11 @@ namespace OldMusicBox.ePUAP.Client.Model.Skrytka
 
         [XmlElement("identyfikatorDokumentu", Namespace = "")]
         public int IdentyfikatorDokumentu { get; set; }
+
+        [XmlElement("identyfikatorUpp", Namespace = "")]
+        public int IdentyfikatorUPP { get; set; }
+
+        [XmlElement("zalacznik", Namespace = "")]
+        public DocumentType Zalacznik { get; set; }
     }
 }

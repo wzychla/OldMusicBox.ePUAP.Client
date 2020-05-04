@@ -42,7 +42,7 @@ namespace OldMusicBox.ePUAP.Client
             string adresOdpowiedzi, 
             bool   czyProbne, 
             byte[] daneDodatkowe, 
-            NadajRequest.DocumentType dokument,
+            DocumentType dokument,
             out FaultModel fault
             )
         {

@@ -308,7 +308,7 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
                 _adresOdpowiedzi,                
                 false,
                 null,
-                new Client.Model.Skrytka.NadajRequest.DocumentType()
+                new Client.Model.Skrytka.DocumentType()
                 {
                     NazwaPliku = "testowy.xml",
                     TypPliku   = "text/xml",
