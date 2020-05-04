@@ -24,7 +24,7 @@ namespace OldMusicBox.ePUAP.Tests
             var adresOdpowiedzi = "/bar/default";
             var podmiotNadawcy  = "test";
 
-            var document        = new NadajRequest.DocumentType
+            var document        = new DocumentType
             {
                 NazwaPliku = "plik.txt",
                 TypPliku   = "text/plain",
