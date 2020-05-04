@@ -20,45 +20,18 @@ namespace OldMusicBox.ePUAP.Client.Model.Pull
     {
         public OczekujaceDokumentyResponse FromSOAP(string soapResponse, out FaultModel fault)
         {
-            fault = null;
+            return this.FromSOAP_Template<OczekujaceDokumentyResponse>(soapResponse, out fault);
+        }
 
-            if (string.IsNullOrEmpty(soapResponse))
-            {
-                throw new ArgumentNullException();
-            }
+        protected override void AddManagerNamespaces(XmlNamespaceManager manager)
+        {
+            manager.AddNamespace("soapenv", Namespaces.SOAPENVELOPE);
+            manager.AddNamespace("p140", Namespaces.OBI);
+        }
 
-            try
-            {
-                var xml = new XmlDocument();
-                xml.LoadXml(soapResponse);
-
-                // fault?
-                if ( this.TryDeserializeFaultModel( soapResponse, out fault ) )
-                {
-                    return null;
-                }
-
-                // response?
-                var serializer = new XmlSerializer(typeof(OczekujaceDokumentyResponse));
-                var nsManager  = new XmlNamespaceManager(xml.NameTable);
-                nsManager.AddNamespace("soapenv", Namespaces.SOAPENVELOPE);
-                nsManager.AddNamespace("p140", Namespaces.OBI);
-
-                var response = xml.SelectSingleNode("//soapenv:Envelope/soapenv:Body/p140:OdpowiedzPullOczekujace", nsManager) as XmlElement;
-                if (response != null)
-                {
-                    using (var reader = new StringReader(response.OuterXml))
-                    {
-                        return serializer.Deserialize(reader) as OczekujaceDokumentyResponse;
-                    }
-                }
-
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw new ServiceClientException("Cannot deserialize OczekujaceDokumentyResponse", ex);
-            }
+        protected override string GetResponseXPath()
+        {
+            return "//soapenv:Envelope/soapenv:Body/p140:OdpowiedzPullOczekujace";
         }
     }
 }

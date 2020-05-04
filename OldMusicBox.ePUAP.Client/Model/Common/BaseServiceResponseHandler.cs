@@ -15,6 +15,9 @@ namespace OldMusicBox.ePUAP.Client.Model.Common
     /// </summary>
     public abstract class BaseServiceResponseHandler 
     {
+        /// <summary>
+        /// Faults are passed inside SOAP envs
+        /// </summary>
         public bool TryDeserializeFaultModel( string soapResponse, out FaultModel fault )
         {
             fault = null;
@@ -47,7 +50,57 @@ namespace OldMusicBox.ePUAP.Client.Model.Common
             {
                 return false;
             }
-
         }
+
+        /// <summary>
+        /// Template method for derived classes
+        /// </summary>
+        protected T FromSOAP_Template<T>(string soapResponse, out FaultModel fault)
+            where T : class, IServiceResponse
+        {
+            fault = null;
+
+            if (string.IsNullOrEmpty(soapResponse))
+            {
+                throw new ArgumentNullException();
+            }
+
+            try
+            {
+                var xml = new XmlDocument();
+                xml.LoadXml(soapResponse);
+
+                // fault?
+                if (this.TryDeserializeFaultModel(soapResponse, out fault))
+                {
+                    return null;
+                }
+
+                // response?
+                var serializer = new XmlSerializer(typeof(T));
+                var nsManager  = new XmlNamespaceManager(xml.NameTable);
+
+                this.AddManagerNamespaces(nsManager);
+
+                var response = xml.SelectSingleNode(this.GetResponseXPath(), nsManager) as XmlElement;
+                if (response != null)
+                {
+                    using (var reader = new StringReader(response.OuterXml))
+                    {
+                        return serializer.Deserialize(reader) as T;
+                    }
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceClientException(string.Format("Cannot deserialize {0}", typeof(T).Name ), ex);
+            }
+        }
+
+        protected abstract void AddManagerNamespaces(XmlNamespaceManager manager);
+
+        protected abstract string GetResponseXPath();
     }
 }

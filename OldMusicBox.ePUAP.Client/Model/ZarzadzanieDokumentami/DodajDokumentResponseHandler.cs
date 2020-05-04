@@ -16,45 +16,18 @@ namespace OldMusicBox.ePUAP.Client.Model.ZarzadzanieDokumentami
     {
         public DodajDokumentResponse FromSOAP(string soapResponse, out FaultModel fault)
         {
-            fault = null;
+            return FromSOAP_Template<DodajDokumentResponse>(soapResponse, out fault);
+        }
 
-            if (string.IsNullOrEmpty(soapResponse))
-            {
-                throw new ArgumentNullException();
-            }
+        protected override void AddManagerNamespaces(XmlNamespaceManager manager)
+        {
+            manager.AddNamespace("soapenv", Namespaces.SOAPENVELOPE);
+            manager.AddNamespace("p521", Namespaces.ZARZADZANIEDOKUMENTAMI);
+        }
 
-            try
-            {
-                var xml = new XmlDocument();
-                xml.LoadXml(soapResponse);
-
-                // fault?
-                if (this.TryDeserializeFaultModel(soapResponse, out fault))
-                {
-                    return null;
-                }
-
-                // response?
-                var serializer = new XmlSerializer(typeof(DodajDokumentResponse));
-                var nsManager  = new XmlNamespaceManager(xml.NameTable);
-                nsManager.AddNamespace("soapenv", Namespaces.SOAPENVELOPE);
-                nsManager.AddNamespace("p521", Namespaces.ZARZADZANIEDOKUMENTAMI);
-
-                var response = xml.SelectSingleNode("//soapenv:Envelope/soapenv:Body/p521:dodajDokumentResponse", nsManager) as XmlElement;
-                if (response != null)
-                {
-                    using (var reader = new StringReader(response.OuterXml))
-                    {
-                        return serializer.Deserialize(reader) as DodajDokumentResponse;
-                    }
-                }
-
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw new ServiceClientException("Cannot deserialize dodajDokumentResponse", ex);
-            }
+        protected override string GetResponseXPath()
+        {
+            return "//soapenv:Envelope/soapenv:Body/p521:dodajDokumentResponse";
         }
     }
 }
