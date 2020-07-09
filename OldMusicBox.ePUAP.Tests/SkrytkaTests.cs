@@ -49,5 +49,40 @@ namespace OldMusicBox.ePUAP.Tests
 
             Assert.IsNotNull(requestString);
         }
+
+        [TestMethod]
+        public void NadajAnyRequest_Valid()
+        {
+            // arrange
+            var czyProbne       = false;
+            var adresSkrytki    = "/foo/default";
+            var adresOdpowiedzi = "/bar/default";
+            var podmiotNadawcy  = "test";
+            var nazwaPliku      = "plik.txt";
+
+            var document = new DocumentAnyType
+            {
+                Zawartosc = "abc"
+            };
+
+            var request = new NadajAnyRequest()
+            {
+                CzyProbne       = czyProbne,
+                AdresOdpowiedzi = adresOdpowiedzi,
+                AdresSkrytki    = adresSkrytki,
+                PodmiotNadawcy  = podmiotNadawcy,
+                NazwaPliku      = nazwaPliku,
+                Document        = document
+            };
+
+            var requestFactory = new RequestFactory(new TestCertProvider().GetClientCertificate());
+
+            // act
+            string requestString = requestFactory.CreateRequest(request);
+
+            // assert
+
+            Assert.IsNotNull(requestString);
+        }
     }
 }

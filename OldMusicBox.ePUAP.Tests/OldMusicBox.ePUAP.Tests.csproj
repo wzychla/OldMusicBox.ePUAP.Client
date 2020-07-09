@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DoreczycielTests.cs" />
     <Compile Include="EnvelopeTests.cs" />
     <Compile Include="Model\ExampleRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

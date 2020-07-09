@@ -1,16 +1,16 @@
-﻿using OldMusicBox.ePUAP.Client.Constants;
-using OldMusicBox.ePUAP.Client.Model;
-using OldMusicBox.ePUAP.Client.Model.Headers;
+﻿using System;
 using OldMusicBox.ePUAP.Client.Request;
 using System.Xml.Serialization;
+using OldMusicBox.ePUAP.Client.Constants;
+using OldMusicBox.ePUAP.Client.Model.Headers;
 
-namespace OldMusicBox.ePUAP.Client.Model.Skrytka
+namespace OldMusicBox.ePUAP.Client.Model.Doreczyciel
 {
     /// <summary>
-    /// Nadaj request
+    /// Dorecz request
     /// </summary>
     [XmlRoot("Dokument", Namespace = Namespaces.OBI)]
-    public class NadajRequest : IServiceRequest
+    public class DoreczRequest : IServiceRequest
     {
         public string SOAPAction
         {
@@ -22,6 +22,14 @@ namespace OldMusicBox.ePUAP.Client.Model.Skrytka
 
         [XmlIgnore]
         public byte[] DaneDodatkowe { get; set; }
+
+        [XmlIgnore]
+        public string IdentyfikatorSprawy { get; set; }
+        [XmlIgnore]
+        public string IdentyfikatorDokumentu { get; set; }
+        [XmlIgnore]
+        public string IdentyfikatorPodmiotu { get; set; }
+
         [XmlIgnore]
         public bool CzyProbne { get; set; }
 
@@ -30,7 +38,7 @@ namespace OldMusicBox.ePUAP.Client.Model.Skrytka
         [XmlIgnore]
         public string AdresSkrytki { get; set; }
         [XmlIgnore]
-        public string PodmiotNadawcy { get; set; }
+        public DateTime TerminDoreczenia { get; set; }
 
         [XmlIgnore]
         public DocumentType Document { get; set; }
@@ -73,7 +81,7 @@ namespace OldMusicBox.ePUAP.Client.Model.Skrytka
                 this.Document.Zawartosc = value;
             }
         }
-        
+
         public HeaderAttribute[] HeaderAttributes
         {
             get
@@ -81,10 +89,13 @@ namespace OldMusicBox.ePUAP.Client.Model.Skrytka
                 return new HeaderAttribute[]
                 {
                     new DaneDodatkoweHeaderAttribute(this.DaneDodatkowe),
+                    new IdentyfikatorSprawyHeaderAttribute(this.IdentyfikatorSprawy),
+                    new IdentyfikatorDokumentuHeaderAttribute(this.IdentyfikatorDokumentu),
                     new CzyProbneHeaderAttribute(this.CzyProbne),
+                    new TerminDoreczeniaHeaderAttribute(this.TerminDoreczenia),
                     new AdresOdpowiedziHeaderAttribute(this.AdresOdpowiedzi),
                     new AdresSkrytkiHeaderAttribute(this.AdresSkrytki),
-                    new IdentyfikatorPodmiotuHeaderAttribute(this.PodmiotNadawcy)
+                    new IdentyfikatorPodmiotuHeaderAttribute(this.AdresSkrytki),
                 };
             }
         }

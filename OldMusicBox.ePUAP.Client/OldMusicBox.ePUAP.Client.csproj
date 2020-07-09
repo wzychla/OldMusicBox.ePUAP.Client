@@ -51,6 +51,7 @@
     <Compile Include="Code\StringWriter8.cs" />
     <Compile Include="Constants\Namespaces.cs" />
     <Compile Include="Constants\OMBClaimTypes.cs" />
+    <Compile Include="DoreczycielClient.cs" />
     <Compile Include="Model\AddDocumentToSigning\AddDocumentToSigningRequest.cs" />
     <Compile Include="Model\AddDocumentToSigning\AddDocumentToSigningResponse.cs" />
     <Compile Include="Model\AddDocumentToSigning\AddDocumentToSigningResponseHandler.cs" />
@@ -58,6 +59,9 @@
     <Compile Include="Model\Common\FaultModelHandler.cs" />
     <Compile Include="Model\Common\BaseServiceResponseHandler.cs" />
     <Compile Include="Model\Common\StatusModel.cs" />
+    <Compile Include="Model\Doreczyciel\DoreczRequest.cs" />
+    <Compile Include="Model\Doreczyciel\DoreczResponse.cs" />
+    <Compile Include="Model\Doreczyciel\DoreczResponseHandler.cs" />
     <Compile Include="Model\GetSignedDocument\GetSignedDocumentRequest.cs" />
     <Compile Include="Model\GetSignedDocument\GetSignedDocumentResponse.cs" />
     <Compile Include="Model\GetSignedDocument\GetSignedDocumentResponseHandler.cs" />
@@ -67,6 +71,15 @@
     <Compile Include="Base\IServiceRequest.cs" />
     <Compile Include="Base\IServiceResponse.cs" />
     <Compile Include="Base\IServiceResponseHandler.cs" />
+    <Compile Include="Model\Headers\AdresOdpowiedziHeaderAttribute.cs" />
+    <Compile Include="Model\Headers\AdresSkrytkiHeaderAttribute.cs" />
+    <Compile Include="Model\Headers\CzyProbneHeaderAttribute.cs" />
+    <Compile Include="Model\Headers\DaneDodatkoweHeaderAttribute.cs" />
+    <Compile Include="Model\Headers\IdentyfikatorDokumentuHeaderAttribute.cs" />
+    <Compile Include="Model\Headers\IdentyfikatorPodmiotuHeaderAttribute.cs" />
+    <Compile Include="Model\Headers\IdentyfikatorSprawyHeaderAttribute.cs" />
+    <Compile Include="Model\Headers\NazwaPlikuHeaderAttribute.cs" />
+    <Compile Include="Model\Headers\TerminDoreczeniaHeaderAttribute.cs" />
     <Compile Include="Model\Pull\OczekujaceDokumentyRequest.cs" />
     <Compile Include="Model\Pull\OczekujaceDokumentyResponse.cs" />
     <Compile Include="Model\Pull\OczekujaceDokumentyResponseHandler.cs" />
@@ -76,6 +89,9 @@
     <Compile Include="Model\Pull\PotwierdzOdebranieRequest.cs" />
     <Compile Include="Model\Pull\PotwierdzOdebranieResponse.cs" />
     <Compile Include="Model\Pull\PotwierdzOdebranieResponseHandler.cs" />
+    <Compile Include="Model\Skrytka\NadajAnyRequest.cs" />
+    <Compile Include="Model\Skrytka\NadajAnyResponse.cs" />
+    <Compile Include="Model\Skrytka\NadajAnyResponseHandler.cs" />
     <Compile Include="Model\VerifySignedDocument\VerifySignedDocumentRequest.cs" />
     <Compile Include="Model\VerifySignedDocument\VerifySignedDocumentResponse.cs" />
     <Compile Include="Model\VerifySignedDocument\VerifySignedDocumentResponseHandler.cs" />
@@ -90,7 +106,6 @@
     <Compile Include="ServiceClientException.cs" />
     <Compile Include="SkrytkaClient.cs" />
     <Compile Include="Model\Skrytka\NadajRequest.cs" />
-    <Compile Include="Model\Skrytka\HeaderAttributes.cs" />
     <Compile Include="Model\Skrytka\NadajResponse.cs" />
     <Compile Include="Model\Skrytka\NadajResponseHandler.cs" />
     <Compile Include="TpSigningClient.cs" />

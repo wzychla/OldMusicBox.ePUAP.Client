@@ -38,9 +38,14 @@ namespace OldMusicBox.ePUAP.Client.Constants
         public const string USERINFO     = "http://userinfo.zp.epuap.gov.pl";
 
         /// <summary>
+        /// epuap.gov/obiektyext
+        /// </summary>
+        public const string OBI_EXT      = "http://wsdl.epuap.gov.pl/obiekty/ext/";
+
+        /// <summary>
         /// epuap.gov/obiekty
         /// </summary>
-        public const string OBI = "http://wsdl.epuap.gov.pl/obiekty/";
+        public const string OBI          = "http://wsdl.epuap.gov.pl/obiekty/";
 
         /// <summary>
         /// epuap.gov/zarzadzanieDokumentami

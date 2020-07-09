@@ -83,5 +83,64 @@ namespace OldMusicBox.ePUAP.Client
         }
 
         #endregion
+
+        #region NadajAny
+
+        /// <summary>
+        /// Interfejs służy do nadawania (przedkladania) dokumentów dowolnego typu na skrytkę
+        /// </summary>
+        /// <param name="podmiot">Identyfikator podmiotu w kontekście ktorego nadawany jest dokument</param>
+        /// <param name="adresSkrytki">Adres skrytki odbiorcy</param>
+        /// <param name="adresOdpowiedzi">Adres skrytki nadawcy na ktory mają być przesyłane odpowiedzi w sprawie</param>
+        /// <param name="czyProbne">Określa czy to jest nadanie próbne, jedynie w celu sprawdzenia poprawności dokumentu i adresu; przy nadawaniu probnym dokument nie jest przekazywany do odbiorcy ani nie jest wystawiane UPP</param>
+        /// <param name="daneDodatkowe">Dodatkowe dane w formacie XML</param>
+        /// <param name="dokument">Przesyłany dokument wraz z ewentualnymi załącznikami</param>
+        public virtual NadajAnyResponse NadajAny(
+            string identyfikatorPodmiotu,
+            string adresSkrytki,
+            string adresOdpowiedzi,
+            bool   czyProbne,
+            byte[] daneDodatkowe,
+            string nazwaPliku,
+            DocumentAnyType dokument,
+            out FaultModel fault
+            )
+        {
+            // validation
+            if (string.IsNullOrEmpty(identyfikatorPodmiotu))
+                throw new ArgumentNullException("identyfikatorPodmiotu");
+            if (string.IsNullOrEmpty(adresSkrytki))
+                throw new ArgumentNullException("adresSkrytki");
+            if (string.IsNullOrEmpty(adresOdpowiedzi))
+                throw new ArgumentNullException("adresOdpowiedzi");
+            if (string.IsNullOrEmpty(nazwaPliku))
+                throw new ArgumentException("nazwaPliku");
+            if (dokument == null)
+                throw new ArgumentException("dokument");
+            if (dokument.Zawartosc == null)
+                throw new ArgumentException("dokument");
+
+            var request = new NadajAnyRequest()
+            {
+                DaneDodatkowe   = daneDodatkowe,
+                CzyProbne       = czyProbne,
+                AdresOdpowiedzi = adresOdpowiedzi,
+                AdresSkrytki    = adresSkrytki,
+                PodmiotNadawcy  = identyfikatorPodmiotu,
+                NazwaPliku      = nazwaPliku,
+                Document        = dokument
+            };
+
+            // call ePUAP service and parse the response
+            var response = WSSecurityRequest<NadajAnyRequest, NadajAnyResponse, NadajAnyResponseHandler>(
+                this.ServiceUri,
+                request,
+                out fault);
+
+            // parsed response
+            return response;
+        }
+
+        #endregion
     }
 }

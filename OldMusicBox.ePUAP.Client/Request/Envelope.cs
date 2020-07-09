@@ -1,5 +1,6 @@
 ﻿using OldMusicBox.ePUAP.Client.Constants;
 using OldMusicBox.ePUAP.Client.Model;
+using OldMusicBox.ePUAP.Client.Model.Headers;
 using OldMusicBox.ePUAP.Client.Model.Skrytka;
 using OldMusicBox.Saml2;
 using System;
@@ -261,11 +262,15 @@ namespace OldMusicBox.ePUAP.Client.Request
         [XmlElement("Security", Namespace = Namespaces.WS_SEC_EXT)]
         public Security Security { get; set; }
 
-        [XmlElement("DaneDodatkowe",         typeof(DaneDodatkoweHeaderAttribute),         Namespace = Namespaces.OBI)]
-        [XmlElement("CzyProbne",             typeof(CzyProbneHeaderAttribute),             Namespace = Namespaces.OBI)]
-        [XmlElement("AdresSkrytki",          typeof( AdresSkrytkiHeaderAttribute ),        Namespace = Namespaces.OBI)]
-        [XmlElement("AdresOdpowiedzi",       typeof(AdresOdpowiedziHeaderAttribute),       Namespace = Namespaces.OBI)]
-        [XmlElement("IdentyfikatorPodmiotu", typeof(IdentyfikatorPodmiotuHeaderAttribute), Namespace = Namespaces.OBI)]
+        [XmlElement("AdresSkrytki",           typeof(AdresSkrytkiHeaderAttribute),           Namespace = Namespaces.OBI)]
+        [XmlElement("AdresOdpowiedzi",        typeof(AdresOdpowiedziHeaderAttribute),        Namespace = Namespaces.OBI)]
+        [XmlElement("CzyProbne",              typeof(CzyProbneHeaderAttribute),              Namespace = Namespaces.OBI)]
+        [XmlElement("DaneDodatkowe",          typeof(DaneDodatkoweHeaderAttribute),          Namespace = Namespaces.OBI)]
+        [XmlElement("IdentyfikatorDokumentu", typeof(IdentyfikatorDokumentuHeaderAttribute), Namespace = Namespaces.OBI)]
+        [XmlElement("IdentyfikatorPodmiotu",  typeof(IdentyfikatorPodmiotuHeaderAttribute),  Namespace = Namespaces.OBI)]
+        [XmlElement("IdentyfikatorSprawy",    typeof(IdentyfikatorSprawyHeaderAttribute),    Namespace = Namespaces.OBI)]
+        [XmlElement("NazwaPliku",             typeof(NazwaPlikuHeaderAttribute),             Namespace = Namespaces.OBI)]
+        [XmlElement("TerminDoreczenia",       typeof(TerminDoreczeniaHeaderAttribute),       Namespace = Namespaces.OBI)]
         public HeaderAttribute[] Attributes { get; set; }
 
         private XmlSerializerNamespaces _xmlns;

@@ -10,7 +10,7 @@ The client will support:
 The implementation follows the 
 [official specification](https://epuap.gov.pl/wps/portal/strefa-urzednika/pomoc_urzednik/) (*Dla integratorów* section).
 
-## Current Version: 0.60
+## Current Version: 0.61
 
 Please refer to the change list and the road map below.
 
@@ -21,7 +21,8 @@ Please refer to the change list and the road map below.
 |NuGet|**yes**|
 |Single Sign On|**yes**|
 |Document Signing|**yes**|
-|WS-Skrytka|**partial**|
+|WS-Skrytka|**yes**|
+|WS-Doręczyciel|**partial**|
 |WS-pull|**yes**|
 |WS-ZarzadzanieDokumentami|**partial**|
 |Single Log Out|not yet|
@@ -111,6 +112,10 @@ The certificate used here has to be uploaded by the Public authority administrat
 To do this, log into ePUAP using the Public authority profile, click your username, select **Administrowanie / Zarządzanie kontem / Systemy** and here create a new system together with its certificate (the public key in the PEM format).
 
 ## Version History:
+
+* 0.61 (2020-07-09)
+    * complete support for `WS-Skrytka` (added `nadajAny`)
+    * partial support for `WS-Doręczyciel` (added `dorecz`)
 
 * 0.60 (2020-05-04)
     * complete support for `WS-Pull`
