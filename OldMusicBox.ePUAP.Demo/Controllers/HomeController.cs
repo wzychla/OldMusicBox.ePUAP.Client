@@ -284,8 +284,8 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
 
             //WSSkrytka_Demo(certificate);
             WSPull_Demo(certificate);
-
             //WSZarzadzanieDokumentami_DodajDokument_Demo(certificate);
+            //WSDoreczyciel_Dorecz_Demo(certificate);
 
             return Redirect("/Home/Index");
         }
@@ -360,6 +360,39 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
         }
 
         /// <summary>
+        /// WS-Doręczyciel - doręczenie dokumentu do wskazanego odbiorcy z żądaniem UPD
+        /// </summary>
+        private void WSDoreczyciel_Dorecz_Demo(X509Certificate2 certificate)
+        {
+            FaultModel fault;
+
+            var client = new DoreczycielClient(DoreczycielClient.INTEGRATION_URI, certificate);
+
+            var _podmiot                = "vulcandpo";
+            var _adresSkrytki           = "/vulcandpo/domyslna";
+            var _adresOdpowiedzi        = "/vulcandpo/testowa";
+            var _identyfikatorDokumentu = "id_123456";
+            var _identyfikatorSprawy    = "ids_123456";
+
+            var doreczenie              = client.Dorecz(_podmiot, _adresSkrytki, _adresOdpowiedzi, 
+                                                    DateTime.UtcNow, false, 
+                                                    _identyfikatorDokumentu, _identyfikatorSprawy,
+                                                    null, null,
+                                                    new Client.Model.Doreczyciel.DocumentType()
+                                                    {
+                                                        NazwaPliku = "testowy.xml",
+                                                        TypPliku   = "text/xml",
+                                                        //Zawartosc  = Encoding.UTF8.GetBytes(ExampleDocument)
+                                                        Zawartosc = System.IO.File.ReadAllBytes(@"c:\Temp\003\Domagała Dagmara potwierdzenie tozsamosci.xml.xades")
+                                                    },
+                                                    out fault);
+            if (fault != null)
+            {
+                throw new ApplicationException("Consult fault object for more details");
+            }
+        }
+
+        /// <summary>
         /// Demo pokazuje jak umieścić dokument we wskazanej skrzynce właściciela certyfikatu
         /// 
         /// Jako Folder należy podać
@@ -401,6 +434,8 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
                 out fault
                 );
         }
+
+
 
         #endregion
     }

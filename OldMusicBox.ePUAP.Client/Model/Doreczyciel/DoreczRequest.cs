@@ -95,7 +95,7 @@ namespace OldMusicBox.ePUAP.Client.Model.Doreczyciel
                     new TerminDoreczeniaHeaderAttribute(this.TerminDoreczenia),
                     new AdresOdpowiedziHeaderAttribute(this.AdresOdpowiedzi),
                     new AdresSkrytkiHeaderAttribute(this.AdresSkrytki),
-                    new IdentyfikatorPodmiotuHeaderAttribute(this.AdresSkrytki),
+                    new IdentyfikatorPodmiotuHeaderAttribute(this.IdentyfikatorPodmiotu),
                 };
             }
         }
