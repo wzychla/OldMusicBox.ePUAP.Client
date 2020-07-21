@@ -374,6 +374,8 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
             var _identyfikatorDokumentu = "id_123456";
             var _identyfikatorSprawy    = "ids_123456";
 
+            // uwaga ten dokument nie przejdzie przez dorecz, ponieważ nie jest podpisany
+            // tylko dokumenty podpisane PK lub PZ przechodzą
             var doreczenie              = client.Dorecz(_podmiot, _adresSkrytki, _adresOdpowiedzi, 
                                                     DateTime.UtcNow, false, 
                                                     _identyfikatorDokumentu, _identyfikatorSprawy,
@@ -382,8 +384,7 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
                                                     {
                                                         NazwaPliku = "testowy.xml",
                                                         TypPliku   = "text/xml",
-                                                        //Zawartosc  = Encoding.UTF8.GetBytes(ExampleDocument)
-                                                        Zawartosc = System.IO.File.ReadAllBytes(@"c:\Temp\003\Domagała Dagmara potwierdzenie tozsamosci.xml.xades")
+                                                        Zawartosc  = Encoding.UTF8.GetBytes(ExampleDocument)
                                                     },
                                                     out fault);
             if (fault != null)
