@@ -36,6 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -109,6 +110,9 @@
     <Compile Include="Model\Skrytka\NadajResponse.cs" />
     <Compile Include="Model\Skrytka\NadajResponseHandler.cs" />
     <Compile Include="TpSigningClient.cs" />
+    <Compile Include="XAdES\XAdESSignedXml.cs" />
+    <Compile Include="XAdES\IXMLSigner.cs" />
+    <Compile Include="XAdES\XAdESBESSigner.cs" />
     <Compile Include="ZarzadzanieDokumentamiClient.cs" />
   </ItemGroup>
   <ItemGroup>

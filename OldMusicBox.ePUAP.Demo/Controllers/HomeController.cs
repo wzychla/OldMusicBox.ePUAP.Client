@@ -375,16 +375,19 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
             var _identyfikatorSprawy    = "ids_123456";
 
             // uwaga ten dokument nie przejdzie przez dorecz, ponieważ nie jest podpisany
-            // tylko dokumenty podpisane PK lub PZ przechodzą
+            // tylko dokumenty podpisane PK przechodzą
             var doreczenie              = client.Dorecz(_podmiot, _adresSkrytki, _adresOdpowiedzi, 
                                                     DateTime.UtcNow, false, 
                                                     _identyfikatorDokumentu, _identyfikatorSprawy,
                                                     null, null,
                                                     new Client.Model.Doreczyciel.DocumentType()
                                                     {
-                                                        NazwaPliku = "testowy.xml",
-                                                        TypPliku   = "text/xml",
-                                                        Zawartosc  = Encoding.UTF8.GetBytes(ExampleDocument)
+                                                        //NazwaPliku = "testowy.xml",
+                                                        //TypPliku   = "text/xml",
+                                                        //Zawartosc  = Encoding.UTF8.GetBytes(ExampleDocument)
+                                                        NazwaPliku   = "test.xml",
+                                                        TypPliku     = "text/xml",
+                                                        Zawartosc    = System.IO.File.ReadAllBytes(@"c:\Temp\ePUAP\xades\test.637335192527027251.xml").Skip(3).ToArray()
                                                     },
                                                     out fault);
             if (fault != null)

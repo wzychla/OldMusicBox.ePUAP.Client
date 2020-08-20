@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OldMusicBox.ePUAP.Demo", "O
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OldMusicBox.ePUAP.Tests", "OldMusicBox.ePUAP.Tests\OldMusicBox.ePUAP.Tests.csproj", "{57763B2F-5146-4D0F-B20E-608DE09C4AEF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OldMusicBox.XAdES.Demo", "OldMusicBox.XAdES.Demo\OldMusicBox.XAdES.Demo.csproj", "{BFC06CB2-FBC7-463B-8C95-46B03855A48F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{57763B2F-5146-4D0F-B20E-608DE09C4AEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57763B2F-5146-4D0F-B20E-608DE09C4AEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57763B2F-5146-4D0F-B20E-608DE09C4AEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFC06CB2-FBC7-463B-8C95-46B03855A48F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFC06CB2-FBC7-463B-8C95-46B03855A48F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFC06CB2-FBC7-463B-8C95-46B03855A48F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFC06CB2-FBC7-463B-8C95-46B03855A48F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

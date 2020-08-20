@@ -10,7 +10,7 @@ The client will support:
 The implementation follows the 
 [official specification](https://epuap.gov.pl/wps/portal/strefa-urzednika/pomoc_urzednik/) (*Dla integratorów* section).
 
-## Current Version: 0.61
+## Current Version: 0.62
 
 Please refer to the change list and the road map below.
 
@@ -112,6 +112,9 @@ The certificate used here has to be uploaded by the Public authority administrat
 To do this, log into ePUAP using the Public authority profile, click your username, select **Administrowanie / Zarządzanie kontem / Systemy** and here create a new system together with its certificate (the public key in the PEM format).
 
 ## Version History:
+
+* 0.62 (2020-08.20)
+    * preliminary support for XAdES-BES (required for `WS-Doreczyciel`)
 
 * 0.61 (2020-07-09)
     * complete support for `WS-Skrytka` (added `nadajAny`)
