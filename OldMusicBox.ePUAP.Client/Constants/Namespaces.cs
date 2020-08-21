@@ -72,6 +72,20 @@ namespace OldMusicBox.ePUAP.Client.Constants
         /// </summary>
         public const string XADES = "http://uri.etsi.org/01903/v1.3.2#";
 
+        /// <summary>
+        /// wnio::podpisany dokument
+        /// </summary>
+        public const string WNIO_PODPISANYDOKUMENT = "http://epuap.gov.pl/fe-model-web/wzor_lokalny/EPUAP-----/podpisanyPlik/";
+
+        /// <summary>
+        /// wnio::meta
+        /// </summary>
+        public const string WNIO_META = "http://crd.gov.pl/xml/schematy/meta/2009/11/16/";
+
+        /// <summary>
+        /// wnio::str
+        /// </summary>
+        public const string WNIO_STR  = "http://crd.gov.pl/xml/schematy/struktura/2009/11/16/";
 
     }
 }

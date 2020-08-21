@@ -283,9 +283,9 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
             var certificate = new ClientCertificateProvider().GetClientCertificate();
 
             //WSSkrytka_Demo(certificate);
-            WSPull_Demo(certificate);
+            //WSPull_Demo(certificate);
             //WSZarzadzanieDokumentami_DodajDokument_Demo(certificate);
-            //WSDoreczyciel_Dorecz_Demo(certificate);
+            WSDoreczyciel_Dorecz_Demo(certificate);
 
             return Redirect("/Home/Index");
         }
@@ -387,7 +387,7 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
                                                         //Zawartosc  = Encoding.UTF8.GetBytes(ExampleDocument)
                                                         NazwaPliku   = "test.xml",
                                                         TypPliku     = "text/xml",
-                                                        Zawartosc    = System.IO.File.ReadAllBytes(@"c:\Temp\ePUAP\xades\test.637335192527027251.xml").Skip(3).ToArray()
+                                                        Zawartosc    = System.IO.File.ReadAllBytes(@"c:\Temp\ePUAP\xades\test.637335615492962051.xml")
                                                     },
                                                     out fault);
             if (fault != null)

@@ -10,7 +10,7 @@ The client will support:
 The implementation follows the 
 [official specification](https://epuap.gov.pl/wps/portal/strefa-urzednika/pomoc_urzednik/) (*Dla integratorów* section).
 
-## Current Version: 0.62
+## Current Version: 0.63
 
 Please refer to the change list and the road map below.
 
@@ -113,7 +113,10 @@ To do this, log into ePUAP using the Public authority profile, click your userna
 
 ## Version History:
 
-* 0.62 (2020-08.20)
+* 0.63 (2020-08-21)
+    * preliminaru support for `wnio:Dokument` (optional for `WS-Doreczyciel`)
+
+* 0.62 (2020-08-20)
     * preliminary support for XAdES-BES (required for `WS-Doreczyciel`)
 
 * 0.61 (2020-07-09)

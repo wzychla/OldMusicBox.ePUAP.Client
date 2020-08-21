@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OldMusicBox.ePUAP.Client.Constants;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -17,8 +18,11 @@ namespace OldMusicBox.ePUAP.Client.XAdES
     public class XAdESBESSigner : IXMLSigner
     {
         public const string XADES_Prefix           = "xades";
+
+        /// <summary>
+        /// XAdES SignedProperties
+        /// </summary>
         public const string XADES_SignedProperties = "http://uri.etsi.org/01903#SignedProperties";
-        public const string XADES_NamespaceUrl     = "http://uri.etsi.org/01903/v1.3.2#";
 
         private const string SignatureId           = "Signature";
         private const string SignaturePropertiesId = "SignedProperties";
@@ -83,34 +87,34 @@ namespace OldMusicBox.ePUAP.Client.XAdES
             var objectNode = document.CreateElement("Object", SignedXml.XmlDsigNamespaceUrl);
 
             // <Object><QualifyingProperties>
-            var qualifyingPropertiesNode = document.CreateElement(XADES_Prefix, "QualifyingProperties", XADES_NamespaceUrl);
+            var qualifyingPropertiesNode = document.CreateElement(XADES_Prefix, "QualifyingProperties", Namespaces.XADES);
             qualifyingPropertiesNode.SetAttribute("Target", string.Format( "#{0}", SignatureId));
             objectNode.AppendChild(qualifyingPropertiesNode);
 
             // <Object><QualifyingProperties><SignedProperties>
-            var signedPropertiesNode = document.CreateElement(XADES_Prefix, "SignedProperties", XADES_NamespaceUrl);
+            var signedPropertiesNode = document.CreateElement(XADES_Prefix, "SignedProperties", Namespaces.XADES);
             signedPropertiesNode.SetAttribute("Id", SignaturePropertiesId);
             qualifyingPropertiesNode.AppendChild(signedPropertiesNode);
 
             // <Object><QualifyingProperties><SignedProperties><SignedSignatureProperties>
-            var signedSignaturePropertiesNode = document.CreateElement(XADES_Prefix, "SignedSignatureProperties", XADES_NamespaceUrl);
+            var signedSignaturePropertiesNode = document.CreateElement(XADES_Prefix, "SignedSignatureProperties", Namespaces.XADES);
             signedPropertiesNode.AppendChild(signedSignaturePropertiesNode);
 
             // <Object><QualifyingProperties><SignedProperties><SignedSignatureProperties> </SigningTime>
-            var signingTime = document.CreateElement(XADES_Prefix, "SigningTime", XADES_NamespaceUrl);
+            var signingTime = document.CreateElement(XADES_Prefix, "SigningTime", Namespaces.XADES);
             signingTime.InnerText = DateTime.UtcNow.ToString("s")+"Z";
             signedSignaturePropertiesNode.AppendChild(signingTime);
 
             // <Object><QualifyingProperties><SignedProperties><SignedSignatureProperties><SigningCertificate>
-            var signingCertificateNode = document.CreateElement(XADES_Prefix, "SigningCertificate", XADES_NamespaceUrl);
+            var signingCertificateNode = document.CreateElement(XADES_Prefix, "SigningCertificate", Namespaces.XADES);
             signedSignaturePropertiesNode.AppendChild(signingCertificateNode);
 
             // <Object><QualifyingProperties><SignedProperties><SignedSignatureProperties><SigningCertificate><Cert>
-            var certNode = document.CreateElement(XADES_Prefix, "Cert", XADES_NamespaceUrl);
+            var certNode = document.CreateElement(XADES_Prefix, "Cert", Namespaces.XADES);
             signingCertificateNode.AppendChild(certNode);
 
             // <Object><QualifyingProperties><SignedProperties><SignedSignatureProperties><SigningCertificate><Cert><CertDigest>
-            var certDigestNode = document.CreateElement(XADES_Prefix, "CertDigest", XADES_NamespaceUrl);
+            var certDigestNode = document.CreateElement(XADES_Prefix, "CertDigest", Namespaces.XADES);
             certNode.AppendChild(certDigestNode);
 
             // <Object><QualifyingProperties><SignedProperties><SignedSignatureProperties><SigningCertificate><Cert><CertDigest> </DigestMethod>
@@ -128,7 +132,7 @@ namespace OldMusicBox.ePUAP.Client.XAdES
             certDigestNode.AppendChild(digestValue);
 
             // <Object><QualifyingProperties><SignedProperties><SignedSignatureProperties><SigningCertificate><Cert><IssuerSerial>
-            var issuerSerialNode = document.CreateElement(XADES_Prefix, "IssuerSerial", XADES_NamespaceUrl);
+            var issuerSerialNode = document.CreateElement(XADES_Prefix, "IssuerSerial", Namespaces.XADES);
             certNode.AppendChild(issuerSerialNode);
 
             // <Object><QualifyingProperties><SignedProperties><SignedSignatureProperties><SigningCertificate><Cert><IssuerSerial> </X509IssuerName>

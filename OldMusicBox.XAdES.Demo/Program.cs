@@ -1,4 +1,6 @@
-﻿using OldMusicBox.ePUAP.Client.XAdES;
+﻿using OldMusicBox.ePUAP.Client.Model.Dokumenty;
+using OldMusicBox.ePUAP.Client.Model.XML;
+using OldMusicBox.ePUAP.Client.XAdES;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,17 +19,39 @@ namespace OldMusicBox.XAdES.Demo
             try
             {
                 // arrange
-                var xml  = File.ReadAllText("test.xml", Encoding.UTF8);
-                var cert = Program.Certificate;
-                if ( cert == null )
+                // var xml  = File.ReadAllText("test.xml", Encoding.UTF8);
+                var pdf     = File.ReadAllBytes("test.pdf");
+                var cert    = Program.Certificate;
+                if ( cert   == null )
                 {
                     Console.WriteLine("No certificate selected.");
                     Environment.Exit(0);
                 }
 
+                var dokument = new Dokument();
+
+                dokument.Opis.Data.Czas.Wartosc = DateTime.Now;
+
+                dokument.Dane.Naglowek.Nazwa.Wartosc = "test.pdf";
+                dokument.Dane.Data.Czas.Wartosc = DateTime.Now;
+
+                dokument.Tresc.Zalaczniki = new Zalacznik[]
+                {
+                    new Zalacznik()
+                    {
+                        Format         = "application/pdf",
+                        DaneZalacznika = new DaneZalacznika()
+                        {
+                            Zawartosc = pdf
+                        }
+                    }
+                };
                 // act
-                var document = new XmlDocument();
-                document.LoadXml(xml);
+
+                var document = dokument.ToXmlDocument();
+
+                //var document = new XmlDocument();
+                //document.LoadXml(xml);
 
                 var signed = new XAdESBESSigner().Sign(document, cert);
                 if ( signed != null )

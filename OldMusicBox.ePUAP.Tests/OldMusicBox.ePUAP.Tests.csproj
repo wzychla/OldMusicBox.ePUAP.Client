@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DokumentTests.cs" />
     <Compile Include="DoreczycielTests.cs" />
     <Compile Include="EnvelopeTests.cs" />
     <Compile Include="Model\ExampleRequest.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="ServiceClientTests.cs" />
     <Compile Include="SkrytkaTests.cs" />
     <Compile Include="TestCertProvider.cs" />
+    <Compile Include="XmlConverterTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OldMusicBox.ePUAP.Client\OldMusicBox.ePUAP.Client.csproj">
@@ -70,6 +72,9 @@
   <ItemGroup>
     <None Include="packages.config" />
     <EmbeddedResource Include="testcert.p12" />
+    <None Include="test.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
