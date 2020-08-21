@@ -60,6 +60,8 @@ namespace OldMusicBox.ePUAP.Client.XAdES
         {
             var signatureReference = new Reference { Uri = "", };
             signatureReference.AddTransform(new XmlDsigEnvelopedSignatureTransform());
+            //var c14t = new XmlDsigC14NTransform();
+            //signatureReference.AddTransform(c14t);
             signature.AddReference(signatureReference);
         }
 
@@ -81,6 +83,8 @@ namespace OldMusicBox.ePUAP.Client.XAdES
                 Uri  = string.Format( "#{0}", SignaturePropertiesId ),
                 Type = XADES_SignedProperties
             };
+            //var c14t = new XmlDsigC14NTransform();
+            //xadesReference.AddTransform(c14t);
             signature.AddReference(xadesReference);
 
             // <Object>

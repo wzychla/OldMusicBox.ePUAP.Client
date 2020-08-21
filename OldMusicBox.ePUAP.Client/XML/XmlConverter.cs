@@ -27,12 +27,14 @@ namespace OldMusicBox.ePUAP.Client.Model.XML
 
             var xs = new XmlSerializer(typeof(T));
             using (var ms = new MemoryStream())
+            using (var xw = XmlWriter.Create(ms, new XmlWriterSettings { Indent = false, Encoding = new UTF8Encoding(false) }))
             {
-                xs.Serialize(ms, dokument, namespaces);
+                xs.Serialize(xw, dokument, namespaces);
 
                 ms.Seek(0, SeekOrigin.Begin);
 
                 var xd = new XmlDocument();
+                xd.PreserveWhitespace = true;
                 xd.Load(ms);
 
                 return xd;
