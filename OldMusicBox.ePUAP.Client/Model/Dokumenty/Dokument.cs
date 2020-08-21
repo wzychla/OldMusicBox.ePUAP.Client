@@ -105,6 +105,7 @@ namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
             {
                 return string.Format("Podpisany plik, załącznik base64: {0}", Convert.ToBase64String(Encoding.UTF8.GetBytes(this.Wartosc)));
             }
+            set { }
         }
     }
 
@@ -138,6 +139,7 @@ namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
     {
         public Zalacznik()
         {
+            this.Kodowanie = "base64";
             this.DaneZalacznika = new DaneZalacznika();
         }
 
@@ -147,8 +149,19 @@ namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
         [XmlAttribute("kodowanie", Namespace = "")]
         public string Kodowanie { get; set; }
 
-        [XmlAttribute("nazwaPliku", Namespace = "")]
+        [XmlIgnore]
         public string NazwaPliku { get; set; }
+
+        [XmlAttribute("nazwaPliku", Namespace = "")]
+        public string NazwaPliku_Render
+        {
+            get
+            {
+                return Convert.ToBase64String(Encoding.UTF8.GetBytes(this.NazwaPliku));
+            }
+            set
+            { }
+        }
 
         [XmlElement("DaneZalacznika", Namespace = Namespaces.WNIO_PODPISANYDOKUMENT)]
         public DaneZalacznika DaneZalacznika { get; set; }

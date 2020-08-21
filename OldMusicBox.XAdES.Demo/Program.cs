@@ -9,6 +9,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace OldMusicBox.XAdES.Demo
 {
@@ -40,6 +41,7 @@ namespace OldMusicBox.XAdES.Demo
                     new Zalacznik()
                     {
                         Format         = "application/pdf",
+                        NazwaPliku     = "test.pdf",
                         DaneZalacznika = new DaneZalacznika()
                         {
                             Zawartosc = pdf
@@ -48,7 +50,11 @@ namespace OldMusicBox.XAdES.Demo
                 };
                 // act
 
-                var document = dokument.ToXmlDocument();
+                var namespaces = new XmlSerializerNamespaces();
+                namespaces.Add("wnio", ePUAP.Client.Constants.Namespaces.WNIO_PODPISANYDOKUMENT);
+                namespaces.Add("meta", ePUAP.Client.Constants.Namespaces.WNIO_META);
+                namespaces.Add("str",  ePUAP.Client.Constants.Namespaces.WNIO_STR);
+                var document = dokument.ToXmlDocument(namespaces);
 
                 //var document = new XmlDocument();
                 //document.LoadXml(xml);
