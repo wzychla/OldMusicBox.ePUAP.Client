@@ -52,10 +52,10 @@ namespace OldMusicBox.XAdES.Demo
                 // act
 
                 var namespaces = new XmlSerializerNamespaces();
-                namespaces.Add("", ePUAP.Client.Constants.Namespaces.WNIO_PODPISANYDOKUMENT);
-                //namespaces.Add("wnio", ePUAP.Client.Constants.Namespaces.WNIO_PODPISANYDOKUMENT);
-                //namespaces.Add("meta", ePUAP.Client.Constants.Namespaces.WNIO_META);
-                //namespaces.Add("str",  ePUAP.Client.Constants.Namespaces.WNIO_STR);
+                //namespaces.Add("", ePUAP.Client.Constants.Namespaces.WNIO_PODPISANYDOKUMENT);
+                namespaces.Add("wnio", ePUAP.Client.Constants.Namespaces.WNIO_PODPISANYDOKUMENT);
+                namespaces.Add("meta", ePUAP.Client.Constants.Namespaces.WNIO_META);
+                namespaces.Add("str",  ePUAP.Client.Constants.Namespaces.WNIO_STR);
 
                 var document = dokument.ToXmlDocument(namespaces);
                 //var document = new XmlDocument();
