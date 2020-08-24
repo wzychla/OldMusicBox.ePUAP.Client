@@ -53,6 +53,17 @@ namespace OldMusicBox.XAdES.Demo
                 dokument.Tresc.Tytul                              = "Zawiadomienie w sprawie 1234/2019";
                 dokument.Tresc.RodzajWnioskuRozszerzony.JakisInny = "inne pismo";
                 dokument.Tresc.RodzajWnioskuRozszerzony.Rodzaj    = "zawiadomienie";
+                dokument.Tresc.Informacje                         = new Informacja[]
+                {
+                    new Informacja()
+                    {
+                        Wartosc = "Ala ma kota"
+                    },
+                    new Informacja()
+                    {
+                        Wartosc = "Basia ma wózek widłowy"
+                    }
+                };
                 dokument.Tresc.Zalaczniki                         = new Zalacznik[]
                 {
                     new Zalacznik()

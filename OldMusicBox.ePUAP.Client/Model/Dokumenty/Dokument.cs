@@ -212,6 +212,9 @@ namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
         [XmlElement("RodzajWnioskuRozszerzony", Namespace = Namespaces.CRD_WNIO)]
         public RodzajWnioskuRozszerzony RodzajWnioskuRozszerzony { get; set; }
 
+        [XmlArray("Informacje", Namespace = Namespaces.CRD_WNIO)]
+        public Informacja[] Informacje { get; set; }
+
         [XmlArray("Zalaczniki", Namespace = Namespaces.CRD_STR)]
         public Zalacznik[] Zalaczniki { get; set; }
     }
@@ -222,6 +225,13 @@ namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
         public string JakisInny { get; set; }
         [XmlAttribute("rodzaj", Namespace = "")]
         public string Rodzaj { get; set; }
+    }
+
+    [XmlRoot("Informacja", Namespace = Namespaces.CRD_WNIO)]
+    public class Informacja
+    {
+        [XmlText]
+        public string Wartosc { get; set; }
     }
 
     [XmlRoot("Zalacznik", Namespace = Namespaces.CRD_STR)]

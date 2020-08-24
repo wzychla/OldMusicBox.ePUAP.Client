@@ -385,9 +385,9 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
                                                         //NazwaPliku = "testowy.xml",
                                                         //TypPliku   = "text/xml",
                                                         //Zawartosc  = Encoding.UTF8.GetBytes(ExampleDocument)
-                                                        NazwaPliku   = "test20200821_01.xml",
+                                                        NazwaPliku   = "test20200824_01.xml",
                                                         TypPliku     = "text/xml",
-                                                        Zawartosc    = System.IO.File.ReadAllBytes(@"c:\Temp\ePUAP\xades\test.637335615492962051.xml")
+                                                        Zawartosc    = System.IO.File.ReadAllBytes(@"c:\Temp\ePUAP\xades\test.637338735314422836.xml")
                                                     },
                                                     out fault);
             if (fault != null)
