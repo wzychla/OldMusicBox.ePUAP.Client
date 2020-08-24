@@ -34,10 +34,9 @@ namespace OldMusicBox.XAdES.Demo
 
                 var dokument = new Dokument();
 
-                dokument.Opis.Data.Czas.Wartosc = DateTime.Now;
+                dokument.Opis.Data.Czas.Wartosc = DateTime.Now.ToString("o");
 
-                dokument.Dane.Naglowek.Nazwa.Wartosc = "test.pdf";
-                dokument.Dane.Data.Czas.Wartosc = DateTime.Now;
+                dokument.Dane.Data.Czas.Wartosc = DateTime.Now.ToString("yyyy-MM-dd");
 
                 dokument.Dane.Adresaci.Podmiot.Osoba          = new Osoba();
                 dokument.Dane.Adresaci.Podmiot.Osoba.Nazwisko = "Kowalski";

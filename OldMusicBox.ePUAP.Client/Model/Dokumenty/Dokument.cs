@@ -59,8 +59,8 @@ namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
 
     public class Czas
     {
-        [XmlText(DataType = "dateTime")]
-        public DateTime Wartosc { get; set; }
+        [XmlText]
+        public string Wartosc { get; set; }
     }
 
     #endregion
@@ -189,7 +189,7 @@ namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
         public TrescDokumentu()
         {
             this.Kodowanie = "XML";
-            this.Rodzaj    = "text/xml";
+            this.Format    = "text/xml";
 
             this.RodzajWnioskuRozszerzony = new RodzajWnioskuRozszerzony();
         }
@@ -212,7 +212,7 @@ namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
         [XmlElement("RodzajWnioskuRozszerzony", Namespace = Namespaces.CRD_WNIO)]
         public RodzajWnioskuRozszerzony RodzajWnioskuRozszerzony { get; set; }
 
-        [XmlElement("Zalaczniki", Namespace = Namespaces.CRD_WNIO)]
+        [XmlArray("Zalaczniki", Namespace = Namespaces.CRD_STR)]
         public Zalacznik[] Zalaczniki { get; set; }
     }
 
@@ -224,7 +224,7 @@ namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
         public string Rodzaj { get; set; }
     }
 
-    [XmlRoot("Zalacznik", Namespace = Namespaces.CRD_WNIO)]
+    [XmlRoot("Zalacznik", Namespace = Namespaces.CRD_STR)]
     public class Zalacznik
     {
         public Zalacznik()
@@ -239,21 +239,10 @@ namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
         [XmlAttribute("kodowanie", Namespace = "")]
         public string Kodowanie { get; set; }
 
-        [XmlIgnore]
+        [XmlAttribute("nazwaPliku", Namespace = "")]
         public string NazwaPliku { get; set; }
 
-        [XmlAttribute("nazwaPliku", Namespace = "")]
-        public string NazwaPliku_Render
-        {
-            get
-            {
-                return Convert.ToBase64String(Encoding.UTF8.GetBytes(this.NazwaPliku));
-            }
-            set
-            { }
-        }
-
-        [XmlElement("DaneZalacznika", Namespace = Namespaces.CRD_WNIO)]
+        [XmlElement("DaneZalacznika", Namespace = Namespaces.CRD_STR)]
         public DaneZalacznika DaneZalacznika { get; set; }
     }
 
