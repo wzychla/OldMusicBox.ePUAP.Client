@@ -34,14 +34,29 @@ namespace OldMusicBox.XAdES.Demo
 
                 dokument.Opis.Data.Czas.Wartosc = DateTime.Now;
 
-                dokument.Dane.Naglowek.Nazwa.Wartosc = "test.pdf";
-                dokument.Dane.Data.Czas.Wartosc = DateTime.Now;
+                dokument.Dane.Naglowek.Nazwa.Wartosc          = "test.pdf";
+                dokument.Dane.Data.Czas.Wartosc               = DateTime.Now;
 
-                dokument.Tresc.Zalaczniki = new Zalacznik[]
+                dokument.Dane.Adresaci.Podmiot.Osoba          = new Osoba();
+                dokument.Dane.Adresaci.Podmiot.Osoba.Nazwisko = "Kowalski";
+                dokument.Dane.Adresaci.Podmiot.Osoba.Imie     = "Jan";
+
+                dokument.Dane.Nadawcy.Podmiot.Instytucja                   = new Instytucja();
+                dokument.Dane.Nadawcy.Podmiot.Instytucja.NazwaInstytucji   = "Urząd miasta Widliszki Wielkie";
+                dokument.Dane.Nadawcy.Podmiot.Instytucja.Adres.Miejscowosc = "Widliszki Wielkie";
+                dokument.Dane.Nadawcy.Podmiot.Instytucja.Adres.Ulica       = "Kwiatowa";
+                dokument.Dane.Nadawcy.Podmiot.Instytucja.Adres.Budynek     = "1-8";
+                dokument.Dane.Nadawcy.Podmiot.Instytucja.Adres.Poczta      = "11-110";
+
+                dokument.Tresc.MiejscowoscDokumentu               = "Widliszki Wielkie";
+                dokument.Tresc.Tytul                              = "Zawiadomienie w sprawie 1234/2019";
+                dokument.Tresc.RodzajWnioskuRozszerzony.JakisInny = "inne pismo";
+                dokument.Tresc.RodzajWnioskuRozszerzony.Rodzaj    = "zawiadomienie";
+                dokument.Tresc.Zalaczniki                         = new Zalacznik[]
                 {
                     new Zalacznik()
                     {
-                        Format         = "application/pdf",
+                        Format         = "application/octet-stream",
                         NazwaPliku     = "test.pdf",
                         DaneZalacznika = new DaneZalacznika()
                         {
@@ -53,11 +68,19 @@ namespace OldMusicBox.XAdES.Demo
 
                 var namespaces = new XmlSerializerNamespaces();
                 //namespaces.Add("", ePUAP.Client.Constants.Namespaces.WNIO_PODPISANYDOKUMENT);
-                namespaces.Add("wnio", ePUAP.Client.Constants.Namespaces.WNIO_PODPISANYDOKUMENT);
-                namespaces.Add("meta", ePUAP.Client.Constants.Namespaces.WNIO_META);
-                namespaces.Add("str",  ePUAP.Client.Constants.Namespaces.WNIO_STR);
+                namespaces.Add("wnio", ePUAP.Client.Constants.Namespaces.EPUAP_WNIO);
+                namespaces.Add("meta", ePUAP.Client.Constants.Namespaces.CRD_META);
+                namespaces.Add("str",  ePUAP.Client.Constants.Namespaces.CRD_STR);
+                namespaces.Add("adr",  ePUAP.Client.Constants.Namespaces.CRD_ADR);
+                namespaces.Add("oso", ePUAP.Client.Constants.Namespaces.CRD_OSO);
+                namespaces.Add("inst", ePUAP.Client.Constants.Namespaces.CRD_INST);
 
+                // wnio:Dokument
                 var document = dokument.ToXmlDocument(namespaces);
+                var pi = document.CreateProcessingInstruction(
+                    "xml-stylesheet",
+                    "type=\"text/xsl\" href=\"http://crd.gov.pl/wzor/2013/12/12/1410/styl.xsl\"");
+                document.InsertAfter(pi, document.FirstChild);
                 //var document = new XmlDocument();
                 //document.LoadXml(xml);
 
@@ -79,8 +102,6 @@ namespace OldMusicBox.XAdES.Demo
                 // check the signature and return the result.
                 var verification = signedXml.CheckSignature(cert, true);
                 Console.WriteLine("Verification: {0}", verification);
-
-                Console.ReadLine();
             }
             catch ( Exception ex )
             {
@@ -90,6 +111,8 @@ namespace OldMusicBox.XAdES.Demo
                     ex = ex.InnerException;
                 }
             }
+
+            Console.ReadLine();
         }
 
         private static X509Certificate2 _certificate;

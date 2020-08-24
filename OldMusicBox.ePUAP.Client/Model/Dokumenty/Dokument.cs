@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 
 namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
 {
-    [XmlRoot("Dokument", Namespace = Namespaces.WNIO_PODPISANYDOKUMENT)]
+    [XmlRoot("Dokument", Namespace = Namespaces.EPUAP_WNIO)]
     public class Dokument
     {
         public Dokument()
@@ -18,13 +18,13 @@ namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
             this.Tresc = new TrescDokumentu();
         }
         
-        [XmlElement("OpisDokumentu", Namespace = Namespaces.WNIO_PODPISANYDOKUMENT)]
+        [XmlElement("OpisDokumentu", Namespace = Namespaces.EPUAP_WNIO)]
         public OpisDokumentu Opis { get; set; }
 
-        [XmlElement("DaneDokumentu", Namespace = Namespaces.WNIO_PODPISANYDOKUMENT)]
+        [XmlElement("DaneDokumentu", Namespace = Namespaces.EPUAP_WNIO)]
         public DaneDokumentu Dane { get; set; }
 
-        [XmlElement("TrescDokumentu", Namespace = Namespaces.WNIO_PODPISANYDOKUMENT)]
+        [XmlElement("TrescDokumentu", Namespace = Namespaces.EPUAP_WNIO)]
 
         public TrescDokumentu Tresc { get; set; }
     }
@@ -38,7 +38,7 @@ namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
             this.Data = new Data();
         }
 
-        [XmlElement("Data", Namespace = Namespaces.WNIO_META)]
+        [XmlElement("Data", Namespace = Namespaces.CRD_META)]
         public Data Data { get; set; }
     }
 
@@ -53,7 +53,7 @@ namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
         [XmlAttribute("typDaty", Namespace = "")]
         public string TypDaty { get; set; }
 
-        [XmlElement("Czas", Namespace = Namespaces.WNIO_META)]
+        [XmlElement("Czas", Namespace = Namespaces.CRD_META)]
         public Czas Czas { get; set; }
     }
 
@@ -73,13 +73,21 @@ namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
         {
             this.Naglowek = new Naglowek();
             this.Data     = new Data();
+            this.Adresaci = new Adresaci();
+            this.Nadawcy  = new Nadawcy();
         }
 
-        [XmlElement("Naglowek", Namespace = Namespaces.WNIO_STR)]
+        [XmlElement("Naglowek", Namespace = Namespaces.CRD_STR)]
         public Naglowek Naglowek { get; set; }
 
-        [XmlElement("Data", Namespace = Namespaces.WNIO_META)]
+        [XmlElement("Data", Namespace = Namespaces.CRD_META)]
         public Data Data { get; set; }
+
+        [XmlElement("Adresaci", Namespace = Namespaces.CRD_STR)]
+        public Adresaci Adresaci { get; set; }
+
+        [XmlElement("Nadawcy", Namespace = Namespaces.CRD_STR)]
+        public Nadawcy Nadawcy { get; set; }
     }
 
     public class Naglowek
@@ -89,7 +97,7 @@ namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
             this.Nazwa = new NazwaDokumentu();
         }
 
-        [XmlElement("NazwaDokumentu", Namespace = Namespaces.WNIO_STR)]
+        [XmlElement("NazwaDokumentu", Namespace = Namespaces.CRD_STR)]
         public NazwaDokumentu Nazwa { get; set; }
     }
 
@@ -109,6 +117,79 @@ namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
         }
     }
 
+    public class Adresaci
+    {
+        public Adresaci()
+        {
+            this.Podmiot = new Podmiot();
+        }
+
+        [XmlElement("Podmiot", Namespace = Namespaces.CRD_META)]
+        public Podmiot Podmiot { get; set; }
+    }
+
+    public class Nadawcy
+    {
+        public Nadawcy()
+        {
+            this.Podmiot = new Podmiot();
+        }
+
+        [XmlElement("Podmiot", Namespace = Namespaces.CRD_META)]
+        public Podmiot Podmiot { get; set; }
+    }
+
+    public class Podmiot
+    {
+        [XmlElement("Osoba", Namespace = Namespaces.CRD_OSO)]
+        public Osoba Osoba { get; set; }
+
+        [XmlElement("Instytucja", Namespace = Namespaces.CRD_INST)]
+        public Instytucja Instytucja { get; set; }
+    }
+
+    public class Osoba
+    {
+        [XmlElement("Imie", Namespace = Namespaces.CRD_OSO)]
+        public string Imie { get; set; }
+
+        [XmlElement("Nazwisko", Namespace = Namespaces.CRD_OSO)]
+        public string Nazwisko { get; set; }
+
+        [XmlElement("Adres", Namespace = Namespaces.CRD_ADR)]
+        public Adres Adres { get; set; }
+    }
+
+    public class Instytucja
+    {
+        public Instytucja()
+        {
+            this.Adres = new Adres();
+        }
+
+        [XmlElement("NazwaInstytucji", Namespace = Namespaces.CRD_INST)]
+        public string NazwaInstytucji { get; set; }
+
+        [XmlElement("Adres", Namespace = Namespaces.CRD_ADR)]
+        public Adres Adres { get; set; }
+    }
+
+    public class Adres
+    {
+        [XmlElement("KodPocztowy", Namespace = Namespaces.CRD_ADR)]
+        public string KodPocztowy { get; set; }
+        [XmlElement("Poczta", Namespace = Namespaces.CRD_ADR)]
+        public string Poczta { get; set; }
+        [XmlElement("Miejscowosc", Namespace = Namespaces.CRD_ADR)]
+        public string Miejscowosc { get; set; }
+        [XmlElement("Ulica", Namespace = Namespaces.CRD_ADR)]
+        public string Ulica { get; set; }
+        [XmlElement("Budynek", Namespace = Namespaces.CRD_ADR)]
+        public string Budynek { get; set; }
+        [XmlElement("Lokal", Namespace = Namespaces.CRD_ADR)]
+        public string Lokal { get; set; }
+    }   
+
     #endregion
 
     #region Treść
@@ -117,8 +198,10 @@ namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
     {
         public TrescDokumentu()
         {
-            this.Kodowanie = "base64";
-            this.Rodzaj    = "inny";
+            this.Kodowanie = "XML";
+            this.Rodzaj    = "text/xml";
+
+            this.RodzajWnioskuRozszerzony = new RodzajWnioskuRozszerzony();
         }
 
         [XmlAttribute("format", Namespace = "")]
@@ -130,11 +213,28 @@ namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
         [XmlAttribute("rodzaj", Namespace = "")]
         public string Rodzaj { get; set; }
 
-        [XmlElement("Zalaczniki", Namespace = Namespaces.WNIO_PODPISANYDOKUMENT)]
+        [XmlElement("MiejscowoscDokumentu", Namespace = Namespaces.EPUAP_WNIO )]
+        public string MiejscowoscDokumentu { get; set; }
+
+        [XmlElement("Tytul", Namespace = Namespaces.EPUAP_WNIO)]
+        public string Tytul { get; set; }
+
+        [XmlElement("RodzajWnioskuRozszerzony", Namespace = Namespaces.EPUAP_WNIO)]
+        public RodzajWnioskuRozszerzony RodzajWnioskuRozszerzony { get; set; }
+
+        [XmlElement("Zalaczniki", Namespace = Namespaces.EPUAP_WNIO)]
         public Zalacznik[] Zalaczniki { get; set; }
     }
 
-    [XmlRoot("Zalacznik", Namespace = Namespaces.WNIO_PODPISANYDOKUMENT)]
+    public class RodzajWnioskuRozszerzony
+    {
+        [XmlAttribute("jakisInny", Namespace = "")]
+        public string JakisInny { get; set; }
+        [XmlAttribute("rodzaj", Namespace = "")]
+        public string Rodzaj { get; set; }
+    }
+
+    [XmlRoot("Zalacznik", Namespace = Namespaces.EPUAP_WNIO)]
     public class Zalacznik
     {
         public Zalacznik()
@@ -163,7 +263,7 @@ namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
             { }
         }
 
-        [XmlElement("DaneZalacznika", Namespace = Namespaces.WNIO_PODPISANYDOKUMENT)]
+        [XmlElement("DaneZalacznika", Namespace = Namespaces.EPUAP_WNIO)]
         public DaneZalacznika DaneZalacznika { get; set; }
     }
 

@@ -75,17 +75,32 @@ namespace OldMusicBox.ePUAP.Client.Constants
         /// <summary>
         /// wnio::podpisany dokument
         /// </summary>
-        public const string WNIO_PODPISANYDOKUMENT = "http://epuap.gov.pl/fe-model-web/wzor_lokalny/EPUAP-----/podpisanyPlik/";
+        public const string EPUAP_WNIO = "http://epuap.gov.pl/fe-model-web/wzor_lokalny/EPUAP-----/podpisanyPlik/";
 
         /// <summary>
         /// wnio::meta
         /// </summary>
-        public const string WNIO_META = "http://crd.gov.pl/xml/schematy/meta/2009/11/16/";
+        public const string CRD_META = "http://crd.gov.pl/xml/schematy/meta/2009/11/16/";
 
         /// <summary>
         /// wnio::str
         /// </summary>
-        public const string WNIO_STR  = "http://crd.gov.pl/xml/schematy/struktura/2009/11/16/";
+        public const string CRD_STR  = "http://crd.gov.pl/xml/schematy/struktura/2009/11/16/";
+
+        /// <summary>
+        /// wnio::adr
+        /// </summary>
+        public const string CRD_ADR = "http://crd.gov.pl/xml/schematy/adres/2009/11/09/";
+
+        /// <summary>
+        /// wnio::inst
+        /// </summary>
+        public const string CRD_INST = "http://crd.gov.pl/xml/schematy/instytucja/2009/11/16/";
+
+        /// <summary>
+        /// wnio::oso
+        /// </summary>
+        public const string CRD_OSO = "http://crd.gov.pl/xml/schematy/osoba/2009/11/16/";
 
     }
 }
