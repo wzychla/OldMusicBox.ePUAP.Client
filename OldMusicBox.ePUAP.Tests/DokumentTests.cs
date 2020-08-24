@@ -25,7 +25,7 @@ namespace OldMusicBox.ePUAP.Tests
             dokument.Opis.Data.Czas.Wartosc = DateTime.Now;
 
             dokument.Dane.Naglowek.Nazwa.Wartosc = "test.pdf";
-            dokument.Dane.Data.Czas.Wartosc = DateTime.Now;
+            dokument.Dane.Data.Czas.Wartosc      = DateTime.Now;
 
             dokument.Tresc.Zalaczniki = new Zalacznik[]
             {

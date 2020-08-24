@@ -54,6 +54,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="styl.xsl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="test.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

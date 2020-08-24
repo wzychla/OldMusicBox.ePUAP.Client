@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 
 namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
 {
-    [XmlRoot("Dokument", Namespace = Namespaces.EPUAP_WNIO)]
+    [XmlRoot("Dokument", Namespace = Namespaces.CRD_WNIO)]
     public class Dokument
     {
         public Dokument()
@@ -18,13 +18,13 @@ namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
             this.Tresc = new TrescDokumentu();
         }
         
-        [XmlElement("OpisDokumentu", Namespace = Namespaces.EPUAP_WNIO)]
+        [XmlElement("OpisDokumentu", Namespace = Namespaces.CRD_WNIO)]
         public OpisDokumentu Opis { get; set; }
 
-        [XmlElement("DaneDokumentu", Namespace = Namespaces.EPUAP_WNIO)]
+        [XmlElement("DaneDokumentu", Namespace = Namespaces.CRD_WNIO)]
         public DaneDokumentu Dane { get; set; }
 
-        [XmlElement("TrescDokumentu", Namespace = Namespaces.EPUAP_WNIO)]
+        [XmlElement("TrescDokumentu", Namespace = Namespaces.CRD_WNIO)]
 
         public TrescDokumentu Tresc { get; set; }
     }
@@ -103,18 +103,8 @@ namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
 
     public class NazwaDokumentu
     {
-        [XmlIgnore]
-        public string Wartosc { get; set; }
-
         [XmlText]
-        public string Wartosc_Render
-        {
-            get
-            {
-                return string.Format("Podpisany plik, załącznik base64: {0}", Convert.ToBase64String(Encoding.UTF8.GetBytes(this.Wartosc)));
-            }
-            set { }
-        }
+        public string Wartosc { get; set; }
     }
 
     public class Adresaci
@@ -213,16 +203,16 @@ namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
         [XmlAttribute("rodzaj", Namespace = "")]
         public string Rodzaj { get; set; }
 
-        [XmlElement("MiejscowoscDokumentu", Namespace = Namespaces.EPUAP_WNIO )]
+        [XmlElement("MiejscowoscDokumentu", Namespace = Namespaces.CRD_WNIO )]
         public string MiejscowoscDokumentu { get; set; }
 
-        [XmlElement("Tytul", Namespace = Namespaces.EPUAP_WNIO)]
+        [XmlElement("Tytul", Namespace = Namespaces.CRD_WNIO)]
         public string Tytul { get; set; }
 
-        [XmlElement("RodzajWnioskuRozszerzony", Namespace = Namespaces.EPUAP_WNIO)]
+        [XmlElement("RodzajWnioskuRozszerzony", Namespace = Namespaces.CRD_WNIO)]
         public RodzajWnioskuRozszerzony RodzajWnioskuRozszerzony { get; set; }
 
-        [XmlElement("Zalaczniki", Namespace = Namespaces.EPUAP_WNIO)]
+        [XmlElement("Zalaczniki", Namespace = Namespaces.CRD_WNIO)]
         public Zalacznik[] Zalaczniki { get; set; }
     }
 
@@ -234,7 +224,7 @@ namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
         public string Rodzaj { get; set; }
     }
 
-    [XmlRoot("Zalacznik", Namespace = Namespaces.EPUAP_WNIO)]
+    [XmlRoot("Zalacznik", Namespace = Namespaces.CRD_WNIO)]
     public class Zalacznik
     {
         public Zalacznik()
@@ -263,7 +253,7 @@ namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
             { }
         }
 
-        [XmlElement("DaneZalacznika", Namespace = Namespaces.EPUAP_WNIO)]
+        [XmlElement("DaneZalacznika", Namespace = Namespaces.CRD_WNIO)]
         public DaneZalacznika DaneZalacznika { get; set; }
     }
 

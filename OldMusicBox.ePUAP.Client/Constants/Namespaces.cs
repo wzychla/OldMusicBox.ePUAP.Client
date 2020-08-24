@@ -75,7 +75,7 @@ namespace OldMusicBox.ePUAP.Client.Constants
         /// <summary>
         /// wnio::podpisany dokument
         /// </summary>
-        public const string EPUAP_WNIO = "http://epuap.gov.pl/fe-model-web/wzor_lokalny/EPUAP-----/podpisanyPlik/";
+        public const string CRD_WNIO = "http://crd.gov.pl/wzor/2013/12/12/1410/";
 
         /// <summary>
         /// wnio::meta

@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Xml.XPath;
+using System.Xml.Xsl;
 
 namespace OldMusicBox.XAdES.Demo
 {
@@ -21,10 +23,10 @@ namespace OldMusicBox.XAdES.Demo
             try
             {
                 // arrange
-                var xml  = File.ReadAllText("test.xml", Encoding.UTF8);
-                var pdf     = File.ReadAllBytes("test.pdf");
-                var cert    = Program.Certificate;
-                if ( cert   == null )
+                var xml = File.ReadAllText("test.xml", Encoding.UTF8);
+                var pdf = File.ReadAllBytes("test.pdf");
+                var cert = Program.Certificate;
+                if (cert == null)
                 {
                     Console.WriteLine("No certificate selected.");
                     Environment.Exit(0);
@@ -34,8 +36,8 @@ namespace OldMusicBox.XAdES.Demo
 
                 dokument.Opis.Data.Czas.Wartosc = DateTime.Now;
 
-                dokument.Dane.Naglowek.Nazwa.Wartosc          = "test.pdf";
-                dokument.Dane.Data.Czas.Wartosc               = DateTime.Now;
+                dokument.Dane.Naglowek.Nazwa.Wartosc = "test.pdf";
+                dokument.Dane.Data.Czas.Wartosc = DateTime.Now;
 
                 dokument.Dane.Adresaci.Podmiot.Osoba          = new Osoba();
                 dokument.Dane.Adresaci.Podmiot.Osoba.Nazwisko = "Kowalski";
@@ -68,10 +70,10 @@ namespace OldMusicBox.XAdES.Demo
 
                 var namespaces = new XmlSerializerNamespaces();
                 //namespaces.Add("", ePUAP.Client.Constants.Namespaces.WNIO_PODPISANYDOKUMENT);
-                namespaces.Add("wnio", ePUAP.Client.Constants.Namespaces.EPUAP_WNIO);
+                namespaces.Add("wnio", ePUAP.Client.Constants.Namespaces.CRD_WNIO);
                 namespaces.Add("meta", ePUAP.Client.Constants.Namespaces.CRD_META);
-                namespaces.Add("str",  ePUAP.Client.Constants.Namespaces.CRD_STR);
-                namespaces.Add("adr",  ePUAP.Client.Constants.Namespaces.CRD_ADR);
+                namespaces.Add("str", ePUAP.Client.Constants.Namespaces.CRD_STR);
+                namespaces.Add("adr", ePUAP.Client.Constants.Namespaces.CRD_ADR);
                 namespaces.Add("oso", ePUAP.Client.Constants.Namespaces.CRD_OSO);
                 namespaces.Add("inst", ePUAP.Client.Constants.Namespaces.CRD_INST);
 
@@ -85,16 +87,17 @@ namespace OldMusicBox.XAdES.Demo
                 //document.LoadXml(xml);
 
                 var signed = new XAdESBESSigner().Sign(document, cert);
-                if ( signed != null )
+                var signedName = string.Format("test.{0}.xml", DateTime.Now.Ticks);
+                if (signed != null)
                 {
                     // save signed document without BOM
-                    File.WriteAllText(string.Format("test.{0}.xml", DateTime.Now.Ticks), document.OuterXml, new UTF8Encoding(false));
+                    File.WriteAllText(signedName, document.OuterXml, new UTF8Encoding(false));
                 }
 
                 Console.WriteLine("signed.");
 
                 // verification
-                var signedXml            = new SignedXml(document);
+                var signedXml = new SignedXml(document);
                 var messageSignatureNode = document.GetElementsByTagName("Signature")[0];
 
                 signedXml.LoadXml((XmlElement)messageSignatureNode);
@@ -102,6 +105,19 @@ namespace OldMusicBox.XAdES.Demo
                 // check the signature and return the result.
                 var verification = signedXml.CheckSignature(cert, true);
                 Console.WriteLine("Verification: {0}", verification);
+
+                // transformation
+                using (var xmlReader = new StreamReader(signedName, new UTF8Encoding(false)))
+                {
+                    var xPathDoc = new XPathDocument(xmlReader);
+                    var xslTrans = new XslCompiledTransform();
+                    xslTrans.Load("http://crd.gov.pl/wzor/2013/12/12/1410/styl.xsl");
+                    using (var writer = new XmlTextWriter(string.Format("result.{0}.html", DateTime.Now.Ticks), null))
+                    {
+                        xslTrans.Transform(xPathDoc, null, writer);
+                        writer.Flush();
+                    }
+                }
             }
             catch ( Exception ex )
             {
