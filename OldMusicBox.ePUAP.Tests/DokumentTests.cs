@@ -22,10 +22,10 @@ namespace OldMusicBox.ePUAP.Tests
             // arrange
             var dokument = new Dokument();
 
-            dokument.Opis.Data.Czas.Wartosc = DateTime.Now;
+            dokument.Opis.Data.Czas.Wartosc = "2020-01-01";
 
             dokument.Dane.Naglowek.Nazwa.Wartosc = "test.pdf";
-            dokument.Dane.Data.Czas.Wartosc      = DateTime.Now;
+            dokument.Dane.Data.Czas.Wartosc      = "2020-01-01";
 
             dokument.Tresc.Zalaczniki = new Zalacznik[]
             {
