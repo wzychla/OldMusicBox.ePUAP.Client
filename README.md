@@ -2,7 +2,7 @@
 
 The goal of this project is to provide an independent .NET [ePUAP](https://epuap.gov.pl/wps/portal/english) Client. 
 
-The client will support:
+The client supports:
 * services used by the Profil Zaufany SSO flow
 * services used by the Profil Zaufany document digital signing 
 * services used to communicate with Digital Exchanges (**Elektroniczna Skrzynka Podawcza**)
