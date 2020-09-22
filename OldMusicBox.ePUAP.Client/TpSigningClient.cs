@@ -12,6 +12,9 @@ namespace OldMusicBox.ePUAP.Client
     /// </summary>
     public class TpSigningClient : BaseClient
     {
+        public const string INTEGRATION_URI = "https://int.pz.gov.pl/pz-services/tpSigning";
+        public const string PRODUCTION_URI  = "https://pz.gov.pl/pz-services/tpSigning";
+
         public TpSigningClient(string serviceUri, X509Certificate2 signingCertificate) : base(serviceUri, signingCertificate)
         {
 

@@ -41,7 +41,7 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
 
             var getTpUserInfoUri            = ConfigurationManager.AppSettings["tpUserInfo"];
 
-            var requestBinding =  Binding.POST;
+            var requestBinding  = Binding.POST;
             var responseBinding = Binding.ARTIFACT;
 
             // this is optional

@@ -61,6 +61,7 @@
     <Compile Include="Model\Common\BaseServiceResponseHandler.cs" />
     <Compile Include="Model\Common\StatusModel.cs" />
     <Compile Include="Model\Dokumenty\Dokument.cs" />
+    <Compile Include="SSOClient.cs" />
     <Compile Include="XML\XmlConverter.cs" />
     <Compile Include="Model\Doreczyciel\DoreczRequest.cs" />
     <Compile Include="Model\Doreczyciel\DoreczResponse.cs" />
