@@ -10,7 +10,7 @@ The client supports:
 The implementation follows the 
 [official specification](https://epuap.gov.pl/wps/portal/strefa-urzednika/pomoc_urzednik/) (*Dla integratorów* section).
 
-## Current Version: 0.64
+## Current Version: 0.65
 
 Please refer to the change list and the road map below.
 
@@ -113,6 +113,9 @@ To do this, log into ePUAP using the Public authority profile, click your userna
 
 ## Version History:
 
+* 0.65 (2021-03-31)
+    * changed the license to MIT
+    
 * 0.64 (2020-08-24)
     * complete model for `wnio:Dokument` with example. Previewing the document works correctly on ePUAP site
 

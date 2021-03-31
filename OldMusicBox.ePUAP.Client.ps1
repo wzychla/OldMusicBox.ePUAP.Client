@@ -28,7 +28,7 @@ $contents = @"
     <projectUrl>https://github.com/wzychla/OldMusicBox.ePUAP.Client</projectUrl>
 	<repository type="git" url="https://github.com/wzychla/OldMusicBox.ePUAP.Client.git" />
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-	<license type="expression">AGPL-3.0-only</license>
+	<license type="expression">MIT</license>
     <description>OldMusicBox.ePUAP.Client. Independent ePUAP Client implementation.</description>
     <copyright>Copyright 2020 Wiktor Zychla</copyright>
 	<icon>images\icon.png</icon>

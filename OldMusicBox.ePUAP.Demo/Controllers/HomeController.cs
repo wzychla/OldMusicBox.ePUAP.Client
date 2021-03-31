@@ -369,8 +369,10 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
             var client = new DoreczycielClient(DoreczycielClient.INTEGRATION_URI, certificate);
 
             var _podmiot                = "vulcandpo";
+            //var _adresSkrytki           = "/adam_testowy/domyslna";
             var _adresSkrytki           = "/vulcandpo/domyslna";
             var _adresOdpowiedzi        = "/vulcandpo/testowa";
+            //var _adresOdpowiedzi        = "/vulcandpo/domyslna";
             var _identyfikatorDokumentu = "id_123456";
             var _identyfikatorSprawy    = "ids_123456";
 
