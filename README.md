@@ -114,7 +114,7 @@ To do this, log into ePUAP using the Public authority profile, click your userna
 ## Version History:
 
 * 0.65 (2021-03-31)
-    * changed the license to MIT
+    * changed license to MIT
     
 * 0.64 (2020-08-24)
     * complete model for `wnio:Dokument` with example. Previewing the document works correctly on ePUAP site
