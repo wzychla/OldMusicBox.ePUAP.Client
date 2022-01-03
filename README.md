@@ -19,7 +19,7 @@ Please refer to the change list and the road map below.
 |  Feature  | Status |
 |----|:---:|
 |NuGet|**yes**|
-|Single Sign On|**yes but no longer works in production**|
+|Single Sign On|**yes** but no longer works in production, read more below**|
 |Document Signing|**yes**|
 |WS-Skrytka|**yes**|
 |WS-Doręczyciel|**partial**|
@@ -43,7 +43,7 @@ Install-Package OldMusicBox.ePUAP.Client
 
 Since the beginning of 2021 ePUAP doesn't directly allow systems to use the SSO flow. Document signing and other services work. SSO doesn't work.
 
-The reason for this is that ePUAP SSO **has been superseded* by the SSO implemented on Węzeł Krajowy. There's a [separate Github package](https://github.com/wzychla/OldMusicBox.EIH.Client)
+The reason for this is that ePUAP SSO *has been superseded* by the SSO implemented on Węzeł Krajowy. There's a [separate Github package](https://github.com/wzychla/OldMusicBox.EIH.Client)
 that should be used.
 
 ### ePUAP SSO [Obsolete]
