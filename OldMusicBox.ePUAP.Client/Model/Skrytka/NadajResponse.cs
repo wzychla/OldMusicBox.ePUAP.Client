@@ -21,6 +21,15 @@ namespace OldMusicBox.ePUAP.Client.Model.Skrytka
         [XmlElement("identyfikatorUpp", Namespace = "")]
         public int IdentyfikatorUPP { get; set; }
 
+        /// <summary>
+        /// Jeżeli skrzynka docelowa ma znacznik generowania UPP, to w tym miejscu system dołączy dokument UPP
+        /// dla nadawcy.
+        /// </summary>
+        /// <remarks>
+        /// Fakt anegdotyczny: w pewnych okolicznościach system może nie dodać UPP tutaj, tylko
+        /// po pewnym czasie asynchronicznie umieścić UPP w skrzynce nadawcy.
+        /// Niepotwierdzone empirycznie.
+        /// </remarks>
         [XmlElement("zalacznik", Namespace = "")]
         public DocumentType Zalacznik { get; set; }
     }

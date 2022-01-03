@@ -8,6 +8,9 @@ using System.Xml.Serialization;
 
 namespace OldMusicBox.ePUAP.Client.Model.Dokumenty
 {
+    /// <summary>
+    /// Model dokumentu Szablon pisma ogólnego
+    /// </summary>
     [XmlRoot("Dokument", Namespace = Namespaces.CRD_WNIO)]
     public class Dokument
     {

@@ -10,7 +10,7 @@ The client supports:
 The implementation follows the 
 [official specification](https://epuap.gov.pl/wps/portal/strefa-urzednika/pomoc_urzednik/) (*Dla integratorów* section).
 
-## Current Version: 0.65
+## Current Version: 0.80
 
 Please refer to the change list and the road map below.
 
@@ -112,6 +112,11 @@ The certificate used here has to be uploaded by the Public authority administrat
 To do this, log into ePUAP using the Public authority profile, click your username, select **Administrowanie / Zarządzanie kontem / Systemy** and here create a new system together with its certificate (the public key in the PEM format).
 
 ## Version History:
+
+* 0.80 (2022-01-03)
+    * added clear information on how to obtain the UPP from `WS-Skrytka::Nadaj`
+    * added the model for the UPP document
+    * added a demo of deserializing UPP obtained from `WS-Skrytka::Nadaj`
 
 * 0.65 (2021-03-31)
     * changed license to MIT

@@ -12,6 +12,8 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace OldMusicBox.ePUAP.Demo.Controllers
 {
@@ -282,10 +284,10 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
         {
             var certificate = new ClientCertificateProvider().GetClientCertificate();
 
-            //WSSkrytka_Demo(certificate);
+            WSSkrytka_Demo(certificate);
             //WSPull_Demo(certificate);
             //WSZarzadzanieDokumentami_DodajDokument_Demo(certificate);
-            WSDoreczyciel_Dorecz_Demo(certificate);
+            //WSDoreczyciel_Dorecz_Demo(certificate);
 
             return Redirect("/Home/Index");
         }
@@ -315,6 +317,34 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
                     Zawartosc  = Encoding.UTF8.GetBytes(ExampleDocument)
                 },
                 out fault);
+
+            // możliwe że odpowiedź zawiera UPP
+            if ( response != null )
+            {
+                if ( response.Zalacznik != null )
+                {
+                    var zawartosc = response.Zalacznik.Zawartosc;
+                    var nazwa     = response.Zalacznik.NazwaPliku;
+                    var typ       = response.Zalacznik.TypPliku;
+
+                    try
+                    {
+                        var zawartoscXml = new XmlDocument();
+                        zawartoscXml.LoadXml(Encoding.UTF8.GetString(zawartosc));
+
+                        OldMusicBox.ePUAP.Client.Model.UPP.Dokument zawartoscDokument;
+                        XmlSerializer serializer = new XmlSerializer(typeof(OldMusicBox.ePUAP.Client.Model.UPP.Dokument));
+                        using (XmlReader reader = new XmlNodeReader(zawartoscXml))
+                        {
+                            zawartoscDokument = (OldMusicBox.ePUAP.Client.Model.UPP.Dokument)serializer.Deserialize(reader);
+                        }
+                    }
+                    catch( Exception ex )
+                    {
+                        // nie UPP
+                    }
+                }
+            }
         }
 
         /// <summary>

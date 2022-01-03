@@ -102,5 +102,10 @@ namespace OldMusicBox.ePUAP.Client.Constants
         /// </summary>
         public const string CRD_OSO = "http://crd.gov.pl/xml/schematy/osoba/2009/11/16/";
 
+        /// <summary>
+        /// UPO
+        /// </summary>
+        public const string CRD_UPO = "http://crd.gov.pl/xml/schematy/UPO/2008/05/09/";
+
     }
 }
