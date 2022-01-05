@@ -1,0 +1,1 @@
+keytool -certreq -keyalg RSA -alias vulcandpo -file ./intpz2022.csr -keystore ./intpz2022.p12 -storetype pkcs12

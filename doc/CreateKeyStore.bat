@@ -1,0 +1,1 @@
+keytool.exe -genkey -alias vulcandpo -keyalg RSA -keysize 2048 -keystore ./intpz2022.p12 -storetype pkcs12

@@ -51,6 +51,7 @@ namespace OldMusicBox.ePUAP.Client.Model.GetSignedDocument
 
     }
 
+    [XmlRoot("getSignedDocumentReturn", Namespace = "")]
     public class GetSignedDocumentReturn
     {
         [XmlText]

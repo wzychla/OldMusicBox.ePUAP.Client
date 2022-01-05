@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace OldMusicBox.ePUAP.Client.Model.GetSignedDocument
+namespace OldMusicBox.ePUAP.Client.Model.AddDocumentToSigning
 {
     /// <summary>
-    /// GetSignedDocument Response Handler
+    /// AddDocumentToSigning5 response handler
     /// </summary>
-    public class GetSignedDocumentResponseHandler
-        : IServiceResponseHandler<GetSignedDocumentResponse>
+    public class AddDocumentToSigning5ResponseHandler
+        : IServiceResponseHandler<AddDocumentToSigning5Response>
     {
-        public GetSignedDocumentResponse FromSOAP(string soapResponse, out FaultModel fault)
+        public AddDocumentToSigning5Response FromSOAP(string soapResponse, out FaultModel fault)
         {
             fault = null;
 
@@ -34,22 +34,23 @@ namespace OldMusicBox.ePUAP.Client.Model.GetSignedDocument
                 var nsManager  = new XmlNamespaceManager(xd.NameTable);
                 nsManager.AddNamespace("ns1", Namespaces.COMARCH_SIGN);
 
-                var response = xd.SelectSingleNode("//ns1:getSignedDocumentResponse", nsManager) as XmlElement;
-                if (response != null)
+                // tak zwraca TpSigning5
+                var response = xd.SelectSingleNode("//addDocumentToSigningReturn") as XmlElement;
+                if ( response != null )
                 {
-                    // tak zwraca TpSigning
-                    var serializer = new XmlSerializer(typeof(GetSignedDocumentResponse));
+                    var serializer = new XmlSerializer(typeof(AddDocumentToSigning5Response));
+
                     using (var reader = new StringReader(response.OuterXml))
                     {
-                        return serializer.Deserialize(reader) as GetSignedDocumentResponse;
+                        return serializer.Deserialize(reader) as AddDocumentToSigning5Response;
                     }
                 }
 
                 return null;
             }
-            catch ( Exception ex )
+            catch (Exception ex)
             {
-                throw new ServiceClientException("Cannot deserialize GetSignedDocument", ex);
+                throw new ServiceClientException("Cannot deserialize AddDocumentToSigning", ex);
             }
         }
     }

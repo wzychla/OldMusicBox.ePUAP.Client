@@ -58,7 +58,7 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
 
         #endregion
 
-        #region Add document to signing
+        #region Add document to signing (TpSigning)
 
         [AllowAnonymous]
         [HttpGet]
@@ -220,7 +220,7 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
 
         #endregion
 
-        #region Verify signed document
+        #region Verify signed document (TpSigning)
 
         [AllowAnonymous]
         [HttpGet]
@@ -267,6 +267,223 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
                     }
                 }
                 catch ( Exception ex )
+                {
+                    this.ViewBag.Message = ex.Message;
+                }
+            }
+
+            return View(model);
+        }
+
+
+        #endregion
+
+        #region Add document to signing (TpSiging5)
+
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult AddDocumentToSigning5()
+        {
+            var model = new AddDocumentToSigning5Model();
+            model.Document = ExampleDocument;
+
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult AddDocumentToSigning5(AddDocumentToSigning5Model model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var tpSigningUri = ConfigurationManager.AppSettings["tpSigning5"];
+                var certificate = new ClientCertificateProvider().GetClientCertificate();
+
+                var document = Encoding.UTF8.GetBytes(model.Document);
+                var urlSuccess =
+                    Url.Action("AddDocumentToSigning5Success", "Home",
+                        routeValues: null,
+                        protocol: Request.Url.Scheme);
+                var urlFailed =
+                    Url.Action("AddDocumentToSigning5Failure", "Home",
+                        routeValues: null,
+                        protocol: Request.Url.Scheme);
+
+                var additionalInfo = "Some additional info";
+
+                // call ePUAP and get their redirect uri
+                // they redirect back to one of your uris
+                var client = new TpSigning5Client(tpSigningUri, certificate);
+                FaultModel fault;
+                var response = client.AddDocumentToSigning(document, urlSuccess, urlFailed, additionalInfo, out fault);
+
+                if (response != null &&
+                    !string.IsNullOrEmpty(response.Url)
+                    )
+                {
+                    // the returned url has to be stored
+                    // it will be used to query the GetSignedDocument
+                    this.Session.Add("url", response.Url);
+                    return Redirect(response.Url);
+                }
+                else
+                {
+                    if (fault != null)
+                    {
+                        this.TempData.Add("Message", string.Format("ePUAP fault: {0}, information: {1}", fault.FaultCode, fault.FaultString));
+
+                    }
+                    else
+                    {
+                        this.TempData.Add("Message", "Unknown error");
+                    }
+
+                    return Redirect("/Home/Index");
+                }
+            }
+
+            return View(model);
+        }
+
+        /// <summary>
+        /// ePUAP redirects here when the document is signed correctly.
+        /// This is where the GetSignedDocument has to be called
+        /// </summary>
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult AddDocumentToSigning5Success()
+        {
+            string message = string.Empty;
+
+            var url = this.Session["url"] as string;
+            if (!string.IsNullOrEmpty(url))
+            {
+                var tpSigningUri = ConfigurationManager.AppSettings["tpSigning5"];
+                var certificate = new ClientCertificateProvider().GetClientCertificate();
+
+                // call ePUAP and get their redirect uri
+                // they redirect back to one of your uris
+                var client = new TpSigning5Client(tpSigningUri, certificate);
+                FaultModel fault;
+                var response = client.GetSignedDocument(url, out fault);
+
+                if (response != null &&
+                    response.IsValid
+                    )
+                {
+                    var model = new AddDocumentToSigning5SuccessModel();
+
+                    // this is the document signed by the user
+                    model.Document = Encoding.UTF8.GetString(Convert.FromBase64String(response.Content));
+                    // it contains the full user information
+                    model.Signature = response.Signature;
+
+                    // add to session
+                    this.Session.Add(SESSIONDOCUMENT, Convert.FromBase64String(response.Content));
+
+                    return View(model);
+                }
+                else
+                {
+                    if (fault != null)
+                    {
+                        this.TempData.Add("Message", string.Format("ePUAP fault: {0}, information: {1}", fault.FaultCode, fault.FaultString));
+                    }
+                    else
+                    {
+                        this.TempData.Add("Message", "Unknown error");
+                    }
+
+                    return Redirect("/Home/Index");
+                }
+            }
+
+            // fallback to the main page with message to the user
+            this.TempData.Add("Message", message);
+            return Redirect("/Home/Index");
+
+        }
+
+        /// <summary>
+        /// Let the user download the document they have succesfully signed
+        /// </summary>
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult AddDocumentToSigning5Success(FormCollection form)
+        {
+            if (this.Session[SESSIONDOCUMENT] != null)
+            {
+                byte[] document = this.Session[SESSIONDOCUMENT] as byte[];
+
+                return File(document, "text/xml", "signedDocument");
+            }
+            else
+            {
+                return new EmptyResult();
+            }
+        }
+
+
+        /// <summary>
+        /// ePUAP redirects here when user cancels signing
+        /// </summary>
+        [AllowAnonymous]
+        public ActionResult AddDocumentToSigning5Failure()
+        {
+            this.TempData.Add("Message", "ePUAP document signing cancelled by the user");
+            return Redirect("/Home/Index");
+        }
+
+        #endregion
+
+        #region Verify signed document (TpSigning5)
+
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult VerifySignedDocument5()
+        {
+            VerifySignedDocument5Model model = new VerifySignedDocument5Model();
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult VerifySignedDocument5(VerifySignedDocument5Model model)
+        {
+            if (model.Document == null)
+            {
+                this.ViewBag.Message = "Należy wskazać niepusty dokument do walidacji";
+            }
+            else
+            {
+                try
+                {
+                    var tpSigningUri = ConfigurationManager.AppSettings["tpSigning5"];
+                    var certificate = new ClientCertificateProvider().GetClientCertificate();
+
+                    var client = new TpSigning5Client(tpSigningUri, certificate);
+
+                    byte[] documentData = null;
+                    using (var binaryReader = new BinaryReader(model.Document.InputStream))
+                    {
+                        documentData = binaryReader.ReadBytes(Request.Files[0].ContentLength);
+                    }
+
+                    FaultModel fault;
+                    var result = client.VerifySignedDocument(documentData, out fault);
+
+                    if (fault != null)
+                    {
+                        this.ViewBag.Message = fault.FaultString;
+                    }
+                    else
+                    {
+                        model.Signature = result.Signature;
+                        this.ViewBag.Message = result.Content;
+                    }
+                }
+                catch (Exception ex)
                 {
                     this.ViewBag.Message = ex.Message;
                 }

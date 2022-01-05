@@ -8,26 +8,25 @@ using System.Security.Cryptography.X509Certificates;
 namespace OldMusicBox.ePUAP.Client
 {
     /// <summary>
-    /// Tp-Signing client 
+    /// Tp-Signing 5 client 
     /// </summary>
-    public class TpSigningClient : BaseClient
+    public class TpSigning5Client : BaseClient
     {
-        // TpSigning
-        public const string INTEGRATION_URI = "https://int.pz.gov.pl/pz-services/tpSigning";
-        public const string PRODUCTION_URI  = "https://pz.gov.pl/pz-services/tpSigning";
+        // TpSigning5
+        public const string INTEGRATION_URI = "https://int.pz.gov.pl/ep-services/tpSigning5";
+        public const string PRODUCTION_URI  = "https://pz.gov.pl/ep-services/tpSigning5";
 
-
-        public TpSigningClient(string serviceUri, X509Certificate2 signingCertificate) : base(serviceUri, signingCertificate)
+        public TpSigning5Client(string serviceUri, X509Certificate2 signingCertificate) : base(serviceUri, signingCertificate)
         {
 
         }
 
-        #region AddDocumentToSigning
+        #region AddDocumentToSigning5
 
         /// <summary>
         /// AddDocumentToSigning call
         /// </summary>
-        public virtual AddDocumentToSigningResponse AddDocumentToSigning(
+        public virtual AddDocumentToSigning5Response AddDocumentToSigning(
             byte[] document,
             string urlSuccess,
             string urlFailed,
@@ -47,16 +46,16 @@ namespace OldMusicBox.ePUAP.Client
 
             // request
             var request =
-                new AddDocumentToSigningRequest()
+                new AddDocumentToSigning5Request()
                 {
-                    Doc            = document,
-                    SuccessUrl     = urlSuccess,
-                    FailureUrl     = urlFailed,
+                    Doc = document,
+                    SuccessUrl = urlSuccess,
+                    FailureUrl = urlFailed,
                     AdditionalInfo = additionalInfo
                 };
 
             // call ePUAP service and parse the response
-            var response = WSSecurityRequest<AddDocumentToSigningRequest, AddDocumentToSigningResponse, AddDocumentToSigningResponseHandler>(
+            var response = WSSecurityRequest<AddDocumentToSigning5Request, AddDocumentToSigning5Response, AddDocumentToSigning5ResponseHandler>(
                 this.ServiceUri,
                 request,
                 out fault);
@@ -72,7 +71,7 @@ namespace OldMusicBox.ePUAP.Client
         /// <summary>
         /// GetSignedDocument call
         /// </summary>
-        public virtual GetSignedDocumentResponse GetSignedDocument(
+        public virtual GetSignedDocument5Response GetSignedDocument(
             string id,
             out FaultModel fault)
         {
@@ -83,13 +82,13 @@ namespace OldMusicBox.ePUAP.Client
 
             // request
             var request =
-                new GetSignedDocumentRequest()
+                new GetSignedDocument5Request()
                 {
                     Id = id
                 };
 
             // call ePUAP service and parse the response
-            var response = WSSecurityRequest<GetSignedDocumentRequest, GetSignedDocumentResponse, GetSignedDocumentResponseHandler>(
+            var response = WSSecurityRequest<GetSignedDocument5Request, GetSignedDocument5Response, GetSignedDocument5ResponseHandler>(
                 this.ServiceUri,
                 request,
                 out fault);
@@ -105,7 +104,7 @@ namespace OldMusicBox.ePUAP.Client
         /// <summary>
         /// GetSignedDocument call
         /// </summary>
-        public virtual VerifySignedDocumentResponse VerifySignedDocument(
+        public virtual VerifySignedDocument5Response VerifySignedDocument(
             byte[] document,
             out FaultModel fault)
         {
@@ -116,13 +115,13 @@ namespace OldMusicBox.ePUAP.Client
 
             // request
             var request =
-                new VerifySignedDocumentRequest()
+                new VerifySignedDocument5Request()
                 {
                     Document = document
                 };
 
             // call ePUAP service and parse the response
-            var response = WSSecurityRequest<VerifySignedDocumentRequest, VerifySignedDocumentResponse, VerifySignedDocumentResponseHandler>(
+            var response = WSSecurityRequest<VerifySignedDocument5Request, VerifySignedDocument5Response, VerifySignedDocument5ResponseHandler>(
                 this.ServiceUri,
                 request,
                 out fault);

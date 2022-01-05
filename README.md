@@ -19,8 +19,9 @@ Please refer to the change list and the road map below.
 |  Feature  | Status |
 |----|:---:|
 |NuGet|**yes**|
-|Single Sign On|**yes** but no longer works in production, read more below**|
-|Document Signing|**yes**|
+|Single Sign On|**yes** (no longer works in production, read more below)|
+|TpSigning|**yes**|
+|TpSigning5|**yes**|
 |WS-Skrytka|**yes**|
 |WS-Doręczyciel|**partial**|
 |WS-pull|**yes**|
@@ -120,6 +121,9 @@ To do this, log into ePUAP using the Public authority profile, click your userna
 
 ## Version History:
 
+* 0.85 (2022-01-04)
+    * added support for TpSigning5 
+    
 * 0.80 (2022-01-03)
     * added clear information on how to obtain the UPP from `WS-Skrytka::Nadaj`
     * added the model for the UPP document

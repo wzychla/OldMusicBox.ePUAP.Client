@@ -21,6 +21,11 @@ namespace OldMusicBox.ePUAP.Client.Constants
         /// </summary>
         public const string PPZP = "http://crd.gov.pl/xml/schematy/ppzp/";
 
+        /// <summary>
+        /// Podpis_Zaufany namespace
+        /// </summary>
+        public const string PODPIS_ZAUFANY = "http://crd.gov.pl/xml/schematy/podpis_zaufany/";
+
 
         /// <summary>
         /// PpzpOS namespace

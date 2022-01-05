@@ -1,4 +1,5 @@
 ﻿using OldMusicBox.ePUAP.Client.Constants;
+using OldMusicBox.ePUAP.Client.Model.Signature;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -52,6 +53,7 @@ namespace OldMusicBox.ePUAP.Client.Model.VerifySignedDocument
 
     #region Nested models
 
+    [XmlRoot("verifySignedDocumentReturn", Namespace = "")]
     public class VerifySignedDocumentReturn
     {
         [XmlText()]
@@ -217,6 +219,10 @@ namespace OldMusicBox.ePUAP.Client.Model.VerifySignedDocument
     {
         [XmlElement("PodpisZP", Namespace = Namespaces.PPZP)]
         public GetTpUserInfo.PodpisZP PodpisZP { get; set; }
+
+        [XmlElement("EPSignature", Namespace = Namespaces.PODPIS_ZAUFANY)]
+        public EPSignature Signature { get; set; }
+
     }
 
     #endregion

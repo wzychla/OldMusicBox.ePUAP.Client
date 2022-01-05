@@ -9,17 +9,10 @@ using System.Xml.Serialization;
 namespace OldMusicBox.ePUAP.Client.Model.AddDocumentToSigning
 {
     /// <summary>
-    /// AddDocumentToSigning response
+    /// AddDocumentToSigning5 response
     /// </summary>
-    [XmlRoot("addDocumentToSigningResponse", Namespace = Namespaces.COMARCH_SIGN)]
-    public class AddDocumentToSigningResponse : IServiceResponse
-    {
-        [XmlElement("addDocumentToSigningReturn", Namespace = "")]
-        public AddDocumentToSigningReturn Return { get; set; }
-    }
-
     [XmlRoot("addDocumentToSigningReturn", Namespace = "")]
-    public class AddDocumentToSigningReturn
+    public class AddDocumentToSigning5Response : IServiceResponse
     {
         [XmlText]
         public string Url { get; set; }

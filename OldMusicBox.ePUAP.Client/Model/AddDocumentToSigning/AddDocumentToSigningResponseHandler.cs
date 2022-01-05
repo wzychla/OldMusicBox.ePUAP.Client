@@ -31,18 +31,19 @@ namespace OldMusicBox.ePUAP.Client.Model.AddDocumentToSigning
                 var xd = new XmlDocument();
                 xd.LoadXml(soapResponse);
 
-                var serializer = new XmlSerializer(typeof(AddDocumentToSigningResponse));
                 var nsManager  = new XmlNamespaceManager(xd.NameTable);
                 nsManager.AddNamespace("ns1", Namespaces.COMARCH_SIGN);
 
                 var response = xd.SelectSingleNode("//ns1:addDocumentToSigningResponse", nsManager) as XmlElement;
                 if (response != null)
                 {
+                    // tak zwraca TpSigning
+                    var serializer = new XmlSerializer(typeof(AddDocumentToSigningResponse));
                     using (var reader = new StringReader(response.OuterXml))
                     {
                         return serializer.Deserialize(reader) as AddDocumentToSigningResponse;
                     }
-                }
+                }               
 
                 return null;
             }

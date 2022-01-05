@@ -14,10 +14,10 @@ namespace OldMusicBox.ePUAP.Client.Model.VerifySignedDocument
     /// <summary>
     /// VerifySignedDocument response handler
     /// </summary>
-    public class VerifySignedDocumentResponseHandler
-         : IServiceResponseHandler<VerifySignedDocumentResponse>
+    public class VerifySignedDocument5ResponseHandler
+         : IServiceResponseHandler<VerifySignedDocument5Response>
     {
-        public VerifySignedDocumentResponse FromSOAP(string soapResponse, out FaultModel fault)
+        public VerifySignedDocument5Response FromSOAP(string soapResponse, out FaultModel fault)
         {
             fault = null;
 
@@ -34,14 +34,15 @@ namespace OldMusicBox.ePUAP.Client.Model.VerifySignedDocument
                 var manager    = new XmlNamespaceManager(xd.NameTable);
                 manager.AddNamespace("ns1", Namespaces.COMARCH_SIGN);
 
-                var response = xd.SelectSingleNode("//ns1:verifySignedDocumentResponse", manager) as XmlElement;
+                // tak zwraca TpSigning5
+                var response = xd.SelectSingleNode("//verifySignedDocumentReturn") as XmlElement;
                 if (response != null)
                 {
-                    // tak zwraca TpSigning
-                    var serializer = new XmlSerializer(typeof(VerifySignedDocumentResponse));
+                    var serializer = new XmlSerializer(typeof(VerifySignedDocument5Response));
+
                     using (var reader = new StringReader(response.OuterXml))
                     {
-                        return serializer.Deserialize(reader) as VerifySignedDocumentResponse;
+                        return serializer.Deserialize(reader) as VerifySignedDocument5Response;
                     }
                 }
 

@@ -1,0 +1,1 @@
+keytool -import -trustcacerts -alias vulcandpo -file ./certyfikat.txt -keystore ./intpz2022.p12 -storetype pkcs12

@@ -1,0 +1,34 @@
+﻿@model OldMusicBox.ePUAP.Demo.Models.Home.AddDocumentToSigning5SuccessModel
+@{
+    ViewBag.Title = "AddDocumentToSigningSuccess";
+}
+
+<h2>The document has been succesfully signed</h2>
+
+<h4>Signed document</h4>
+
+<div>
+<pre>
+@Model.Document
+</pre>
+</div>
+
+@using (var form = Html.BeginForm(null, null, FormMethod.Post))
+{
+    <button>Download document</button>
+}
+
+<h4>Signing user</h4>
+
+<div>
+    @Model.Signature.ToString()
+</div>
+
+<div>
+    <a href="/Home/Index">Return to main page</a>
+</div>
+
+
+
+
+

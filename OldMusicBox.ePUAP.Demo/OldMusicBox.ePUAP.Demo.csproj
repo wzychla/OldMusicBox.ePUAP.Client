@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -108,9 +109,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Home\AddDocumentToSigning5Model.cs" />
+    <Compile Include="Models\Home\AddDocumentToSigning5SuccessModel.cs" />
     <Compile Include="Models\Home\AddDocumentToSigningModel.cs" />
     <Compile Include="Models\Home\AddDocumentToSigningSuccessModel.cs" />
     <Compile Include="Models\Home\SignedModel.cs" />
+    <Compile Include="Models\Home\VerifySignedDocument5Model.cs" />
     <Compile Include="Models\Home\VerifySignedDocumentModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -125,6 +129,9 @@
     <Content Include="Views\Home\AddDocumentToSigning.cshtml" />
     <Content Include="Views\Home\AddDocumentToSigningSuccess.cshtml" />
     <Content Include="Views\Home\VerifySignedDocument.cshtml" />
+    <Content Include="Views\Home\AddDocumentToSigning5.cshtml" />
+    <Content Include="Views\Home\AddDocumentToSigning5Success.cshtml" />
+    <Content Include="Views\Home\VerifySignedDocument5.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

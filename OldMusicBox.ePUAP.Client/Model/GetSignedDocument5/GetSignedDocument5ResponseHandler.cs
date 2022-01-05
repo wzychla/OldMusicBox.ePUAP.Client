@@ -14,10 +14,10 @@ namespace OldMusicBox.ePUAP.Client.Model.GetSignedDocument
     /// <summary>
     /// GetSignedDocument Response Handler
     /// </summary>
-    public class GetSignedDocumentResponseHandler
-        : IServiceResponseHandler<GetSignedDocumentResponse>
+    public class GetSignedDocument5ResponseHandler
+        : IServiceResponseHandler<GetSignedDocument5Response>
     {
-        public GetSignedDocumentResponse FromSOAP(string soapResponse, out FaultModel fault)
+        public GetSignedDocument5Response FromSOAP(string soapResponse, out FaultModel fault)
         {
             fault = null;
 
@@ -34,14 +34,15 @@ namespace OldMusicBox.ePUAP.Client.Model.GetSignedDocument
                 var nsManager  = new XmlNamespaceManager(xd.NameTable);
                 nsManager.AddNamespace("ns1", Namespaces.COMARCH_SIGN);
 
-                var response = xd.SelectSingleNode("//ns1:getSignedDocumentResponse", nsManager) as XmlElement;
+                // tak zwraca TpSigning5
+                var response = xd.SelectSingleNode("//getSignedDocumentReturn") as XmlElement;
                 if (response != null)
                 {
-                    // tak zwraca TpSigning
-                    var serializer = new XmlSerializer(typeof(GetSignedDocumentResponse));
+                    var serializer = new XmlSerializer(typeof(GetSignedDocument5Response));
+
                     using (var reader = new StringReader(response.OuterXml))
                     {
-                        return serializer.Deserialize(reader) as GetSignedDocumentResponse;
+                        return serializer.Deserialize(reader) as GetSignedDocument5Response;
                     }
                 }
 
