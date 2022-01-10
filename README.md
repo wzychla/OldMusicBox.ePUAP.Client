@@ -10,7 +10,7 @@ The client supports:
 The implementation follows the 
 [official specification](https://epuap.gov.pl/wps/portal/strefa-urzednika/pomoc_urzednik/) (*Dla integratorów* section).
 
-## Current Version: 0.85
+## Current Version: 0.90
 
 Please refer to the change list and the road map below.
 
@@ -22,9 +22,10 @@ Please refer to the change list and the road map below.
 |Single Sign On|**yes** (no longer works in production, read more below)|
 |TpSigning|**yes**|
 |TpSigning5|**yes**|
-|WS-Skrytka|**yes**|
 |WS-Doręczyciel|**partial**|
-|WS-pull|**yes**|
+|WS-FileRepo|**yes**|
+|WS-Skrytka|**yes**|
+|WS-Pull|**yes**|
 |WS-ZarzadzanieDokumentami|**partial**|
 |Single Log Out|not yet|
 |.NET Framework|4.6.2+|
@@ -120,6 +121,10 @@ The certificate used here has to be uploaded by the Public authority administrat
 To do this, log into ePUAP using the Public authority profile, click your username, select **Administrowanie / Zarządzanie kontem / Systemy** and here create a new system together with its certificate (the public key in the PEM format).
 
 ## Version History:
+
+* 0.90 (2022-01-10)
+    * added support for `TpUserObjectsInfo::TrustedProfileInfoForPESEL`, however, it seem to return 401 because of not enough priviledges
+    * added support for `FileRepo` (courtesy [jaszczykj](https://github.com/jaszczykj))
 
 * 0.85 (2022-01-04)
     * added support for TpSigning5 

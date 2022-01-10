@@ -691,5 +691,31 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
 
 
         #endregion
+
+        #region TrustedProfileInfoForPESEL
+
+        public ActionResult TrustedProfileInfoForPESEL()
+        {
+            var certificate = new ClientCertificateProvider().GetClientCertificate();
+
+            FaultModel fault;
+
+            var _pesel = "15280119601";
+
+            var client = new TpUserObjectsInfoClient(TpUserObjectsInfoClient.INTEGRATION_URI, certificate);
+            var response = client.TrustedProfileInfoForPESEL(
+                _pesel,
+                Client.Model.TrustedProfileInfoForPESEL.ProfileInfoEnum.MOST_RECENT,
+                out fault);
+
+            if (response != null && response.Profile != null)
+            {
+                var userId = response.Profile.UserId;
+            }
+
+            return Redirect("/Home/Index");
+        }
+
+        #endregion
     }
 }

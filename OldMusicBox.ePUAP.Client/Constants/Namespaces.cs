@@ -43,6 +43,16 @@ namespace OldMusicBox.ePUAP.Client.Constants
         public const string USERINFO     = "http://userinfo.zp.epuap.gov.pl";
 
         /// <summary>
+        /// epuap.gov/filerepo
+        /// </summary>
+        public const string FILEREPOCORE = "http://wsdl.epuap.gov.pl/filerepocore/";
+
+        /// <summary>
+        /// Objectinfo namespace
+        /// </summary>
+        public const string OBJECTINFO   = "http://www.cpi.gov.pl/pz/TpUserObjectsInfoServiceSchema";
+
+        /// <summary>
         /// epuap.gov/obiektyext
         /// </summary>
         public const string OBI_EXT      = "http://wsdl.epuap.gov.pl/obiekty/ext/";
