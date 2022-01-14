@@ -1,5 +1,7 @@
 ﻿using OldMusicBox.ePUAP.Client;
 using OldMusicBox.ePUAP.Client.Model.Common;
+using OldMusicBox.ePUAP.Client.Model.Dokumenty;
+using OldMusicBox.ePUAP.Client.Model.XML;
 using OldMusicBox.ePUAP.Demo.Models.Home;
 using System;
 using System.Collections.Generic;
@@ -497,14 +499,38 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
 
         #region Other services
 
-        public ActionResult Other()
+        public ActionResult WSSkrytka()
         {
             var certificate = new ClientCertificateProvider().GetClientCertificate();
 
             WSSkrytka_Demo(certificate);
-            //WSPull_Demo(certificate);
-            //WSZarzadzanieDokumentami_DodajDokument_Demo(certificate);
-            //WSDoreczyciel_Dorecz_Demo(certificate);
+
+            return Redirect("/Home/Index");
+        }
+
+        public ActionResult WSPull()
+        {
+            var certificate = new ClientCertificateProvider().GetClientCertificate();
+
+            WSPull_Demo(certificate);
+
+            return Redirect("/Home/Index");
+        }
+
+        public ActionResult WSZarzadzanieDokumentami()
+        {
+            var certificate = new ClientCertificateProvider().GetClientCertificate();
+
+            WSZarzadzanieDokumentami_DodajDokument_Demo(certificate);
+
+            return Redirect("/Home/Index");
+        }
+
+        public ActionResult WSDoreczyciel()
+        {
+            var certificate = new ClientCertificateProvider().GetClientCertificate();
+
+            WSDoreczyciel_Dorecz_Demo(certificate);
 
             return Redirect("/Home/Index");
         }
@@ -517,8 +543,8 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
             FaultModel fault;
 
             var _podmiot         = "vulcandpo";
-            var _adresSkrytki    = "/vulcandpo/testowa";
             var _adresOdpowiedzi = "/vulcandpo/domyslna";
+            var _adresSkrytki    = "/vulcandpo/testowa";
 
             var client = new SkrytkaClient(SkrytkaClient.INTEGRATION_URI, certificate);
             var response = client.Nadaj(
@@ -651,6 +677,7 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
         /// Jako Folder należy podać
         /// * RECEIVED - dokument trafia do foldera Odebrane
         /// * SENT     - dokument trafia do foldera Wysłane
+        /// * DRAFT    - robocze
         /// * [puste]  - dokument trafia do foldera Robocze
         /// </summary>
         /// <param name="certificate"></param>
@@ -662,8 +689,8 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
             var response = client.DodajDokument(
                 new Client.Model.ZarzadzanieDokumentami.Sklad()
                 {
-                    Nazwa   = "testowa",
-                    Podmiot = "vulcandpo"
+                    Nazwa   = "domyslna",
+                    Podmiot = "vulcandpou"
                 },
                 new Client.Model.ZarzadzanieDokumentami.Dokument()
                 {
@@ -673,26 +700,20 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
                         Adresat = new Client.Model.ZarzadzanieDokumentami.NadawcaOdbiorca()
                         {
                             Nazwa = "vulcandpo",
-                            Adres = "/vulcandpo/testowa"
+                            Adres = "/vulcandpo/domyslna"
                         },
                         Nadawca = new Client.Model.ZarzadzanieDokumentami.NadawcaOdbiorca()
                         {
                             Nazwa = "vulcandpo",
                             Adres = "/vulcandpo/domyslna"
                         },
-                        Folder = "RECEIVED"
+                        Folder = "DRAFT"
                     },
                     Tresc = Encoding.UTF8.GetBytes(ExampleDocument)
                 },
                 out fault
                 );
         }
-
-
-
-        #endregion
-
-        #region TrustedProfileInfoForPESEL
 
         public ActionResult TrustedProfileInfoForPESEL()
         {
@@ -714,6 +735,89 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
             }
 
             return Redirect("/Home/Index");
+        }
+
+        #endregion
+
+        #region ExternalUploadServlet
+
+        /// <summary>
+        /// ExternalUploadServlet
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ExternalUploadServlet()
+        {
+            var model = new ExternalUploadServletModel();
+
+            // https://stackoverflow.com/questions/17279712/what-is-the-smallest-possible-valid-pdf
+            var pdf = Convert.FromBase64String("JVBERi0xLg10cmFpbGVyPDwvUm9vdDw8L1BhZ2VzPDwvS2lkc1s8PC9NZWRpYUJveFswIDAgMyAzXT4+XT4+Pj4+Pg==");
+
+            var dokument = new Dokument();
+
+            dokument.Opis.Data.Czas.Wartosc = DateTime.Now.ToString("o");
+
+            dokument.Dane.Data.Czas.Wartosc = DateTime.Now.ToString("yyyy-MM-dd");
+
+            dokument.Dane.Adresaci.Podmiot.Osoba          = new Osoba();
+            dokument.Dane.Adresaci.Podmiot.Osoba.Nazwisko = "Kowalski";
+            dokument.Dane.Adresaci.Podmiot.Osoba.Imie     = "Jan";
+
+            dokument.Dane.Nadawcy.Podmiot.Instytucja                   = new Instytucja();
+            dokument.Dane.Nadawcy.Podmiot.Instytucja.NazwaInstytucji   = "Urząd miasta Widliszki Wielkie";
+            dokument.Dane.Nadawcy.Podmiot.Instytucja.Adres.Miejscowosc = "Widliszki Wielkie";
+            dokument.Dane.Nadawcy.Podmiot.Instytucja.Adres.Ulica       = "Kwiatowa";
+            dokument.Dane.Nadawcy.Podmiot.Instytucja.Adres.Budynek     = "1-8";
+            dokument.Dane.Nadawcy.Podmiot.Instytucja.Adres.Poczta      = "11-110";
+
+            dokument.Tresc.MiejscowoscDokumentu               = "Widliszki Wielkie";
+            dokument.Tresc.Tytul                              = "Zawiadomienie w sprawie 1234/2019";
+            dokument.Tresc.RodzajWnioskuRozszerzony.JakisInny = "inne pismo";
+            dokument.Tresc.RodzajWnioskuRozszerzony.Rodzaj    = "zawiadomienie";
+            dokument.Tresc.Informacje                         = new Informacja[]
+            {
+                    new Informacja()
+                    {
+                        Wartosc = "Ala ma kota"
+                    },
+                    new Informacja()
+                    {
+                        Wartosc = "Basia ma wózek widłowy"
+                    }
+            };
+            dokument.Tresc.Zalaczniki = new Zalacznik[]
+            {
+                    new Zalacznik()
+                    {
+                        Format         = "application/octet-stream",
+                        NazwaPliku     = "test.pdf",
+                        DaneZalacznika = new DaneZalacznika()
+                        {
+                            Zawartosc = pdf
+                        }
+                    }
+            };
+            // act
+
+            var namespaces = new XmlSerializerNamespaces();
+            //namespaces.Add("", ePUAP.Client.Constants.Namespaces.WNIO_PODPISANYDOKUMENT);
+            namespaces.Add("wnio", ePUAP.Client.Constants.Namespaces.CRD_WNIO);
+            namespaces.Add("meta", ePUAP.Client.Constants.Namespaces.CRD_META);
+            namespaces.Add("str", ePUAP.Client.Constants.Namespaces.CRD_STR);
+            namespaces.Add("adr", ePUAP.Client.Constants.Namespaces.CRD_ADR);
+            namespaces.Add("oso", ePUAP.Client.Constants.Namespaces.CRD_OSO);
+            namespaces.Add("inst", ePUAP.Client.Constants.Namespaces.CRD_INST);
+
+            // wnio:Dokument
+            var document = dokument.ToXmlDocument(namespaces);
+            var pi = document.CreateProcessingInstruction(
+                "xml-stylesheet",
+                "type=\"text/xsl\" href=\"http://crd.gov.pl/wzor/2013/12/12/1410/styl.xsl\"");
+            document.InsertAfter(pi, document.FirstChild);
+
+            model.XML = document.OuterXml;
+
+
+            return View(model);
         }
 
         #endregion

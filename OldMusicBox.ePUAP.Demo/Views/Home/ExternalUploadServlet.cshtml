@@ -1,0 +1,39 @@
+﻿@model OldMusicBox.ePUAP.Demo.Models.Home.ExternalUploadServletModel
+@{
+    ViewBag.Title = "ExternalUploadServlet";
+}
+
+<h2>ExternalUploadServlet</h2>
+
+<form id="form1" action="https://int.epuap.gov.pl/fe_web/ExternalUploadServlet" method="post" target="_blank">
+    <div>
+        <input type="text" name="AdresSkrzynki" value="/vulcandpo/domyslna" />
+    </div>
+    <div>
+        <input type="text" name="XML" value="@Model.XML" />
+    </div>
+</form>
+
+<div>
+    <button id="button1">Submit form (javascript)</button>
+</div>
+
+<div>
+    <a href="/Home">Return to main page</a>
+</div>
+
+<script>
+    window.addEventListener('load', function () {
+        var button1 = document.getElementById('button1');
+        button1.addEventListener('click', function () {
+            try {
+                var form1 = document.getElementById('form1');
+                form1.submit();
+            }
+            catch (e) {
+                console.log(e);
+            }
+
+        });
+    });
+</script>

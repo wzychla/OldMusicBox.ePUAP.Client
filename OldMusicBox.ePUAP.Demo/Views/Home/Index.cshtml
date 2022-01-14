@@ -3,29 +3,47 @@
     ViewBag.Title = "Index";
 }
 
-<!--
-<div>
-    <a href="/Home/Signed">Single Sign-on through Profil Zaufany</a>
-</div>
--->
-<div>
-    <a href="/Home/AddDocumentToSigning">Signing an XML document with Profil Zaufany (TpSigning)</a>
-</div>
-<div>
-    <a href="/Home/VerifySignedDocument">Verify signed XML document (TpSigning)</a>
-</div>
-<div>
-    <a href="/Home/AddDocumentToSigning5">Signing an XML document with Profil Zaufany (TpSigning5)</a>
-</div>
-<div>
-    <a href="/Home/VerifySignedDocument5">Verify signed XML document (TpSigning5)</a>
-</div>
-<div>
-    <a href="/Home/Other">Other services</a>
-</div>
-<div>
-    <a href="/Home/TrustedProfileInfoForPESEL">TrustedProfileInfoForPESEL</a>
-</div>
+<h1>ePUAP Service Demos</h1>
+
+    <ul>
+        <li>
+            Document Signing (TpSigning)
+            <ul>
+                <li>
+                    <a href="/Home/AddDocumentToSigning">Signing an XML document with Profil Zaufany (TpSigning)</a>
+                </li>
+                <li>
+                    <a href="/Home/VerifySignedDocument">Verify signed XML document (TpSigning)</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            Document Signing (TpSigning5)
+            <ul>
+                <li>
+                    <a href="/Home/AddDocumentToSigning5">Signing an XML document with Profil Zaufany (TpSigning5)</a>
+                </li>
+                <li>
+                    <a href="/Home/VerifySignedDocument5">Verify signed XML document (TpSigning5)</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="/Home/WSSkrytka">WSSkrytka</a>
+        </li>
+        <li>
+            <a href="/Home/WSPull">WSPull</a>
+        </li>
+        <li>
+            <a href="/Home/WSZarzadzanieDokumentami">WSZarzadzanieDokumentami</a>
+        </li>
+        <li>
+            <a href="/Home/WSDoreczyciel">WSDoreczyciel</a>
+        </li>
+        <li>
+            <a href="/Home/ExternalUploadServlet">ExternalUploadServlet</a>
+        </li>
+    </ul>
 
 @if (this.TempData.ContainsKey("Message"))
 {

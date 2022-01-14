@@ -113,6 +113,7 @@
     <Compile Include="Models\Home\AddDocumentToSigning5SuccessModel.cs" />
     <Compile Include="Models\Home\AddDocumentToSigningModel.cs" />
     <Compile Include="Models\Home\AddDocumentToSigningSuccessModel.cs" />
+    <Compile Include="Models\Home\ExternalUploadServletModel.cs" />
     <Compile Include="Models\Home\SignedModel.cs" />
     <Compile Include="Models\Home\VerifySignedDocument5Model.cs" />
     <Compile Include="Models\Home\VerifySignedDocumentModel.cs" />
@@ -132,6 +133,7 @@
     <Content Include="Views\Home\AddDocumentToSigning5.cshtml" />
     <Content Include="Views\Home\AddDocumentToSigning5Success.cshtml" />
     <Content Include="Views\Home\VerifySignedDocument5.cshtml" />
+    <Content Include="Views\Home\ExternalUploadServlet.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
