@@ -28,7 +28,7 @@ namespace OldMusicBox.ePUAP.Demo
 
             if (_clientCertificate == null)
             {
-                var path = HostingEnvironment.MapPath(p12location);
+                var path = p12location.Contains(":") ? p12location : HostingEnvironment.MapPath(p12location);
                 using (var fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
                     byte[] bytes = new byte[fs.Length];

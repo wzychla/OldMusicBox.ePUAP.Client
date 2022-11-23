@@ -21,7 +21,7 @@ namespace OldMusicBox.ePUAP.Client
         public BaseClient(string serviceUri, X509Certificate2 signingCertificate)
         {
             if (signingCertificate == null ||
-                signingCertificate.PrivateKey == null
+                signingCertificate.GetRSAPrivateKey() == null
                 )
             {
                 throw new ArgumentNullException("signingCertificate");

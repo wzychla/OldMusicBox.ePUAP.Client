@@ -64,7 +64,7 @@ namespace OldMusicBox.ePUAP.Client.Request
                 throw new ArgumentException("Can't compute signature of an incomplete Envelope");
             }
             if ( signatureCertificate == null ||
-                 signatureCertificate.PrivateKey == null 
+                 signatureCertificate.GetRSAPrivateKey() == null 
                 )
             {
                 throw new ArgumentException("Can't compute signature without actual certificate");
@@ -85,7 +85,7 @@ namespace OldMusicBox.ePUAP.Client.Request
 
             var signedXml        = new SignedXmlWithId(xmlrequest);
 
-            signedXml.SigningKey                        = signatureCertificate.ToSha256PrivateKey();
+            signedXml.SigningKey                        = signatureCertificate.GetRSAPrivateKey();
             signedXml.SignedInfo.CanonicalizationMethod = SignedXml.XmlDsigExcC14NTransformUrl;
             signedXml.SignedInfo.SignatureMethod        = SignedXml.XmlDsigRSASHA256Url;
 

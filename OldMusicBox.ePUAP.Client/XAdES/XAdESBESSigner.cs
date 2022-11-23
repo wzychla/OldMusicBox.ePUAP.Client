@@ -37,7 +37,7 @@ namespace OldMusicBox.ePUAP.Client.XAdES
 
             var signature          = new XAdESSignedXml(document);
             signature.Signature.Id = SignatureId;
-            signature.SigningKey   = certificate.PrivateKey;
+            signature.SigningKey   = certificate.GetRSAPrivateKey();
 
             AddSignatureReference(signature);
             AddKeyInfo(certificate, signature);

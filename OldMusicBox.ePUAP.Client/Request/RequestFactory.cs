@@ -17,8 +17,8 @@ namespace OldMusicBox.ePUAP.Client.Request
 
         public RequestFactory( X509Certificate2 signingCertificate )
         {
-            if (signingCertificate == null ||
-                 signingCertificate.PrivateKey == null
+            if ( signingCertificate == null ||
+                 signingCertificate.GetRSAPrivateKey() == null
                 )
             {
                 throw new ArgumentNullException("signingCertificate");

@@ -122,6 +122,9 @@ To do this, log into ePUAP using the Public authority profile, click your userna
 
 ## Version History:
 
+* 0.91 (2022-11-23)
+	* replaced `X509Certificate2::PrivateKey` with `X509Certificate2::GetRSAPrivateKey()`
+
 * 0.90 (2022-01-10)
     * added support for `TpUserObjectsInfo::TrustedProfileInfoForPESEL`, however, it seem to return 401 because of not enough priviledges
     * added support for `FileRepo` (courtesy [jaszczykj](https://github.com/jaszczykj))
