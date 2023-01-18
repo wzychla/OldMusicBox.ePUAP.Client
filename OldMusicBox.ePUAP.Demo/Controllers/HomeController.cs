@@ -1,6 +1,7 @@
 ﻿using OldMusicBox.ePUAP.Client;
 using OldMusicBox.ePUAP.Client.Model.Common;
 using OldMusicBox.ePUAP.Client.Model.Dokumenty;
+using OldMusicBox.ePUAP.Client.Model.ObslugaUPP;
 using OldMusicBox.ePUAP.Client.Model.XML;
 using OldMusicBox.ePUAP.Demo.Models.Home;
 using System;
@@ -535,6 +536,15 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
             return Redirect("/Home/Index");
         }
 
+        public ActionResult WSObslugaUPP()
+        {
+            var certificate = new ClientCertificateProvider().GetClientCertificate();
+
+            WSObslugaUpp_DajUPP( certificate );
+
+            return Redirect( "/Home/Index" );
+        }
+
         /// <summary>
         /// Nadanie dokumentu do zewnętrznej skrytki ze wskazaniem własnej skrytki jako skrytki odpowiedzi
         /// </summary>
@@ -713,6 +723,57 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
                 },
                 out fault
                 );
+        }
+
+        private void WSObslugaUpp_DajUPP( X509Certificate2 certificate )
+        {
+            FaultModel fault;
+
+            var _podmiot         = "vulcandpo";
+            var client = new ObslugaUPPClient(ObslugaUPPClient.INTEGRATION_URI, certificate);
+            var response = client.DajUPP(
+                _podmiot,
+                new Client.Model.ObslugaUPP.UzytkownikType()
+                {
+                    Identyfikator = _podmiot,
+                    TypIdentyfikatora = UzytkownikType.EPUAP_ID,
+                    Nazwa = "nazwa nadawcy jako napis"
+                },
+                new Client.Model.ObslugaUPP.DocumentType()
+                {
+                    NazwaPliku = "testowy.xml",
+                    TypPliku   = "text/xml",
+                    Zawartosc  = Encoding.UTF8.GetBytes(ExampleDocument)
+                },
+                out fault);
+
+            // możliwe że odpowiedź zawiera UPP
+            if ( response != null )
+            {
+                if ( response.UPP != null )
+                {
+                    var zawartosc = response.UPP.Zawartosc;
+                    var nazwa     = response.UPP.NazwaPliku;
+                    var typ       = response.UPP.TypPliku;
+
+                    try
+                    {
+                        var zawartoscXml = new XmlDocument();
+                        zawartoscXml.LoadXml( Encoding.UTF8.GetString( zawartosc ) );
+
+                        OldMusicBox.ePUAP.Client.Model.UPP.Dokument zawartoscDokument;
+                        XmlSerializer serializer = new XmlSerializer(typeof(OldMusicBox.ePUAP.Client.Model.UPP.Dokument));
+                        using ( XmlReader reader = new XmlNodeReader( zawartoscXml ) )
+                        {
+                            zawartoscDokument = (OldMusicBox.ePUAP.Client.Model.UPP.Dokument)serializer.Deserialize( reader );
+                        }
+                    }
+                    catch ( Exception ex )
+                    {
+                        // nie UPP
+                    }
+                }
+            }
         }
 
         public ActionResult TrustedProfileInfoForPESEL()

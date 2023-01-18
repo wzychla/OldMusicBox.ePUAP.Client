@@ -77,12 +77,16 @@
     <Compile Include="Model\GetSignedDocument5\GetSignedDocument5Request.cs" />
     <Compile Include="Model\GetSignedDocument5\GetSignedDocument5Response.cs" />
     <Compile Include="Model\GetSignedDocument5\GetSignedDocument5ResponseHandler.cs" />
+    <Compile Include="Model\ObslugaUPP\DajUPPRequest.cs" />
+    <Compile Include="Model\ObslugaUPP\DajUPPResponse.cs" />
+    <Compile Include="Model\ObslugaUPP\DajUPPResponseHandler.cs" />
     <Compile Include="Model\TrustedProfileInfoForPESEL\TrustedProfileInfoForPESELRequest.cs" />
     <Compile Include="Model\TrustedProfileInfoForPESEL\TrustedProfileInfoForPESELResponse.cs" />
     <Compile Include="Model\TrustedProfileInfoForPESEL\TrustedProfileInfoForPESELResponseHandler.cs" />
     <Compile Include="Model\VerifySignedDocument5\VerifySignedDocument5Request.cs" />
     <Compile Include="Model\VerifySignedDocument5\VerifySignedDocument5Response.cs" />
     <Compile Include="Model\VerifySignedDocument5\VerifySignedDocument5ResponseHandler.cs" />
+    <Compile Include="ObslugaUPPClient.cs" />
     <Compile Include="SSOClient.cs" />
     <Compile Include="TpSigning5Client.cs" />
     <Compile Include="TpUserObjectsInfoClient.cs" />

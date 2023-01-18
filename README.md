@@ -10,7 +10,7 @@ The client supports:
 The implementation follows the 
 [official specification](https://epuap.gov.pl/wps/portal/strefa-urzednika/pomoc_urzednik/) (*Dla integratorów* section).
 
-## Current Version: 0.91
+## Current Version: 0.95
 
 Please refer to the change list and the road map below.
 
@@ -122,11 +122,14 @@ To do this, log into ePUAP using the Public authority profile, click your userna
 
 ## Version History:
 
+* 0.95 (2023-01-18)
+    * partial support for `WS-obslugaUpp` (however, it seem to return 401 because of not enough priviledges)
+
 * 0.91 (2022-11-23)
 	* replaced `X509Certificate2::PrivateKey` with `X509Certificate2::GetRSAPrivateKey()`
 
 * 0.90 (2022-01-10)
-    * added support for `TpUserObjectsInfo::TrustedProfileInfoForPESEL`, however, it seem to return 401 because of not enough priviledges
+    * added support for `TpUserObjectsInfo::TrustedProfileInfoForPESEL` (however, it seem to return 401 because of not enough priviledges)
     * added support for `FileRepo` (courtesy [jaszczykj](https://github.com/jaszczykj))
 
 * 0.85 (2022-01-04)
