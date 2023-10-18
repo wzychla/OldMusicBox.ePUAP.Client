@@ -16,12 +16,12 @@ namespace OldMusicBox.ePUAP.Client
     /// </summary>
     /// <remarks>
     /// Production uri:  https://ws.epuap.gov.pl/pk_external_ws/services/doreczyciel
-    /// Integration uri: https://int.epuap.gov.pl/pk_external_ws/services/doreczyciel
+    /// Integration uri: https://ws-int.epuap.gov.pl/pk_external_ws/services/doreczyciel
     /// WSDL:            https://ws.epuap.gov.pl/pk_external_ws/services/doreczyciel/wsdl/doreczyciel.wsdl
     /// </remarks>
     public class DoreczycielClient : BaseClient
     {
-        public const string INTEGRATION_URI = "https://int.epuap.gov.pl/pk_external_ws/services/doreczyciel";
+        public const string INTEGRATION_URI = "https://ws-int.epuap.gov.pl/pk_external_ws/services/doreczyciel";
         public const string PRODUCTION_URI  = "https://ws.epuap.gov.pl/pk_external_ws/services/doreczyciel";
 
         public DoreczycielClient(string serviceUri, X509Certificate2 signingCertificate) : base(serviceUri, signingCertificate)

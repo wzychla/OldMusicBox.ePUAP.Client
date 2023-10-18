@@ -12,12 +12,12 @@ namespace OldMusicBox.ePUAP.Client
     /// dajUpp oraz dajUppPrzeslij.
     /// <remarks>
     /// Production uri:  https://ws.epuap.gov.pl/pk_external_ws/services/obslugaUpp
-    /// Integration uri: https://int.epuap.gov.pl/pk_external_ws/services/obslugaUpp
+    /// Integration uri: https://ws-int.epuap.gov.pl/pk_external_ws/services/obslugaUpp
     /// WSDL:            https://ws.epuap.gov.pl/pk_external_ws/services/obslugaUpp/wsdl/obslugaUpp.wsdl
     /// </remarks>
     public class ObslugaUPPClient : BaseClient
     {
-        public const string INTEGRATION_URI = "https://int.epuap.gov.pl/pk_external_ws/services/obslugaUpp";
+        public const string INTEGRATION_URI = "https://ws-int.epuap.gov.pl/pk_external_ws/services/obslugaUpp";
         public const string PRODUCTION_URI  = "https://ws.epuap.gov.pl/pk_external_ws/services/obslugaUpp";
 
         public ObslugaUPPClient( string serviceUri, X509Certificate2 signingCertificate ) : base( serviceUri, signingCertificate )

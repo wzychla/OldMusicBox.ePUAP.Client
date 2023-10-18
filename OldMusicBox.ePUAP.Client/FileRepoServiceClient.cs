@@ -12,12 +12,12 @@ namespace OldMusicBox.ePUAP.Client
     /// </summary>
     /// <remarks>
     /// Production uri:  https://ws.epuap.gov.pl/repo-ws-ext/FileRepoService
-    /// Integration uri: https://int.epuap.gov.pl/repo-ws-ext/FileRepoService
+    /// Integration uri: https://ws-int.epuap.gov.pl/repo-ws-ext/FileRepoService
     /// WSDL:            https://ws.epuap.gov.pl/repo-ws-ext/FileRepoService/WEB-INF/wsdl/filerepo.wsdl
     /// </remarks>
     public class FileRepoServiceClient : BaseClient
     {
-        public const string INTEGRATION_URI = "https://int.epuap.gov.pl/repo-ws-ext/FileRepoService";
+        public const string INTEGRATION_URI = "https://ws-int.epuap.gov.pl/repo-ws-ext/FileRepoService";
         public const string PRODUCTION_URI  = "https://ws.epuap.gov.pl/repo-ws-ext/FileRepoService";
 
         public FileRepoServiceClient(string serviceUri, X509Certificate2 signingCertificate) : base(serviceUri, signingCertificate)

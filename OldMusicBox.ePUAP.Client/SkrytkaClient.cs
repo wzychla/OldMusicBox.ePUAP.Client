@@ -12,12 +12,12 @@ namespace OldMusicBox.ePUAP.Client
     /// </summary>
     /// <remarks>
     /// Production uri:  https://ws.epuap.gov.pl/pk_external_ws/services/skrytka
-    /// Integration uri: https://int.epuap.gov.pl/pk_external_ws/services/skrytka
+    /// Integration uri: https://ws-int.epuap.gov.pl/pk_external_ws/services/skrytka
     /// WSDL:            https://ws.epuap.gov.pl/pk_external_ws/services/skrytka/wsdl/skrytka.wsdl
     /// </remarks>
     public class SkrytkaClient : BaseClient
     {
-        public const string INTEGRATION_URI = "https://int.epuap.gov.pl/pk_external_ws/services/skrytka";
+        public const string INTEGRATION_URI = "https://ws-int.epuap.gov.pl/pk_external_ws/services/skrytka";
         public const string PRODUCTION_URI  = "https://ws.epuap.gov.pl/pk_external_ws/services/skrytka";
 
         public SkrytkaClient(string serviceUri, X509Certificate2 signingCertificate) : base(serviceUri, signingCertificate)

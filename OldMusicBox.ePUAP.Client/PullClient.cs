@@ -16,12 +16,12 @@ namespace OldMusicBox.ePUAP.Client
     /// </summary>
     /// <remarks>
     /// Production uri:  https://ws.epuap.gov.pl/pk_external_ws/services/pull
-    /// Integration uri: https://int.epuap.gov.pl/pk_external_ws/services/pull
+    /// Integration uri: https://ws-int.epuap.gov.pl/pk_external_ws/services/pull
     /// WSDL:            https://ws.epuap.gov.pl/pk_external_ws/services/pull/wsdl/pull.wsdl
     /// </remarks>
     public class PullClient : BaseClient
     {
-        public const string INTEGRATION_URI = "https://int.epuap.gov.pl/pk_external_ws/services/pull";
+        public const string INTEGRATION_URI = "https://ws-int.epuap.gov.pl/pk_external_ws/services/pull";
         public const string PRODUCTION_URI  = "https://ws.epuap.gov.pl/pk_external_ws/services/pull";
 
         public PullClient(string serviceUri, X509Certificate2 signingCertificate) : base(serviceUri, signingCertificate)

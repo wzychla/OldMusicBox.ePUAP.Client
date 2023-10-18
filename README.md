@@ -10,7 +10,7 @@ The client supports:
 The implementation follows the 
 [official specification](https://epuap.gov.pl/wps/portal/strefa-urzednika/pomoc_urzednik/) (*Dla integratorów* section).
 
-## Current Version: 0.95
+## Current Version: 1.23.10.0
 
 Please refer to the change list and the road map below.
 
@@ -122,6 +122,9 @@ To do this, log into ePUAP using the Public authority profile, click your userna
 
 ## Version History:
 
+* 1.23.10.0 (2023-10-18)
+	* changed uris of services on the integration environment (https://int.epuap.gov.pl/... -> https://ws-int.epuap.gov.pl/...)
+	
 * 0.95 (2023-01-18)
     * partial support for `WS-obslugaUpp` (however, it seem to return 401 because of not enough priviledges)
 
@@ -217,11 +220,4 @@ To do this, log into ePUAP using the Public authority profile, click your userna
 
 ## Roadmap
 
-* before 1.0
-
-    * other *Elektroniczna Skrzynka Podawcza* services
-
-* 1.0
-
-    - issuing `LogoutReuqest` for federated logoff
-
+* current maintenance

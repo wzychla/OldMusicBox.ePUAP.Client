@@ -12,12 +12,12 @@ namespace OldMusicBox.ePUAP.Client
     /// </summary>
     /// <remarks>
     /// Production uri:  https://ws.epuap.gov.pl/fe_external_ws/services/ZarzadzanieDokumentami
-    /// Integration uri: https://int.epuap.gov.pl/fe_external_ws/services/ZarzadzanieDokumentami
+    /// Integration uri: https://ws-int.epuap.gov.pl/fe_external_ws/services/ZarzadzanieDokumentami
     /// WSDL:            https://ws.epuap.gov.pl/fe_external_ws/services/ZarzadzanieDokumentami/wsdl/ZarzadzanieDokumentami.wsdl
     /// </remarks>
     public class ZarzadzanieDokumentamiClient : BaseClient
     {
-        public const string INTEGRATION_URI = "https://int.epuap.gov.pl/fe_external_ws/services/ZarzadzanieDokumentami";
+        public const string INTEGRATION_URI = "https://ws-int.epuap.gov.pl/fe_external_ws/services/ZarzadzanieDokumentami";
         public const string PRODUCTION_URI  = "https://ws.epuap.gov.pl/fe_external_ws/services/ZarzadzanieDokumentami";
 
         public ZarzadzanieDokumentamiClient(string serviceUri, X509Certificate2 signingCertificate) : base(serviceUri, signingCertificate)

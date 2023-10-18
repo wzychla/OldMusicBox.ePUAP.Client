@@ -303,7 +303,7 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
                 var tpSigningUri = ConfigurationManager.AppSettings["tpSigning5"];
                 var certificate = new ClientCertificateProvider().GetClientCertificate();
 
-                var document = Encoding.UTF8.GetBytes(model.Document);
+                var document   = Encoding.UTF8.GetBytes(model.Document);
                 var urlSuccess =
                     Url.Action("AddDocumentToSigning5Success", "Home",
                         routeValues: null,
@@ -810,31 +810,38 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
         {
             var model = new ExternalUploadServletModel();
 
+            model.XML = CreateExamplePismoOgolne();
+
+            return View(model);
+        }
+
+        private string CreateExamplePismoOgolne()
+        {
             // https://stackoverflow.com/questions/17279712/what-is-the-smallest-possible-valid-pdf
             var pdf = Convert.FromBase64String("JVBERi0xLg10cmFpbGVyPDwvUm9vdDw8L1BhZ2VzPDwvS2lkc1s8PC9NZWRpYUJveFswIDAgMyAzXT4+XT4+Pj4+Pg==");
-
+            
             var dokument = new Dokument();
 
-            dokument.Opis.Data.Czas.Wartosc = DateTime.Now.ToString("o");
+            dokument.Opis.Data.Czas.Wartosc = DateTime.Now.ToString( "o" );
 
-            dokument.Dane.Data.Czas.Wartosc = DateTime.Now.ToString("yyyy-MM-dd");
+            dokument.Dane.Data.Czas.Wartosc = DateTime.Now.ToString( "yyyy-MM-dd" );
 
-            dokument.Dane.Adresaci.Podmiot.Osoba          = new Osoba();
+            dokument.Dane.Adresaci.Podmiot.Osoba = new Osoba();
             dokument.Dane.Adresaci.Podmiot.Osoba.Nazwisko = "Kowalski";
-            dokument.Dane.Adresaci.Podmiot.Osoba.Imie     = "Jan";
+            dokument.Dane.Adresaci.Podmiot.Osoba.Imie = "Jan";
 
-            dokument.Dane.Nadawcy.Podmiot.Instytucja                   = new Instytucja();
-            dokument.Dane.Nadawcy.Podmiot.Instytucja.NazwaInstytucji   = "Urząd miasta Widliszki Wielkie";
+            dokument.Dane.Nadawcy.Podmiot.Instytucja = new Instytucja();
+            dokument.Dane.Nadawcy.Podmiot.Instytucja.NazwaInstytucji = "Urząd miasta Widliszki Wielkie";
             dokument.Dane.Nadawcy.Podmiot.Instytucja.Adres.Miejscowosc = "Widliszki Wielkie";
-            dokument.Dane.Nadawcy.Podmiot.Instytucja.Adres.Ulica       = "Kwiatowa";
-            dokument.Dane.Nadawcy.Podmiot.Instytucja.Adres.Budynek     = "1-8";
-            dokument.Dane.Nadawcy.Podmiot.Instytucja.Adres.Poczta      = "11-110";
+            dokument.Dane.Nadawcy.Podmiot.Instytucja.Adres.Ulica = "Kwiatowa";
+            dokument.Dane.Nadawcy.Podmiot.Instytucja.Adres.Budynek = "1-8";
+            dokument.Dane.Nadawcy.Podmiot.Instytucja.Adres.Poczta = "11-110";
 
-            dokument.Tresc.MiejscowoscDokumentu               = "Widliszki Wielkie";
-            dokument.Tresc.Tytul                              = "Zawiadomienie w sprawie 1234/2019";
+            dokument.Tresc.MiejscowoscDokumentu = "Widliszki Wielkie";
+            dokument.Tresc.Tytul = "Zawiadomienie w sprawie 1234/2019";
             dokument.Tresc.RodzajWnioskuRozszerzony.JakisInny = "inne pismo";
-            dokument.Tresc.RodzajWnioskuRozszerzony.Rodzaj    = "zawiadomienie";
-            dokument.Tresc.Informacje                         = new Informacja[]
+            dokument.Tresc.RodzajWnioskuRozszerzony.Rodzaj = "zawiadomienie";
+            dokument.Tresc.Informacje = new Informacja[]
             {
                     new Informacja()
                     {
@@ -861,24 +868,21 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
 
             var namespaces = new XmlSerializerNamespaces();
             //namespaces.Add("", ePUAP.Client.Constants.Namespaces.WNIO_PODPISANYDOKUMENT);
-            namespaces.Add("wnio", ePUAP.Client.Constants.Namespaces.CRD_WNIO);
-            namespaces.Add("meta", ePUAP.Client.Constants.Namespaces.CRD_META);
-            namespaces.Add("str", ePUAP.Client.Constants.Namespaces.CRD_STR);
-            namespaces.Add("adr", ePUAP.Client.Constants.Namespaces.CRD_ADR);
-            namespaces.Add("oso", ePUAP.Client.Constants.Namespaces.CRD_OSO);
-            namespaces.Add("inst", ePUAP.Client.Constants.Namespaces.CRD_INST);
+            namespaces.Add( "wnio", ePUAP.Client.Constants.Namespaces.CRD_WNIO );
+            namespaces.Add( "meta", ePUAP.Client.Constants.Namespaces.CRD_META );
+            namespaces.Add( "str", ePUAP.Client.Constants.Namespaces.CRD_STR );
+            namespaces.Add( "adr", ePUAP.Client.Constants.Namespaces.CRD_ADR );
+            namespaces.Add( "oso", ePUAP.Client.Constants.Namespaces.CRD_OSO );
+            namespaces.Add( "inst", ePUAP.Client.Constants.Namespaces.CRD_INST );
 
             // wnio:Dokument
             var document = dokument.ToXmlDocument(namespaces);
             var pi = document.CreateProcessingInstruction(
                 "xml-stylesheet",
                 "type=\"text/xsl\" href=\"http://crd.gov.pl/wzor/2013/12/12/1410/styl.xsl\"");
-            document.InsertAfter(pi, document.FirstChild);
+            document.InsertAfter( pi, document.FirstChild );
 
-            model.XML = document.OuterXml;
-
-
-            return View(model);
+            return document.OuterXml;
         }
 
         #endregion
