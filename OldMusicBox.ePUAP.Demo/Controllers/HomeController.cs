@@ -371,9 +371,7 @@ namespace OldMusicBox.ePUAP.Demo.Controllers
                 FaultModel fault;
                 var response = client.GetSignedDocument(url, out fault);
 
-                if (response != null &&
-                    response.IsValid
-                    )
+                if (response != null)
                 {
                     var model = new AddDocumentToSigning5SuccessModel();
 

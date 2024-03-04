@@ -61,6 +61,7 @@
     <Compile Include="ServiceClientTests.cs" />
     <Compile Include="SkrytkaTests.cs" />
     <Compile Include="TestCertProvider.cs" />
+    <Compile Include="TpSigning5Tests.cs" />
     <Compile Include="XmlConverterTests.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -10,7 +10,7 @@ The client supports:
 The implementation follows the 
 [official specification](https://epuap.gov.pl/wps/portal/strefa-urzednika/pomoc_urzednik/) (*Dla integratorów* section).
 
-## Current Version: 1.23.10.0
+## Current Version: 1.24.03.0
 
 Please refer to the change list and the road map below.
 
@@ -121,6 +121,9 @@ The certificate used here has to be uploaded by the Public authority administrat
 To do this, log into ePUAP using the Public authority profile, click your username, select **Administrowanie / Zarządzanie kontem / Systemy** and here create a new system together with its certificate (the public key in the PEM format).
 
 ## Version History:
+
+* 1.24.03.0 (2024-03-04)
+    * added an extended section to the GetSignedDocument5Response to handle signatures made with Podpis Kwalifikowany
 
 * 1.23.10.0 (2023-10-18)
 	* changed uris of services on the integration environment (https://int.epuap.gov.pl/... -> https://ws-int.epuap.gov.pl/...)
