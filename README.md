@@ -10,7 +10,7 @@ The client supports:
 The implementation follows the 
 [official specification](https://epuap.gov.pl/wps/portal/strefa-urzednika/pomoc_urzednik/) (*Dla integratorów* section).
 
-## Current Version: 1.24.03.0
+## Current Version: 1.25.03.0
 
 Please refer to the change list and the road map below.
 
@@ -121,6 +121,11 @@ The certificate used here has to be uploaded by the Public authority administrat
 To do this, log into ePUAP using the Public authority profile, click your username, select **Administrowanie / Zarządzanie kontem / Systemy** and here create a new system together with its certificate (the public key in the PEM format).
 
 ## Version History:
+
+* 1.25.03.0 (2025-03-10)
+    * critical, breaking change at the server. Starting from 07-03-2025, **TpSigning5** response contains person's info
+	  encoded in the old-style format (identical to **TpSiging1**). Not sure if this is going to be reverted so the code
+      tries to obtain the information using both approaches (**EPSignature** vs **PodpisZP**)	  
 
 * 1.24.03.0 (2024-03-04)
     * added an extended section to the GetSignedDocument5Response to handle signatures made with Podpis Kwalifikowany

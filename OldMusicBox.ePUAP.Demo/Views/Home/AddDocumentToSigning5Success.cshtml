@@ -13,7 +13,7 @@
 </pre>
 </div>
 
-@using (var form = Html.BeginForm(null, null, FormMethod.Post))
+@using ( var form = Html.BeginForm( null, null, FormMethod.Post ) )
 {
     <button>Download document</button>
 }
@@ -21,7 +21,14 @@
 <h4>Signing user</h4>
 
 <div>
-    @Model.Signature.ToString()
+    @if ( Model.Signature != null )
+    {
+        <span>@Model.Signature.ToString()</span>
+    }
+    else
+    {
+        <span>Brak podpisu w dokumencie!</span>
+    }
 </div>
 
 <div>

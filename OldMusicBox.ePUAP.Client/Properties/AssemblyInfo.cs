@@ -9,7 +9,13 @@ using System.Runtime.InteropServices;
 
 [assembly: ComVisible(false)]
 [assembly: Guid("7119a873-9a63-4d6d-8aeb-41c60397e2fc")]
-[assembly: AssemblyVersion("1.24.03.0")]
+[assembly: AssemblyVersion("1.25.03.0")]
+
+// 25.03.0
+// * od 07-03-2025 sygnatura podpisu zwracana w TpSigning5Response ma "stary" format,
+//   taki jaki miała sygnatura z TpSigningResponse (PodpisZP zamiast EPSignature!)
+//   krytyczna zmiana po stronie serwera. brawo!
+
 
 // 24.03.0
 // * dodano odczyt certyfikatu podpisu kwalifikowanego z dokumentów zwracanych z GetSignedDocument (a nie jak do tej pory

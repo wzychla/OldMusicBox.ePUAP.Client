@@ -1,4 +1,5 @@
 ﻿using OldMusicBox.ePUAP.Client.Constants;
+using OldMusicBox.ePUAP.Client.Model.GetTpUserInfo;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,6 +29,30 @@ namespace OldMusicBox.ePUAP.Client.Model.Signature
                 !string.IsNullOrEmpty(this.NaturalPerson.CurrentFamilyName) &&
                 !string.IsNullOrEmpty(this.NaturalPerson.PersonalIdentifier);
             }
+        }
+
+        /// <summary>
+        /// Convert between old and new signatures
+        /// </summary>
+        public static EPSignature FromPodpisZP( PodpisZP podpis )
+        {
+            if ( podpis != null && 
+                 podpis.IsValid )
+            {
+                var signature = new EPSignature()
+                {
+                    NaturalPerson = new NaturalPerson()
+                    {
+                        FirstName          = podpis.Dane.DaneOsobyFizycznej.Imie,
+                        CurrentFamilyName  = podpis.Dane.DaneOsobyFizycznej.Nazwisko.Value,
+                        PersonalIdentifier = podpis.Dane.DaneOsobyFizycznej.PESEL,
+                    }
+                };
+
+                return signature;
+            }
+
+            return null;
         }
 
         public override string ToString()

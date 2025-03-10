@@ -82,7 +82,7 @@ namespace OldMusicBox.ePUAP.Client.Model.GetSignedDocument
                 var xml = new XmlDocument();
                 xml.LoadXml(rawContent);
 
-                // then find the user info
+                // then find the user info (new way)
                 var signatures = xml.GetElementsByTagName("EPSignature", Namespaces.PODPIS_ZAUFANY);
                 if (signatures.Count > 0)
                 {
@@ -94,10 +94,25 @@ namespace OldMusicBox.ePUAP.Client.Model.GetSignedDocument
                         return serializer.Deserialize(reader) as EPSignature;
                     }
                 }
-                else
+
+                // or find the user info (old way, required at the server from 10-03-2025!)
+                // then find the user info
+                var podpisZPs = xml.GetElementsByTagName("PodpisZP", Namespaces.PPZP);
+                if ( podpisZPs.Count > 0 )
                 {
-                    return null;
+                    var podpisZP = podpisZPs.Item(0);
+
+                    var serializer = new XmlSerializer(typeof(GetTpUserInfo.PodpisZP));
+                    using ( var reader = new StringReader( podpisZP.OuterXml ) )
+                    {
+                        var podpis = serializer.Deserialize( reader ) as GetTpUserInfo.PodpisZP;
+
+                        return EPSignature.FromPodpisZP( podpis );
+                    }
                 }
+
+                // fallback
+                return null;
             }
         }
     }
