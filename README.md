@@ -1,9 +1,10 @@
-# OldMusicBox.ePUAP.Client, OldMusicBox.ePUAP.Client.Core
+# OldMusicBox.ePUAP.Client
 
-The goal of this project is to provide an independent .NET [ePUAP](https://epuap.gov.pl/wps/portal/english) Client. 
+The goal of this project is to provide an independent .NET [ePUAP](https://epuap.gov.pl/wps/portal/english) Client for
+NET.Framework and NET.Core.
 
 The client supports:
-* services used by the Profil Zaufany document digital signing 
+* services used by the Profil Zaufany document signing 
 * services used to communicate with Digital Exchanges (**Elektroniczna Skrzynka Podawcza**)
 
 The implementation follows the 
@@ -25,7 +26,7 @@ Please refer to the change list and the road map below.
 |WS-Pull|**yes**|
 |WS-ZarzadzanieDokumentami|**partial**|
 |.NET Framework|**4.6.2+**|
-|.NET Core|**NET8**|
+|.NET Core|**8+**|
 
 ## Documentation
 
@@ -41,7 +42,11 @@ Install-Package OldMusicBox.ePUAP.Client
 
 #### NET.Core
 
-The NET.Core package is [available at NuGet](https://www.nuget.org/packages/OldMusicBox.ePUAP.Client.Core). 
+The NET.Core package is [available at NuGet](https://www.nuget.org/packages/OldMusicBox.ePUAP.Client.Core). Install with the CLI
+
+```
+dotnet add package OldMusicBox.ePUAP.Client.Core
+```
 
 The NETCore code supports dependency injection and requires following registrations
 
@@ -91,7 +96,8 @@ ePUAP in .NET is difficult because
 
 Any ePUAP client needs both then to succesfully implement SSO (and other services).
 
-The [OldMusicBox.ePUAP.Client](https://github.com/wzychla/OldMusicBox.ePUAP.Client) implements the WS-Security part. SAML2 is implemented in [OldMusicBox.SAML2](https://github.com/wzychla/OldMusicBox.Saml2).
+The [OldMusicBox.ePUAP.Client](https://github.com/wzychla/OldMusicBox.ePUAP.Client) implements the WS-Security part. 
+SAML2 is implemented in [OldMusicBox.SAML2](https://github.com/wzychla/OldMusicBox.Saml2).
 
 ### Obtaining the certificate
 
