@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h1>ePUAP Service Demos</h1>
+
+    <ul>
+        <li>
+            Document Signing (TpSigning5)
+            <ul>
+                <li>
+                    <a href="/Home/AddDocumentToSigning5">Signing an XML document with Profil Zaufany (TpSigning5)</a>
+                </li>
+                <li>
+                    <a href="/Home/VerifySignedDocument5">Verify signed XML document (TpSigning5)</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+@if (this.TempData.ContainsKey("Message"))
+{
+    <div>
+        @this.TempData["Message"];
+    </div>
+}

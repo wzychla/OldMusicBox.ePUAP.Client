@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OldMusicBox.ePUAP.Client", "OldMusicBox.ePUAP.Client\OldMusicBox.ePUAP.Client.csproj", "{7119A873-9A63-4D6D-8AEB-41C60397E2FC}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetCore", "NetCore", "{3ADB5F6C-5E28-4C11-9902-E3FDA4EEFC10}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OldMusicBox.ePUAP.Client.Core", "OldMusicBox.ePUAP.Client.Core\OldMusicBox.ePUAP.Client.Core.csproj", "{91798F4A-8115-470D-8593-25FD46C07084}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OldMusicBox.ePUAP.Client.Core.Demo", "OldMusicBox.ePUAP.Client.Core.Demo\OldMusicBox.ePUAP.Client.Core.Demo.csproj", "{0A726EB3-B8A9-41D9-963A-9121FA84F8E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{91798F4A-8115-470D-8593-25FD46C07084}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91798F4A-8115-470D-8593-25FD46C07084}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91798F4A-8115-470D-8593-25FD46C07084}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A726EB3-B8A9-41D9-963A-9121FA84F8E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A726EB3-B8A9-41D9-963A-9121FA84F8E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A726EB3-B8A9-41D9-963A-9121FA84F8E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A726EB3-B8A9-41D9-963A-9121FA84F8E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{57763B2F-5146-4D0F-B20E-608DE09C4AEF} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{BFC06CB2-FBC7-463B-8C95-46B03855A48F} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{91798F4A-8115-470D-8593-25FD46C07084} = {3ADB5F6C-5E28-4C11-9902-E3FDA4EEFC10}
+		{0A726EB3-B8A9-41D9-963A-9121FA84F8E5} = {3ADB5F6C-5E28-4C11-9902-E3FDA4EEFC10}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {41512100-A920-4D8B-85C9-E85156436AAA}

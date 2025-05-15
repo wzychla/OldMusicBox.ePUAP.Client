@@ -17,7 +17,7 @@ namespace OldMusicBox.ePUAP.Client.Core
         public const string INTEGRATION_URI = "https://int.pz.gov.pl/ep-services/tpSigning5";
         public const string PRODUCTION_URI  = "https://pz.gov.pl/ep-services/tpSigning5";
 
-        public TpSigning5Client(string serviceUri, X509Certificate2 signingCertificate, ILogger logger) : base(serviceUri, signingCertificate, logger)
+        public TpSigning5Client(string serviceUri, ICertificateProvider certificateProvider, ILoggerFactory loggerFactory ) : base(serviceUri, certificateProvider, loggerFactory )
         {
 
         }

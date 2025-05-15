@@ -1,0 +1,27 @@
+﻿@model OldMusicBox.ePUAP.Client.Core.Demo.Models.Home.VerifySignedDocument5Model
+@{
+    ViewBag.Title = "VerifySignedDocument";
+}
+
+<h2>VerifySignedDocument</h2>
+
+@using (var form = Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        <input type="file" name="Document" />
+    </div>
+    <div>
+        <button>Upload and verify document</button>
+    </div>
+}
+
+@if (ViewBag.Message != null)
+{
+    <div>
+        @ViewBag.Message
+    </div>
+}
+
+<div>
+    <a href="/Home">Return to main page</a>
+</div>

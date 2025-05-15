@@ -1,16 +1,15 @@
-# OldMusicBox.ePUAP.Client
+# OldMusicBox.ePUAP.Client, OldMusicBox.ePUAP.Client.Core
 
 The goal of this project is to provide an independent .NET [ePUAP](https://epuap.gov.pl/wps/portal/english) Client. 
 
 The client supports:
-* services used by the Profil Zaufany SSO flow
 * services used by the Profil Zaufany document digital signing 
 * services used to communicate with Digital Exchanges (**Elektroniczna Skrzynka Podawcza**)
 
 The implementation follows the 
 [official specification](https://epuap.gov.pl/wps/portal/strefa-urzednika/pomoc_urzednik/) (*Dla integratorów* section).
 
-## Current Version: 1.25.03.0
+## Current Version: 1.25.05.0
 
 Please refer to the change list and the road map below.
 
@@ -18,8 +17,6 @@ Please refer to the change list and the road map below.
 
 |  Feature  | Status |
 |----|:---:|
-|NuGet|**yes**|
-|Single Sign On|**yes** (no longer works in production, read more below)|
 |TpSigning|**yes**|
 |TpSigning5|**yes**|
 |WS-Doręczyciel|**partial**|
@@ -27,19 +24,38 @@ Please refer to the change list and the road map below.
 |WS-Skrytka|**yes**|
 |WS-Pull|**yes**|
 |WS-ZarzadzanieDokumentami|**partial**|
-|Single Log Out|not yet|
-|.NET Framework|4.6.2+|
-|.NET Core|not yet|
+|.NET Framework|**4.6.2+**|
+|.NET Core|**NET8**|
 
 ## Documentation
 
 ### Installation
 
-The package is [available at NuGet](https://www.nuget.org/packages/OldMusicBox.ePUAP.Client). Install with the Package-Manager
+#### NETFramework
+
+The NETFramework package is [available at NuGet](https://www.nuget.org/packages/OldMusicBox.ePUAP.Client). Install with the Package-Manager.
 
 ```
 Install-Package OldMusicBox.ePUAP.Client 
 ```
+
+#### NETCore
+
+The NETCore package will be published soon. 
+
+The NETCore code supports dependency injection and requires following registrations
+
+```
+builder.Services.AddTransient<ICertificateProvider, CertificateProvider>();
+builder.Services.AddTransient<IServiceUriProvider, IntegrationServiceUriProvider>();
+builder.Services.AddePUAPClients();
+```
+
+The `ICertificateProvider` is supposed to provide the certificate used for communication.
+The `IServiceUriProvider` is supposed to provide values for service endpoints. 
+Replace the integration provider with the production provider in a production environment.
+
+Check the demo client for more details.
 
 ### ePUAP SSO (Current)
 
@@ -122,6 +138,9 @@ To do this, log into ePUAP using the Public authority profile, click your userna
 
 ## Version History:
 
+* 1.25.05.0 (2025-05-15)
+	* added the **OldMusicBox.ePUAP.Client.Core** and **OldMusicBox.ePUAP.Client.Core.Demo** for a NET8 compatible client
+	
 * 1.25.03.0 (2025-03-10)
     * critical, breaking change at the server. Starting from 07-03-2025, **TpSigning5** response contains person's info
 	  encoded in the old-style format (identical to **TpSiging1**). Not sure if this is going to be reverted so the code

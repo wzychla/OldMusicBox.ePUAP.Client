@@ -25,7 +25,7 @@ namespace OldMusicBox.ePUAP.Client.Core
         public const string INTEGRATION_URI = "https://ws-int.epuap.gov.pl/pk_external_ws/services/pull";
         public const string PRODUCTION_URI  = "https://ws.epuap.gov.pl/pk_external_ws/services/pull";
 
-        public PullClient(string serviceUri, X509Certificate2 signingCertificate, ILogger logger) : base(serviceUri, signingCertificate, logger)
+        public PullClient(string serviceUri, ICertificateProvider certificateProvider, ILoggerFactory loggerFactory ) : base(serviceUri, certificateProvider, loggerFactory )
         {
 
         }

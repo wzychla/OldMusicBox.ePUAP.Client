@@ -21,7 +21,7 @@ namespace OldMusicBox.ePUAP.Client.Core
         public const string INTEGRATION_URI = "https://ws-int.epuap.gov.pl/fe_external_ws/services/ZarzadzanieDokumentami";
         public const string PRODUCTION_URI  = "https://ws.epuap.gov.pl/fe_external_ws/services/ZarzadzanieDokumentami";
 
-        public ZarzadzanieDokumentamiClient(string serviceUri, X509Certificate2 signingCertificate, ILogger logger) : base(serviceUri, signingCertificate, logger)
+        public ZarzadzanieDokumentamiClient(string serviceUri, ICertificateProvider certificateProvider, ILoggerFactory loggerFactory ) : base(serviceUri, certificateProvider, loggerFactory )
         {
 
         }

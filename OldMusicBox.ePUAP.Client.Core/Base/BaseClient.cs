@@ -17,9 +17,23 @@ namespace OldMusicBox.ePUAP.Client.Core
     /// Base WS-* implementation
     /// </summary>
     public abstract class BaseClient
-    {
-        public BaseClient(string serviceUri, X509Certificate2 signingCertificate, ILogger logger)
+    {        
+        public BaseClient(string serviceUri, ICertificateProvider certificateProvider, ILoggerFactory loggerFactory )
         {
+            if ( string.IsNullOrEmpty( serviceUri ) )
+            {
+                throw new ArgumentNullException( "serviceUri" );
+            }
+            if ( certificateProvider == null )
+            {
+                throw new ArgumentNullException();
+            }
+            if ( loggerFactory == null )
+            {
+                throw new ArgumentNullException();
+            }
+
+            var signingCertificate = certificateProvider.GetCertificate();
             if (signingCertificate == null ||
                 signingCertificate.GetRSAPrivateKey() == null
                 )
@@ -27,10 +41,7 @@ namespace OldMusicBox.ePUAP.Client.Core
                 throw new ArgumentNullException("signingCertificate");
             }
 
-            if ( string.IsNullOrEmpty( serviceUri ) )
-            {
-                throw new ArgumentNullException("serviceUri");
-            }
+            var logger = loggerFactory.CreateLogger(this.GetType().FullName);
 
             this.SigningCertificate = signingCertificate;
             this.ServiceUri         = serviceUri;
