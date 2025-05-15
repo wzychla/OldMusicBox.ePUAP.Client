@@ -31,17 +31,17 @@ Please refer to the change list and the road map below.
 
 ### Installation
 
-#### NETFramework
+#### NET.Framework
 
-The NETFramework package is [available at NuGet](https://www.nuget.org/packages/OldMusicBox.ePUAP.Client). Install with the Package-Manager.
+The NET.Framework package is [available at NuGet](https://www.nuget.org/packages/OldMusicBox.ePUAP.Client). Install with the Package-Manager.
 
 ```
 Install-Package OldMusicBox.ePUAP.Client 
 ```
 
-#### NETCore
+#### NET.Core
 
-The NETCore package will be published soon. 
+The NET.Core package is [available at NuGet](https://www.nuget.org/packages/OldMusicBox.ePUAP.Client.Core). 
 
 The NETCore code supports dependency injection and requires following registrations
 

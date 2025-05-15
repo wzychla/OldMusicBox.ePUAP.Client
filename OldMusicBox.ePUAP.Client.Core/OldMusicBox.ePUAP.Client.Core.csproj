@@ -5,10 +5,26 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<Title>OldMusicBox.ePUAP.Client.Core</Title>
+	<Description>OldMusicBox.ePUAP.Client.Core Independent ePUAP Client implementation.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/wzychla/OldMusicBox.ePUAP.Client</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/wzychla/OldMusicBox.ePUAP.Client</RepositoryUrl>
+	<PackageTags>ePUAP</PackageTags>
+	<Version>1.25.5</Version>
+	<PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Base\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
