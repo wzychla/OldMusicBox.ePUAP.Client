@@ -29,7 +29,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.4" />
-    <PackageReference Include="System.Security.Cryptography.Xml" Version="9.0.4" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="9.0.15" />
   </ItemGroup>
 
 </Project>
